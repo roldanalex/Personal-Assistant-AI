@@ -1,0 +1,8 @@
+.DS_Store
+.RData
+.Rhistory
+.Renviron
+/app/rsconnect/
+/app/.Renviron
+.Rproj.user
+*.Rproj
