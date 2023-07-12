@@ -25,7 +25,7 @@ page_sidebar(
   textAreaInput(
     "user_prompt", NULL,
     width = "600px",
-    height = "300px"),
+    height = "200px"),
   actionBttn(
     "send_prompt",
     label = NULL,
