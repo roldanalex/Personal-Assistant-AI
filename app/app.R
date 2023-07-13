@@ -28,7 +28,7 @@ ui <- page_sidebar(
   ),
   textAreaInput("prompt", NULL, width = "400px"),
   actionButton(
-    "chat", NULL, 
+    "chat", NULL,
     icon = icon("paper-plane"),
     width = "75px",
     class = "m-2 btn-secondary"

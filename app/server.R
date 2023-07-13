@@ -31,7 +31,6 @@ function(input, output, session) {
     
     updateTextInput(session, "user_prompt", value = "")
     
-  }) 
-  # |> bindEvent(input$user_prompt)
+  })
 
 }
