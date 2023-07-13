@@ -16,6 +16,7 @@ Please see below for screenshot of app web version.
 ## Preview - Mobile Version
 Screenshot below show app mobile version.
 <br>
+<br>
 <img width="400px" src="figs/Personal-Ai-Chatbot-Mobil.jpeg" alt="Personal AI Chatbot - Mobile Version">
 <!-- ![Personal AI Chatbot - Mobile Version](figs/Personal-Ai-Chatbot-Mobil.jpeg) -->
 
