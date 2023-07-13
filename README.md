@@ -10,8 +10,8 @@ Interactive chatbot app developed using R/Shiny and powered by OpenAI's gtp-3.5-
 ![Personal AI Chatbot - Web Version](figs/Personal-AI-Chatbot.png)
 
 ## Preview - Mobile Version
-<!-- <img width="400px" src="figs/Mobile-GTP-Chat.jpeg" alt="GTP Example Mobile"> -->
-![Personal AI Chatbot - Mobile Version](figs/Personal-Ai-Chatbot-Mobil.jpeg)
+<img width="400px" src="figs/Personal-Ai-Chatbot-Mobil.jpeg" alt="Personal AI Chatbot - Mobile Version">
+<!-- ![Personal AI Chatbot - Mobile Version](figs/Personal-Ai-Chatbot-Mobil.jpeg) -->
 
 ## Configuration
 Create a `.Renviron` file and store your OpenAI API key
