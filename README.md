@@ -1,6 +1,7 @@
 # Personal AI Chatbot
 
-**IMPORTANT:** 
+**IMPORTANT:**
+<br>
 **Before cloning this repo and running the logic, please make sure to first register for an *OpenAI API Key*.**
 
 # Overview
@@ -8,13 +9,15 @@ Interactive chatbot app developed using R/Shiny and powered by OpenAI's gtp-3.5-
 
 ## Preview - Full Window
 <!-- <img src="figs/GTP_Assistant_Shiny_App.png" alt="GTP Example Full"> -->
-
+<br>
 Please see below for screenshot of app web version.
+<br>
 ![Personal AI Chatbot - Web Version](figs/Personal-AI-Chatbot.png)
 
 ## Preview - Mobile Version
-
+<br>
 Screenshot below show app mobile version.
+<br>
 <img width="400px" src="figs/Personal-Ai-Chatbot-Mobil.jpeg" alt="Personal AI Chatbot - Mobile Version">
 <!-- ![Personal AI Chatbot - Mobile Version](figs/Personal-Ai-Chatbot-Mobil.jpeg) -->
 
