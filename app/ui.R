@@ -39,17 +39,10 @@ page_sidebar(
       size = "md",
       style = "jelly",
       icon = icon("paper-plane"),
-      # width = "80px",
       block = TRUE)
   ),
-  # actionButton(
-  #   "chat", NULL, 
-  #   icon = icon("paper-plane"),
-  #   width = "80px",
-  #   class = "m-2 btn-success"
-  # ),
   uiOutput("chat_history"),
-  div(style = "margin-bottom: 30px;"), # this adds breathing space between content and footer
+  div(style = "margin-bottom: 30px;"),
   tags$footer(
     fluidRow(
       column(4, "© Alexis Roldan - 2023"),
