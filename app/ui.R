@@ -1,5 +1,5 @@
 page_sidebar(
-  title = " Personal AI Chatbot (Powered by OpenAI)",
+  title = " 'Lucy' - Personal AI Chatbot (Powered by OpenAI)",
   theme = my_theme,
   sidebar = sidebar(
     open = "open",
@@ -10,11 +10,13 @@ page_sidebar(
       inline = TRUE
     ),
     selectInput(
-      "model", "Select your GTP model:",
+      "model",
+      "Select your GTP model:",
       choices = c("gpt-3.5-turbo"),
       selected = "gpt-3.5-turbo"),
     selectInput(
-      "task", "Select your prompt type:",
+      "task",
+      "Select your prompt type:",
       choices = list(
         "General" = "general",
         "R Code" = "r_code",
@@ -23,14 +25,15 @@ page_sidebar(
       selected = "general"),
   ),
   textAreaInput(
-    "user_prompt", NULL,
+    "user_prompt",
+    NULL,
     width = "800px",
     height = "200px"),
   column(
     1,
     shinyBS::bsTooltip(
       id = "send_prompt", placement = 'top',
-      title = "Click here to send prompt to chatbot",
+      title = "Click here to send prompt to 'Lucy'",
       trigger = "hover"),
     actionBttn(
       "send_prompt",
@@ -46,15 +49,16 @@ page_sidebar(
   tags$footer(
     fluidRow(
       column(4, "© Alexis Roldan - 2023"),
-      column(4, "Personal Chatbot v1.0.3"),
+      column(4, "Personal Chatbot v1.1.2"),
       column(
         4,
         tags$a(
           href = "mailto:alexis.m.roldan.ds@gmail.com",
           tags$b("Email me"),
           class = "externallink",
-          style = "color: white; text-decoration: none")
-        ),
+          style = "color: white; text-decoration: none"
+        )
+      ),
       style = "
         position:fixed;
         text-align:center;
