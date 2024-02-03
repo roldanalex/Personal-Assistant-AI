@@ -42,11 +42,12 @@ get_system_prompt <- function(system = c("general", "r_code", "python_code", "sq
 
   rlang::arg_match(system)
   instructions <- switch(
-      system,
-      "general" = "You are an useful and resourceful assistant.",
-      "r_code" = "You are a resourceful and efficient chat bot that answers questions for a R programmer.", # nolint: line_length_linter.
-      "python_code" = "You are an efficient and resourceful chat bot that answers questions for a Python programmer.", # nolint: line_length_linter.
-      "sql_code" = "You are an efficient and resourceful chat bot that answers questions for a SQL developer") # nolint: line_length_linter.
+    system,
+    "general" = "You are an useful and resourceful assistant.",
+    "r_code" = "You are a resourceful and efficient chat bot that answers questions for a R programmer.", # nolint: line_length_linter.
+    "python_code" = "You are an efficient and resourceful chat bot that answers questions for a Python programmer.", # nolint: line_length_linter.
+    "sql_code" = "You are an efficient and resourceful chat bot that answers questions for a SQL developer" # nolint: line_length_linter.
+  )
 
   list(list(role = "system", content = instructions))
 

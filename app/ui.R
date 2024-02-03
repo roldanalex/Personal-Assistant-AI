@@ -12,8 +12,8 @@ page_sidebar(
     selectInput(
       "model",
       "Select your GTP model:",
-      choices = c("gpt-3.5-turbo"),
-      selected = "gpt-3.5-turbo"),
+      choices = c("gpt-4", "gpt-3.5-turbo"),
+      selected = "gpt-4"),
     selectInput(
       "task",
       "Select your prompt type:",
@@ -21,20 +21,25 @@ page_sidebar(
         "General" = "general",
         "R Code" = "r_code",
         "Python Code" = "python_code",
-        "SQL Code" = "sql_code"),
-      selected = "general"),
+        "SQL Code" = "sql_code"
+      ),
+      selected = "general"
+    ),
   ),
   textAreaInput(
     "user_prompt",
     NULL,
     width = "800px",
-    height = "200px"),
+    height = "200px"
+  ),
   column(
     1,
     shinyBS::bsTooltip(
-      id = "send_prompt", placement = 'top',
+      id = "send_prompt",
+      placement = "top",
       title = "Click here to send prompt to 'Lucy'",
-      trigger = "hover"),
+      trigger = "hover"
+    ),
     actionBttn(
       "send_prompt",
       label = NULL,
@@ -42,14 +47,15 @@ page_sidebar(
       size = "md",
       style = "jelly",
       icon = icon("paper-plane"),
-      block = TRUE)
+      block = TRUE
+    )
   ),
   uiOutput("chat_history"),
   div(style = "margin-bottom: 30px;"),
   tags$footer(
     fluidRow(
       column(4, "© Alexis Roldan - 2023"),
-      column(4, "Personal Chatbot v1.1.2"),
+      column(4, "Personal Chatbot v1.2.2"),
       column(
         4,
         tags$a(
