@@ -10,7 +10,7 @@ my_theme <- bs_theme(
 chat_response <- function(
   user_message, history = NULL,
   system_prompt = c("general", "r_code", "python_code", "sql_code"),
-  api_key = Sys.getenv("OPENAI_API_SHINY"),
+  api_key = Sys.getenv("OPENAI_API_LUCY_SHINY"),
   model_selected = model) {
 
     system <- get_system_prompt(system_prompt)
@@ -23,9 +23,14 @@ chat_response <- function(
 
     req <-
       resp <-
-      request(chat_url) |>
-      req_auth_bearer_token(token = api_key) |>
-      req_headers("Content-Type" = "application/json") |>
+      request("https://api.openai.com/v1/chat/completions") |>
+      # req_auth_bearer_token(token = api_key) |>
+      # req_headers("Content-Type" = "application/json") |>
+      req_headers(
+        Authorization = paste("Bearer", api_key),
+        `Content-Type` = "application/json"
+      ) |>
+      
       req_user_agent("Alexis Roldan @roldanalex | Personal Chatbot") |>
       req_body_json(body) |>
       req_retry(max_tries = 4) |>

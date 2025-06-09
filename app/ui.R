@@ -13,10 +13,10 @@ page_sidebar(
       "model",
       "Select your GTP model:",
       choices = list(
-        "GTP-4 Turbo" = "gpt-4-turbo-preview",
+        "GTP-4.1" = "gpt-4.1",
         "GTP-3.5 Turbo" = "gpt-3.5-turbo"
       ),
-      selected = "gpt-4-turbo-preview"),
+      selected = "gpt-4.1"),
     selectInput(
       "task",
       "Select your prompt type:",
