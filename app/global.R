@@ -1,8 +1,9 @@
 library(shiny)
 library(shinyWidgets)
 library(bslib)
-library(httr2)
 library(purrr)
 library(glue)
+library(ellmer)
+library(shinychat)
 
 source("utils/functions.R")

@@ -11,12 +11,13 @@ page_sidebar(
     ),
     selectInput(
       "model",
-      "Select your GTP model:",
+      "Select your GPT model:",
       choices = list(
         "GTP-4.1" = "gpt-4.1",
         "GTP-3.5 Turbo" = "gpt-3.5-turbo"
       ),
-      selected = "gpt-4.1"),
+      selected = "gpt-4.1"
+    ),
     selectInput(
       "task",
       "Select your prompt type:",
@@ -27,33 +28,9 @@ page_sidebar(
         "SQL Code" = "sql_code"
       ),
       selected = "general"
-    ),
-  ),
-  textAreaInput(
-    "user_prompt",
-    NULL,
-    width = "800px",
-    height = "200px"
-  ),
-  column(
-    1,
-    shinyBS::bsTooltip(
-      id = "send_prompt",
-      placement = "top",
-      title = "Click here to send prompt to 'Lucy'",
-      trigger = "hover"
-    ),
-    actionBttn(
-      "send_prompt",
-      label = NULL,
-      color = "danger",
-      size = "md",
-      style = "jelly",
-      icon = icon("paper-plane"),
-      block = TRUE
     )
   ),
-  uiOutput("chat_history"),
+  chat_ui("chat"),             # <<--- shinychat handles all input/display/history!
   div(style = "margin-bottom: 30px;"),
   tags$footer(
     fluidRow(
@@ -80,6 +57,32 @@ page_sidebar(
         padding: 3px;
         font-weight: bold;
         background-color: #333333"
+    )
+  ),
+  # Floating "New chat" button
+  tags$div(
+    style = "
+      position: fixed;
+      bottom: 80px;
+      right: 30px;
+      z-index: 1100;",
+    actionButton(
+      inputId = "new_chat",
+      label = NULL,
+      icon = icon("comments"),
+      class = "btn-primary btn-lg",
+      style = "
+        border-radius: 50%;
+        width: 60px; height: 60px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);"
+    ),
+    tags$div(
+      "New chat",
+      style = "
+        text-align: center; 
+        color: #333;
+        font-size: 14px;
+        margin-top: 5px;"
     )
   )
 )
