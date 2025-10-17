@@ -18,6 +18,7 @@ library(jpeg)
 library(aws.s3)
 library(shinyjs)
 library(readr)
+library(magick)
 
 source("utils/functions.R")
 

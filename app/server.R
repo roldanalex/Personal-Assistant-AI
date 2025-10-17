@@ -122,7 +122,7 @@ function(input, output, session) {
     cat("Image uploaded. Files:", nrow(input$uploaded_image), "\n")
     # Store the full uploaded_image data, not just datapath
     current_images(input$uploaded_image)
-    
+
     # Clear the upload status UI after a brief delay, but keep the images
     Sys.sleep(0.5)  # Let upload complete message show briefly
     session$sendCustomMessage("clearFileInputStatus", "uploaded_image")
@@ -131,14 +131,14 @@ function(input, output, session) {
   output$show_uploaded_images <- renderUI({
     # Use current_images reactive value as the source of truth
     imgs <- current_images()
-    
+
     cat("Rendering image preview. Images:", ifelse(is.null(imgs), "NULL", nrow(imgs)), "\n")
-    
+
     # If current_images is NULL (reset), don't show anything
     if (is.null(imgs) || nrow(imgs) == 0) {
       return(NULL)
     }
-    
+
     tagList(
       h5("Attached images:"),
       lapply(seq_len(nrow(imgs)), function(i) {
@@ -165,11 +165,11 @@ function(input, output, session) {
   # MAIN CHAT INIT: On login or model/task change, always safely (re-)init chat and greeting
   observeEvent(user_auth$logged_in, {
     req(user_auth$logged_in)
-    
+
     # Initialize with default values if inputs not ready
     model_val <- if(!is.null(input$model)) input$model else "gpt-4.1"
     task_val <- if(!is.null(input$task)) input$task else "general"
-    
+
     chat_obj(
       ellmer::chat_openai(
         model = model_val,
@@ -186,7 +186,7 @@ function(input, output, session) {
     current_images(NULL)
     session$sendCustomMessage("resetFileInput", "uploaded_image")
   }, ignoreInit = TRUE)
-  
+
   # Update chat when model or task changes (after login)
   observeEvent(
     { list(input$model, input$task) },
@@ -227,7 +227,7 @@ function(input, output, session) {
     if (!is.null(imgs) && nrow(imgs) > 0) {
       # Prepare user message content with images and text
       user_content_elements <- list()
-      
+
       # Add images
       image_blocks <- lapply(seq_len(nrow(imgs)), function(i) {
         img_file <- imgs$datapath[i]
@@ -279,7 +279,7 @@ function(input, output, session) {
         )
       })
       user_content_elements <- c(user_content_elements, image_blocks)
-      
+
       # Add text content
       user_content_elements <- c(user_content_elements, list(
         tags$div(class = "user-message-spacing", input$chat_user_input)
@@ -303,11 +303,11 @@ function(input, output, session) {
       cat("No images to send to LLM\n")
     }
     args <- c(args, input$chat_user_input)
-    
+
     # Send to AI and get response stream
     stream <- do.call(chat_obj()$stream_async, args)
     chat_append("chat", stream)
-    
+
     # DON'T reset images after sending - keep them until new chat
     # Images should persist so user can ask follow-up questions about them
     cat("Images retained for follow-up questions\n")
@@ -318,7 +318,7 @@ function(input, output, session) {
     req(user_auth$logged_in)
     req(input$model, input$task)
     cat("New chat button clicked - resetting everything\n")
-    
+
     chat_clear("chat")
     chat_obj(
       ellmer::chat_openai(
