@@ -1,0 +1,197 @@
+/* Custom CSS for Lucy AI Assistant Presentation */
+
+/* Color scheme */
+:root {
+  --primary-color: #2E86AB;
+  --secondary-color: #A23B72;
+  --accent-color: #F18F01;
+  --success-color: #4ECDC4;
+  --warning-color: #FFE66D;
+  --dark-color: #2C3E50;
+  --light-color: #ECF0F1;
+}
+
+/* Title slide styling */
+.reveal .slides section.center {
+  text-align: center;
+}
+
+.reveal .slides section.center h2 {
+  color: var(--primary-color);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Button styling */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  margin: 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  border: 2px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: transparent;
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+  border: 2px solid var(--secondary-color);
+}
+
+.btn-secondary:hover {
+  background-color: transparent;
+  color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.btn-lg {
+  padding: 16px 32px;
+  font-size: 1.2em;
+}
+
+/* Code block styling */
+.reveal pre code {
+  max-height: 400px;
+  font-size: 0.8em;
+  line-height: 1.4;
+  border-radius: 8px;
+  border: 1px solid #e1e8ed;
+}
+
+/* Fragment animations */
+.reveal .slides section .fragment.fade-in-then-semi-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.reveal .slides section .fragment.fade-in-then-semi-out.visible {
+  opacity: 1;
+  visibility: inherit;
+}
+
+.reveal .slides section .fragment.fade-in-then-semi-out.current-fragment {
+  opacity: 1;
+  visibility: inherit;
+}
+
+/* Incremental list styling */
+.reveal .slides section .incremental li {
+  margin-bottom: 0.5em;
+}
+
+/* Image styling */
+.reveal .slides section img {
+  border: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+/* Panel tabset styling */
+.panel-tabset .nav-tabs {
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.panel-tabset .nav-tabs .nav-link.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+/* Fit text styling */
+.r-fit-text {
+  font-size: 3em !important;
+  font-weight: bold;
+  color: var(--primary-color);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Columns layout improvements */
+.reveal .slides section .columns {
+  display: flex;
+  align-items: flex-start;
+  gap: 2em;
+}
+
+.reveal .slides section .column {
+  flex: 1;
+}
+
+/* Footer styling */
+.reveal .slide-number {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+/* Progress bar */
+.reveal .progress span {
+  background-color: var(--primary-color);
+}
+
+/* Highlight boxes */
+.highlight-box {
+  background-color: rgba(46, 134, 171, 0.1);
+  border-left: 4px solid var(--primary-color);
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 4px;
+}
+
+.success-box {
+  background-color: rgba(78, 205, 196, 0.1);
+  border-left: 4px solid var(--success-color);
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 4px;
+}
+
+.warning-box {
+  background-color: rgba(255, 230, 109, 0.1);
+  border-left: 4px solid var(--warning-color);
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 4px;
+}
+
+/* Animation for elements */
+@keyframes slideInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slideInUp 0.6s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .reveal .slides section .columns {
+    flex-direction: column;
+  }
+  
+  .btn {
+    display: block;
+    margin: 8px 0;
+  }
+  
+  .r-fit-text {
+    font-size: 2em !important;
+  }
+}

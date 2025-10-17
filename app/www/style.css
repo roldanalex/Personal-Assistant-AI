@@ -1,0 +1,358 @@
+/* Lucy AI Assistant - Custom Styles */
+
+/* ========================================
+   UTILITY CLASSES FOR SHOW/HIDE FUNCTIONALITY
+   ======================================== */
+
+.sidebar-hidden {
+  display: none !important;
+}
+
+.content-hidden {
+  display: none !important;
+}
+
+/* ========================================
+   AUTHENTICATION PANEL & OVERLAY
+   ======================================== */
+
+#auth-panel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(50, 50, 60, 0.94);
+  z-index: 99999;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#welcome-panel {
+  max-width: 360px;
+  width: 90vw;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.welcome-logo {
+  margin-bottom: 10px;
+}
+
+/* Authentication links styling */
+#show_signup {
+  color: #666 !important;
+  text-decoration: none !important;
+  cursor: not-allowed !important;
+  pointer-events: none;
+  opacity: 0.4;
+  font-style: italic;
+  position: relative;
+}
+
+#show_signup::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #666;
+  transform: translateY(-50%);
+}
+
+#show_signup:hover {
+  color: #666 !important;
+  text-decoration: none !important;
+}
+
+/* Style for the separator between links */
+#auth-panel .form-group a {
+  transition: color 0.2s ease;
+}
+
+#show_reset {
+  color: #e67e22;
+  text-decoration: none;
+}
+
+#show_reset:hover {
+  color: #d35400;
+  text-decoration: underline;
+}
+
+/* ========================================
+   USER INFORMATION DISPLAY
+   ======================================== */
+
+.current-user-display {
+  position: absolute;
+  top: 12px;
+  right: 26px;
+  color: #CCC;
+  font-size: 16px;
+  z-index: 20000;
+}
+
+.user-info-spacing {
+  margin-left: 12px;
+}
+
+.logout-link {
+  color: #e67e22;
+  font-weight: 500;
+}
+
+/* ========================================
+   FOOTER STYLING
+   ======================================== */
+
+.app-footer {
+  position: fixed;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 30px;
+  color: white;
+  padding: 3px;
+  font-weight: bold;
+  background-color: #333333;
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: #e67e22;
+  text-decoration: none;
+}
+
+/* ========================================
+   FLOATING ACTION BUTTON (NEW CHAT)
+   ======================================== */
+
+.floating-action-container {
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+  z-index: 1100;
+}
+
+.new-chat-button {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.new-chat-label {
+  text-align: center;
+  color: #333;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* ========================================
+   IMAGE PREVIEW STYLES
+   ======================================== */
+
+.image-preview-large {
+  width: 230px;
+  height: auto;
+  margin: 8px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px #444;
+}
+
+.image-preview-small {
+  width: 180px;
+  height: auto;
+  margin: 5px 0 5px 0;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px #444;
+}
+
+.image-info-text {
+  font-size: 0.90em;
+  margin: 2px 0 10px 0;
+  color: #666;
+}
+
+/* ========================================
+   CHAT MESSAGE STYLING
+   ======================================== */
+
+.user-message-spacing {
+  margin-top: 8px;
+}
+
+/* ========================================
+   LAYOUT UTILITIES
+   ======================================== */
+
+.bottom-spacer {
+  margin-bottom: 30px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+  #welcome-panel {
+    width: 95vw;
+    margin-bottom: 12px;
+  }
+  
+  .current-user-display {
+    top: 8px;
+    right: 16px;
+    font-size: 14px;
+  }
+  
+  .floating-action-container {
+    bottom: 60px;
+    right: 20px;
+  }
+  
+  .new-chat-button {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .image-preview-large {
+    width: 180px;
+    margin: 6px;
+  }
+  
+  .image-preview-small {
+    width: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  #welcome-panel {
+    width: 98vw;
+    margin-bottom: 8px;
+  }
+  
+  .current-user-display {
+    top: 6px;
+    right: 12px;
+    font-size: 12px;
+  }
+  
+  .app-footer {
+    font-size: 12px;
+    height: 25px;
+  }
+  
+  .image-preview-large {
+    width: 150px;
+    margin: 4px;
+  }
+  
+  .image-preview-small {
+    width: 120px;
+  }
+}
+
+/* ========================================
+   DARK/LIGHT THEME ADJUSTMENTS
+   ======================================== */
+
+/* These will be automatically handled by bslib themes, 
+   but you can add theme-specific overrides here if needed */
+
+[data-bs-theme="dark"] .new-chat-label {
+  color: #ccc;
+}
+
+[data-bs-theme="light"] .new-chat-label {
+  color: #333;
+}
+
+[data-bs-theme="dark"] .image-info-text {
+  color: #999;
+}
+
+[data-bs-theme="light"] .image-info-text {
+  color: #666;
+}
+
+/* ========================================
+   ACCESSIBILITY IMPROVEMENTS
+   ======================================== */
+
+.floating-action-container:focus-within {
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+.logout-link:focus {
+  outline: 2px solid #e67e22;
+  outline-offset: 2px;
+}
+
+/* ========================================
+   ANIMATION & TRANSITIONS
+   ======================================== */
+
+.floating-action-container {
+  transition: transform 0.2s ease;
+}
+
+.floating-action-container:hover {
+  transform: translateY(-2px);
+}
+
+.new-chat-button {
+  transition: all 0.2s ease;
+}
+
+.new-chat-button:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+
+.footer-link {
+  transition: color 0.2s ease;
+}
+
+/* ========================================
+   LOADING & INTERACTION STATES
+   ======================================== */
+
+.image-preview-large:hover,
+.image-preview-small:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s ease;
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+  .floating-action-container,
+  .app-footer,
+  .current-user-display,
+  #auth-panel {
+    display: none !important;
+  }
+  
+  .image-preview-large,
+  .image-preview-small {
+    max-width: 100%;
+    height: auto;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}

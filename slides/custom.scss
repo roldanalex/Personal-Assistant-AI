@@ -1,0 +1,168 @@
+/*-- scss:defaults --*/
+
+// Custom color palette for Lucy AI Assistant
+$theme-blue: #2E86AB !default;
+$theme-purple: #A23B72 !default;
+$theme-orange: #F18F01 !default;
+$theme-teal: #4ECDC4 !default;
+$theme-yellow: #FFE66D !default;
+
+// Primary theme colors
+$primary: $theme-blue !default;
+$secondary: $theme-purple !default;
+$success: $theme-teal !default;
+$info: $theme-blue !default;
+$warning: $theme-yellow !default;
+$danger: $theme-purple !default;
+
+// Background colors
+$body-bg: #ffffff !default;
+$body-color: #2C3E50 !default;
+
+// Typography
+$font-family-sans-serif: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
+$headings-font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
+$headings-font-weight: 600 !default;
+
+// Code styling
+$code-bg: #f8f9fa !default;
+$code-color: $theme-purple !default;
+
+/*-- scss:rules --*/
+
+// Custom slide styling with better screen fit
+.reveal h1, .reveal h2, .reveal h3 {
+  color: $primary;
+  text-transform: none;
+  font-weight: $headings-font-weight;
+}
+
+.reveal h1 {
+  font-size: 2.2em;
+  line-height: 1.1;
+  margin-bottom: 0.5em;
+}
+
+.reveal h2 {
+  font-size: 1.8em;
+  line-height: 1.2;
+  margin-bottom: 0.8em;
+}
+
+.reveal h3 {
+  font-size: 1.3em;
+  line-height: 1.3;
+  margin-bottom: 0.5em;
+}
+
+// Better text sizing for content
+.reveal p, .reveal li {
+  font-size: 0.9em;
+  line-height: 1.4;
+  margin-bottom: 0.5em;
+}
+
+.reveal ul, .reveal ol {
+  margin-bottom: 1em;
+}
+
+// Compact list styling
+.reveal ul li, .reveal ol li {
+  margin-bottom: 0.3em;
+}
+
+// Better fit for columns and panels
+.reveal .columns {
+  margin-top: 0.5em;
+}
+
+.reveal .panel-tabset {
+  font-size: 0.85em;
+}
+
+// Code block adjustments
+.reveal pre {
+  font-size: 0.7em;
+  line-height: 1.2;
+}
+
+// Mermaid diagram scaling
+.reveal .mermaid {
+  font-size: 0.8em;
+}
+
+// Enhanced list styling
+.reveal ul li, .reveal ol li {
+  margin-bottom: 0.5em;
+}
+
+// Code block enhancements
+.reveal pre {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+.reveal pre code {
+  background-color: $code-bg;
+  padding: 1em;
+}
+
+// Button enhancements are handled in styles.css
+
+// Table styling
+.reveal table {
+  border-collapse: collapse;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.reveal table th {
+  background-color: $primary;
+  color: white;
+  padding: 0.8em;
+}
+
+.reveal table td {
+  padding: 0.6em;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.reveal table tr:hover {
+  background-color: rgba($primary, 0.05);
+}
+
+// Blockquote styling
+.reveal blockquote {
+  border-left: 4px solid $primary;
+  background-color: rgba($primary, 0.05);
+  padding: 1em;
+  margin: 1em 0;
+  font-style: italic;
+}
+
+// Navigation styling
+.reveal .controls {
+  color: $primary;
+}
+
+.reveal .controls .navigate-left,
+.reveal .controls .navigate-right,
+.reveal .controls .navigate-up,
+.reveal .controls .navigate-down {
+  border-color: $primary transparent transparent transparent;
+}
+
+.reveal .controls .navigate-left.enabled:hover {
+  border-left-color: $secondary;
+}
+
+.reveal .controls .navigate-right.enabled:hover {
+  border-right-color: $secondary;
+}
+
+.reveal .controls .navigate-up.enabled:hover {
+  border-top-color: $secondary;
+}
+
+.reveal .controls .navigate-down.enabled:hover {
+  border-bottom-color: $secondary;
+}
