@@ -30,7 +30,7 @@ $code-color: $theme-purple !default;
 
 /*-- scss:rules --*/
 
-// Custom slide styling with better screen fit
+// Custom slide styling with better screen fit and medium-sized fonts
 .reveal h1, .reveal h2, .reveal h3 {
   color: $primary;
   text-transform: none;
@@ -38,26 +38,26 @@ $code-color: $theme-purple !default;
 }
 
 .reveal h1 {
-  font-size: 2.2em;
+  font-size: 2.0em; // Increased from 1.8em to medium
   line-height: 1.1;
   margin-bottom: 0.5em;
 }
 
 .reveal h2 {
-  font-size: 1.8em;
+  font-size: 1.6em; // Increased from 1.4em to medium
   line-height: 1.2;
   margin-bottom: 0.8em;
 }
 
 .reveal h3 {
-  font-size: 1.3em;
+  font-size: 1.3em; // Increased from 1.1em to medium
   line-height: 1.3;
   margin-bottom: 0.5em;
 }
 
-// Better text sizing for content
+// Better text sizing for content - medium size for readability
 .reveal p, .reveal li {
-  font-size: 0.9em;
+  font-size: 1.0em; // Increased from 0.8em to medium
   line-height: 1.4;
   margin-bottom: 0.5em;
 }
@@ -77,23 +77,38 @@ $code-color: $theme-purple !default;
 }
 
 .reveal .panel-tabset {
-  font-size: 0.85em;
+  font-size: 0.9em; // Increased from 0.75em to medium
 }
 
 // Code block adjustments
 .reveal pre {
-  font-size: 0.7em;
+  font-size: 0.8em; // Increased from 0.65em to medium
   line-height: 1.2;
 }
 
 // Mermaid diagram scaling
 .reveal .mermaid {
-  font-size: 0.8em;
+  font-size: 0.85em; // Increased from 0.7em to medium
 }
 
 // Enhanced list styling
 .reveal ul li, .reveal ol li {
   margin-bottom: 0.5em;
+}
+
+// General font size adjustment for better readability
+.reveal {
+  font-size: 1.0em; // Increased from 0.9em to medium
+}
+
+// R-fit-text adjustments
+.reveal .r-fit-text {
+  font-size: 0.95em !important; // Increased from 0.8em to medium
+}
+
+// Fragment text adjustments
+.reveal .fragment {
+  font-size: 1.0em; // Increased from 0.85em to medium
 }
 
 // Code block enhancements

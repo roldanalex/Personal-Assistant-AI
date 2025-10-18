@@ -1,0 +1,4 @@
+- source: presentacion.qmd
+  quarto-pub:
+    - id: a7c8c87a-edb2-48f7-8a7d-8e565d471341
+      url: https://roldan-al.quarto.pub/lucy-asistente-ia-tutor-spanish
