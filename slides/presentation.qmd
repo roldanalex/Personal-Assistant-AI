@@ -109,6 +109,38 @@ ggplot(learning_data, aes(x = interaction)) +
 
 ## Educational Use Cases 📚
 
+## New Multimodal Features (2025)
+
+- **Speech-to-Text**: Click the microphone to dictate questions. The app uses browser speech recognition and appends transcriptions to the chat for editing.
+- **Camera / Multi-Image Upload**: Upload multiple photos (or capture on mobile). Lucy analyzes image sets together and references image metadata when helpful.
+- **Document Ingestion**: Upload PDF, DOCX, XLSX/XLS and CSV files. Text is extracted from documents and Excel sheets are flattened into CSV-like text for the model.
+- **Preview & Metadata**: Images are previewed with filename, size and dimensions; documents show compact previews so users confirm attachments.
+
+These improvements make Lucy better at real homework workflows: photos of problems, supporting documents, and spoken questions.
+
+## Configuration & Admin Tools
+
+- **Admin Env-Var Checker**: The app validates required environment variables at startup and shows a clear banner and admin notification when configuration is incomplete.
+- **Safe Web Lookup Tool**: Lucy can perform controlled web lookups via a registered `perform_google_search` tool using Google Custom Search (requires `google_search_api_key` and `google_search_engine_id`).
+- **Quick Test Script**: Run `Rscript scripts/check_google_search.R` from the project root to verify Google CSE credentials and connectivity before using web lookups.
+
+## Web-Search Results (Example)
+
+**How results appear to users:**
+
+- **Title**: Example Article Title
+- **Link**: https://example.com/article
+- **Snippet**: Short summary or excerpt (1-2 lines) showing relevance to the query.
+
+---
+
+**Example prompts**
+
+- User (end-user): "Search the web for recent studies on active learning in high school math and summarize the top findings."
+- Developer (programmatic): `perform_google_search(query = "active learning high school math", n = 3)`
+
+Note: web lookups are performed under strict controls — results are returned as plain text (title, link, snippet) and are used to augment the model context, not for browsing arbitrary sites.
+
 ::: {.panel-tabset}
 
 ### K-12 Education

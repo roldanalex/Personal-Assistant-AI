@@ -32,7 +32,8 @@ format:
 ::: {.column width="55%"}
 ### Tu Tutor Personal de IA Avanzada
 
--   **🖼️ IA Multimodal** - Texto + Imágenes
+-   **🖼️ IA Multimodal** - Texto + Imágenes + Documentos
+-   **🎤 Interacción por Voz** - Dictado a texto en tiempo real
 -   **🔒 Seguridad Total** - Gestión de usuarios
 -   **📚 Enfoque Educativo** - Todos los niveles
 -   **💬 Memoria Persistente** - Recuerda conversaciones
@@ -68,9 +69,41 @@ Lucy es tu compañero de aprendizaje personal que nunca se cansa, nunca juzga y 
 ### 📸 Ve y Comprende
 
 -   Analiza tus tareas fotografiadas
--   Interpreta diagramas y gráficos
+-   **NUEVO**: Lee PDFs, Word y Excel
 -   Lee ecuaciones manuscritas
 -   Entiende mapas y esquemas
+
+## Novedades Multimodales (2025)
+
+- **Dictado (Speech-to-Text)**: Presiona el botón de micrófono para dictar tu pregunta. La transcripción se añade al cuadro de chat para que la revises antes de enviar.
+- **Cámara y Subida de Múltiples Imágenes**: Toma fotos o sube varias imágenes en un solo mensaje; Lucy las analiza en conjunto para una respuesta integrada.
+- **Ingesta de Documentos**: Sube PDFs, Word (.docx), Excel (.xlsx/.xls) y CSV; Lucy extrae texto y transforma hojas de cálculo en texto CSV para que el modelo pueda consultarlas.
+- **Previsualizaciones y Metadatos**: Las imágenes muestran miniaturas con nombre, tamaño y dimensiones; los documentos aparecen como entradas compactas para confirmar archivos adjuntos.
+
+Estas mejoras facilitan flujos de trabajo reales: fotos de ejercicios, documentos de apoyo y preguntas habladas.
+
+## Herramientas de Configuración y Administración
+
+- **Verificador de Variables de Entorno (Admin)**: La aplicación valida las variables de entorno necesarias al iniciar y muestra una alerta visible y una notificación persistente para administradores si falta configuración.
+- **Búsqueda Web Segura**: Lucy puede realizar búsquedas web controladas mediante la herramienta `perform_google_search` usando Google Custom Search (requiere `google_search_api_key` y `google_search_engine_id`).
+- **Script de Prueba Rápida**: Ejecuta `Rscript scripts/check_google_search.R` desde la raíz del proyecto para validar las credenciales de Google CSE antes de usar búsquedas web.
+
+## Resultados de Búsqueda Web (Ejemplo)
+
+**Cómo aparecen los resultados para los usuarios:**
+
+- **Título**: Título del Artículo de Ejemplo
+- **Enlace**: https://ejemplo.com/articulo
+- **Extracto**: Resumen breve (1-2 líneas) indicando la relevancia a la consulta.
+
+---
+
+**Prompts de ejemplo**
+
+- Usuario (fin-usuario): "Busca en la web estudios recientes sobre aprendizaje activo en matemáticas de secundaria y resume los hallazgos principales."
+- Desarrollador (programático): `perform_google_search(query = "aprendizaje activo matemáticas secundaria", n = 3)`
+
+Nota: las búsquedas web están controladas — los resultados se devuelven como texto (título, enlace, extracto) y se usan solo para complementar el contexto que recibe el modelo.
 
 ### 🎓 Método Socrático
 
@@ -87,7 +120,7 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 
 ## Apoyo Académico Completo 📚 {auto-animate="true"}
 
-::::::: panel-tabset
+::::::: {.panel-tabset}
 ### Matemáticas 📐
 
 ::: {auto-animate="true"}
@@ -126,6 +159,16 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 -   **Geografía**: Interpretación cartográfica
 -   **Civismo**: Comprensión de sistemas políticos
 -   **Ejemplo**: Mapa histórico → Contexto y significado
+:::
+
+### Especializado Perú 🇵🇪
+
+::: {auto-animate="true"}
+-   **Pre-Universitario**: Preparación UNI/San Marcos paso a paso
+-   **MYPE**: Asesoría de negocios y análisis de ventas (Excel)
+-   **Trámites**: Guía para SUNAT, RENIEC y burocracia
+-   **Titulación**: Inglés técnico para exámenes de grado
+-   **Ejemplo**: Sube Excel de ventas → Análisis de tendencias
 :::
 :::::::
 
@@ -170,6 +213,7 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 -   Escribe tu pregunta en lenguaje natural
 -   Sube foto de tu tarea o ejercicio
 -   No necesitas formateo especial
+-   **Usa el micrófono** para dictar tu duda
 -   Lucy entiende escritura a mano
 
 ### 2. 🔍 **Lucy Analiza**
@@ -256,6 +300,7 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 
 ::: {auto-animate="true"}
 -   **OCR Inteligente**: Lee texto manuscrito y digital
+-   **Documentos**: Procesa Word (.docx), Excel (.xlsx) y PDF
 -   **Diagramas Científicos**: Interpreta gráficos y esquemas
 -   **Ecuaciones Matemáticas**: Reconoce fórmulas complejas
 -   **Mapas y Planos**: Analiza información geográfica

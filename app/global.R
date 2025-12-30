@@ -19,8 +19,15 @@ library(aws.s3)
 library(shinyjs)
 library(readr)
 library(magick)
+library(openxlsx)
+library(pdftools)
+library(officer)
+library(markdown)
 
 source("utils/functions.R")
+
+# Check required environment variables at startup and expose a status message
+ENV_VARS_STATUS_MSG <- missing_env_vars_message()
 
 # ---- AWS CONFIGURATION ----
 Sys.setenv(

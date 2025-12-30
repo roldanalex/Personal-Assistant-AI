@@ -104,10 +104,33 @@ function(input, output, session) {
     )
   })
 
+  # Admin warning UI: show when environment variables are missing
+  output$admin_warning <- renderUI({
+    req(user_auth$logged_in)
+    # Only show to admin user
+    if (!identical(user_auth$user, "admin")) return(NULL)
+    if (exists("ENV_VARS_STATUS_MSG") && !is.null(ENV_VARS_STATUS_MSG)) {
+      div(class = "admin-warning alert alert-warning", role = "alert",
+          tags$b("Configuration Warning: "), ENV_VARS_STATUS_MSG)
+    } else {
+      NULL
+    }
+  })
+
+  # Notify admin on successful login if env vars are missing
+  observeEvent(user_auth$logged_in, {
+    if (user_auth$logged_in && identical(user_auth$user, "admin")) {
+      if (exists("ENV_VARS_STATUS_MSG") && !is.null(ENV_VARS_STATUS_MSG)) {
+        showNotification(ENV_VARS_STATUS_MSG, type = "warning", duration = NULL)
+      }
+    }
+  }, once = FALSE)
+
   # ---- CHATBOT FUNCTIONALITY ----
 
   chat_obj <- reactiveVal()
   current_images <- reactiveVal(NULL)
+  conversation_history <- reactiveValues(messages = list())
 
   # THEME OBSERVE
   observeEvent(input$current_theme, {
@@ -120,12 +143,15 @@ function(input, output, session) {
   observeEvent(input$uploaded_image, {
     req(user_auth$logged_in, input$uploaded_image)
     cat("Image uploaded. Files:", nrow(input$uploaded_image), "\n")
-    # Store the full uploaded_image data, not just datapath
+    
+    # Store the full uploaded_image data immediately
     current_images(input$uploaded_image)
-
-    # Clear the upload status UI after a brief delay, but keep the images
-    Sys.sleep(0.5)  # Let upload complete message show briefly
-    session$sendCustomMessage("clearFileInputStatus", "uploaded_image")
+    
+    # For mobile camera captures, we need a longer delay before clearing status
+    # Use later::later() instead of Sys.sleep() to avoid blocking reactive context
+    later::later(function() {
+      session$sendCustomMessage("clearFileInputStatus", "uploaded_image")
+    }, delay = 1.5)
   })
 
   output$show_uploaded_images <- renderUI({
@@ -143,7 +169,10 @@ function(input, output, session) {
       h5("Attached images:"),
       lapply(seq_len(nrow(imgs)), function(i) {
         img_file <- imgs$datapath[i]
-        ext <- tools::file_ext(imgs$name[i])
+        file_name <- imgs$name[i]
+        ext <- tolower(tools::file_ext(file_name))
+        
+        if (ext %in% c("png", "jpg", "jpeg")) {
         data_uri <- base64enc::dataURI(
           file = img_file,
           mime = switch(
@@ -158,6 +187,14 @@ function(input, output, session) {
           src = data_uri,
           class = "image-preview-large"
         )
+        } else {
+          # Document preview
+          tags$div(
+            class = "file-preview-item",
+            style = "margin-top: 5px;",
+            icon("file-alt"), " ", tags$b(file_name)
+          )
+        }
       })
     )
   })
@@ -170,17 +207,18 @@ function(input, output, session) {
     model_val <- if(!is.null(input$model)) input$model else "gpt-4.1"
     task_val <- if(!is.null(input$task)) input$task else "general"
 
-    chat_obj(
-      ellmer::chat_openai(
-        model = model_val,
-        system_prompt = get_system_prompt(task_val)
-      )
+    chat <- ellmer::chat_openai(
+      model = model_val,
+      system_prompt = get_system_prompt(task_val)
     )
+    chat$register_tool(tool_google_search)
+    chat_obj(chat)
+
     chat_clear("chat")
     chat_append("chat", list(
       list(
         role = " ",
-        content = "Hi, I'm Lucy, your personal chatbot. How can I help you today?"
+        content = "Hi, I'm Lucy, your personal chatbot. How can I help you today?\n\nNote: I may perform controlled web searches to fetch up-to-date information when needed; results include title, link, and short snippet."
       )
     ))
     current_images(NULL)
@@ -194,17 +232,18 @@ function(input, output, session) {
       req(user_auth$logged_in)
       req(input$model, input$task)
 
-      chat_obj(
-        ellmer::chat_openai(
-          model = input$model,
-          system_prompt = get_system_prompt(input$task)
-        )
+      chat <- ellmer::chat_openai(
+        model = input$model,
+        system_prompt = get_system_prompt(input$task)
       )
+      chat$register_tool(tool_google_search)
+      chat_obj(chat)
+
       chat_clear("chat")
       chat_append("chat", list(
         list(
           role = " ",
-          content = "Hi, I'm Lucy, your personal chatbot. How can I help you today?"
+          content = "Hi, I'm Lucy, your personal chatbot. How can I help you today?\n\nNote: I may perform controlled web searches to fetch up-to-date information when needed; results include title, link, and short snippet."
         )
       ))
       current_images(NULL)
@@ -219,19 +258,33 @@ function(input, output, session) {
     req(nzchar(input$chat_user_input))
     req(chat_obj())    # ensure chat is initialized
 
+    # Disable download button to prevent incomplete downloads
+    shinyjs::disable("download_chat")
+
     # Use current_images as the source of truth
     imgs <- current_images()
+    
+    # Reset status
+    output$chat_status <- renderUI({ NULL })
 
     # Only manually append user message if there are images
     # shinychat handles text-only messages automatically
     if (!is.null(imgs) && nrow(imgs) > 0) {
+      # Show notification while processing files
+      showNotification("Analyzing attached files...", duration = 3, type = "message")
+      output$chat_status <- renderUI({ tags$span(icon("layer-group"), " Processing attachments...") })
+
       # Prepare user message content with images and text
       user_content_elements <- list()
 
-      # Add images
-      image_blocks <- lapply(seq_len(nrow(imgs)), function(i) {
+      # Add files (images or docs)
+      file_blocks <- lapply(seq_len(nrow(imgs)), function(i) {
         img_file <- imgs$datapath[i]
-        ext <- tools::file_ext(imgs$name[i])
+        file_name <- imgs$name[i]
+        ext <- tolower(tools::file_ext(file_name))
+        
+        if (ext %in% c("png", "jpg", "jpeg")) {
+          # Image handling
         data_uri <- base64enc::dataURI(
           file = img_file,
           mime = switch(
@@ -270,15 +323,19 @@ function(input, output, session) {
           ),
           tags$p(
             class = "image-info-text",
-            sprintf("%s (%s KB)%s",
-              imgs$name[i],
-              kb,
-              if (nzchar(info)) paste0(" • ", info) else ""
-            )
+              sprintf("%s (%s KB)%s", file_name, kb, if (nzchar(info)) paste0(" • ", info) else "")
           )
         )
+        } else {
+          # Document handling
+          tags$div(
+            class = "doc-attachment",
+            style = "margin-bottom: 8px; padding: 5px; border-left: 3px solid #2E86AB; background-color: rgba(46, 134, 171, 0.1);",
+            icon("file-alt"), " ", tags$span(file_name, style="font-weight:bold;")
+          )
+        }
       })
-      user_content_elements <- c(user_content_elements, image_blocks)
+      user_content_elements <- c(user_content_elements, file_blocks)
 
       # Add text content
       user_content_elements <- c(user_content_elements, list(
@@ -295,22 +352,98 @@ function(input, output, session) {
     # Compose ellmer chat message for AI response
     args <- list()
     if (!is.null(imgs) && nrow(imgs) > 0) {
-      # Use the datapath from current_images for ellmer
-      img_paths <- imgs$datapath
-      cat("Sending", length(img_paths), "images to LLM\n")
-      args <- lapply(img_paths, ellmer::content_image_file)
+      cat("Processing", nrow(imgs), "files for LLM\n")
+      
+      for (i in seq_len(nrow(imgs))) {
+        fpath <- imgs$datapath[i]
+        fname <- imgs$name[i]
+        ext <- tolower(tools::file_ext(fname))
+        
+        if (ext %in% c("png", "jpg", "jpeg")) {
+          # It's an image
+          args <- c(args, list(ellmer::content_image_file(fpath)))
+        } else {
+          # It's a document - extract text
+          extracted_text <- extract_text_from_file(fpath, fname)
+          if (!is.null(extracted_text)) {
+            context_str <- paste0("\n\n--- ATTACHED FILE: ", fname, " ---\n", extracted_text, "\n--- END FILE ---\n\n")
+            args <- c(args, list(context_str))
+          }
+        }
+      }
     } else {
-      cat("No images to send to LLM\n")
+      cat("No files to send to LLM\n")
     }
     args <- c(args, input$chat_user_input)
 
+    # Store user message in conversation history
+    conversation_history$messages <- append(
+      conversation_history$messages,
+      list(list(role = "user", content = input$chat_user_input))
+    )
+    
+    # Update status for thinking phase
+    output$chat_status <- renderUI({ tags$span(icon("brain"), " Generating response...") })
+
     # Send to AI and get response stream
-    stream <- do.call(chat_obj()$stream_async, args)
-    chat_append("chat", stream)
+    # Accumulate response for history
+    current_response <- ""
+    
+    wrapped_stream <- coro::async_generator(function() {
+      stream <- do.call(chat_obj()$stream_async, args)
+      repeat {
+        chunk <- NULL
+        had_error <- FALSE
+        tryCatch({
+          chunk <- stream()
+        }, error = function(e) {
+          if (!inherits(e, "coro_iterator_break")) {
+            chunk <<- paste0("⚠️ Error: ", conditionMessage(e))
+            had_error <<- TRUE
+          }
+        })
+        
+        if (is.null(chunk)) break
+        
+        # Await promises if needed
+        if (inherits(chunk, "promise")) {
+          chunk_text <- coro::await(chunk)
+        } else {
+          chunk_text <- as.character(chunk)
+        }
+        
+        current_response <<- paste0(current_response, chunk_text)
+        coro::yield(chunk)
+        
+        if (had_error) break
+      }
+    })
+    
+    chat_append("chat", wrapped_stream())
+    
+    # Timer to add assistant response to history after streaming completes
+    later::later(function() {
+      if (nchar(current_response) > 0) {
+        cat("Adding assistant response to history. Length:", nchar(current_response), "\n")
+        isolate({
+          conversation_history$messages <- append(
+            conversation_history$messages,
+            list(list(role = "assistant", content = current_response))
+          )
+        })
+        cat("History updated. Total messages:", length(isolate(conversation_history$messages)), "\n")
+      }
+    }, delay = 20)
 
     # DON'T reset images after sending - keep them until new chat
     # Images should persist so user can ask follow-up questions about them
     cat("Images retained for follow-up questions\n")
+    
+    # Re-enable download and clear status after delay (25s)
+    delay(25000, {
+      output$chat_status <- renderUI({ NULL })
+      shinyjs::enable("download_chat")
+    })
   })
 
   # NEW CHAT BUTTON
@@ -320,24 +453,173 @@ function(input, output, session) {
     cat("New chat button clicked - resetting everything\n")
 
     chat_clear("chat")
-    chat_obj(
-      ellmer::chat_openai(
-        model = input$model,
-        system_prompt = get_system_prompt(input$task)
-      )
+    chat <- ellmer::chat_openai(
+      model = input$model,
+      system_prompt = get_system_prompt(input$task)
     )
+    chat$register_tool(tool_google_search)
+    chat_obj(chat)
+
     chat_append("chat", list(
       list(
         role = " ",
         content = "Hi, I'm Lucy, your personal chatbot. How can I help you today?"
       )
     ))
-    # Reset images when starting new chat - this should fully clear everything
-    cat("Clearing images for new chat\n")
+    # Reset images and conversation history when starting new chat
+    cat("Clearing images and conversation history for new chat\n")
+    shinyjs::enable("download_chat")
     current_images(NULL)
+    conversation_history$messages <- list()
     session$sendCustomMessage("resetFileInput", "uploaded_image")
     # Additional reset to ensure complete cleanup
     Sys.sleep(0.1)
     session$sendCustomMessage("resetFileInput", "uploaded_image")
   })
+
+  # DOWNLOAD CHAT HISTORY
+  output$download_chat <- downloadHandler(
+    filename = function() {
+      paste("lucy-chat-history-", format(Sys.time(), "%Y%m%d-%H%M"), ".html", sep = "")
+    },
+    content = function(file) {
+      tryCatch({
+        cat("Starting download handler...\n")
+        
+        # Get conversation history from manually tracked messages
+        messages <- isolate(conversation_history$messages)
+        cat("Number of messages in history:", length(messages), "\n")
+        
+        # If no messages yet, just create a simple message
+        if (length(messages) == 0) {
+          cat("No conversation history yet - creating info page\n")
+          writeLines(paste0(
+            "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Lucy Chat History</title></head><body>",
+            "<div style='text-align: center; margin-top: 100px; font-family: system-ui;'>",
+            "<h1>🤖 Lucy Chat History</h1>",
+            "<p style='color: #666;'>No messages yet. Start a conversation and try again!</p>",
+            "<p style='color: #999; font-size: 0.9em;'>Exported on ", format(Sys.time(), "%B %d, %Y at %H:%M"), "</p>",
+            "</div></body></html>"
+          ), file)
+          return()
+        }
+        
+        # HTML Header & CSS
+        html_header <- paste0(
+          "<!DOCTYPE html>\n",
+          "<html><head>\n",
+          "<meta charset='utf-8'>\n",
+          "<meta name='viewport' content='width=device-width, initial-scale=1'>\n",
+          "<title>Lucy Chat History</title>\n",
+          "<style>\n",
+          "body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; color: #333; }\n",
+          ".chat-container { display: flex; flex-direction: column; gap: 15px; }\n",
+          ".message { padding: 15px; border-radius: 12px; max-width: 85%; line-height: 1.5; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }\n",
+          ".user { align-self: flex-end; background-color: #007bff; color: white; border-bottom-right-radius: 2px; }\n",
+          ".assistant { align-self: flex-start; background-color: #ffffff; border-bottom-left-radius: 2px; border: 1px solid #dee2e6; }\n",
+          ".role-label { font-size: 0.8em; margin-bottom: 5px; opacity: 0.8; font-weight: bold; }\n",
+          "img { max-width: 100%; border-radius: 8px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.2); }\n",
+          "pre { background: rgba(0,0,0,0.05); padding: 10px; border-radius: 5px; overflow-x: auto; white-space: pre-wrap; }\n",
+          ".user pre { background: rgba(255,255,255,0.1); }\n",
+          "a { color: inherit; text-decoration: underline; }\n",
+          "code { background: rgba(0,0,0,0.05); padding: 2px 5px; border-radius: 3px; }\n",
+          "</style>\n",
+          "</head><body>\n",
+          "<div style='text-align: center; margin-bottom: 30px;'>\n",
+          "<h1>🤖 Lucy Chat History</h1>\n",
+          "<p>Exported on ", format(Sys.time(), "%B %d, %Y at %H:%M"), "</p>\n",
+          "</div>\n",
+          "<div class='chat-container'>\n"
+        )
+        
+        cat("HTML header created\n")
+        
+        # Process messages
+        messages_html <- c()
+        for (i in seq_along(messages)) {
+          tryCatch({
+            cat("Processing message", i, "\n")
+            msg <- messages[[i]]
+            
+            role <- msg$role
+            content <- msg$content
+            
+            cat("Message", i, "role:", role, "\n")
+            
+            if (is.null(role) || role == "system") {
+              cat("Skipping system message\n")
+              next
+            }
+            
+            role_cls <- if (role == "user") "user" else "assistant"
+            role_name <- if (role == "user") "You" else "Lucy"
+            
+            cat("Content length:", nchar(content), "\n")
+            
+            content_html <- ""
+            
+            # Content is always character from our manual tracking
+            if (is.character(content) && length(content) > 0 && nzchar(trimws(content))) {
+              cat("Processing character content\n")
+              # Use markdown::mark for modern markdown rendering
+              content_html <- tryCatch({
+                result <- as.character(markdown::mark(text = content))
+                cat("Markdown result length:", nchar(result), "\n")
+                result
+              }, error = function(e) {
+                cat("Markdown error:", e$message, "\n")
+                # Fallback to plain text with HTML escaping
+                paste0("<p>", gsub("<", "&lt;", gsub(">", "&gt;", content)), "</p>")
+              })
+            }
+            
+            # Only add message if there's content
+            if (nzchar(content_html)) {
+              msg <- paste0(
+                "<div class='message ", role_cls, "'>\n",
+                "<div class='role-label'>", role_name, "</div>\n",
+                content_html, "\n",
+                "</div>\n"
+              )
+              messages_html <- c(messages_html, msg)
+              cat("Added message", i, "to output\n")
+            } else {
+              cat("Skipping turn", i, "- no content\n")
+            }
+          }, error = function(e) {
+            # Log error but continue processing other messages
+            cat("Error processing turn", i, "in download:", e$message, "\n")
+            print(e)
+          })
+        }
+        
+        cat("Processed", length(messages_html), "messages\n")
+        
+        # HTML footer
+        html_footer <- "</div>\n</body></html>"
+        
+        # Combine all parts
+        complete_html <- paste0(html_header, paste(messages_html, collapse = ""), html_footer)
+        
+        cat("Writing to file...\n")
+        # Write to file with UTF-8 encoding
+        writeLines(complete_html, file, useBytes = FALSE)
+        cat("Download complete!\n")
+        
+      }, error = function(e) {
+        cat("Critical error in download handler:", e$message, "\n")
+        print(e)
+        traceback()
+        # Write a simple error page
+        error_msg <- gsub("<", "&lt;", gsub(">", "&gt;", e$message))
+        writeLines(paste0(
+          "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Error</title></head><body>",
+          "<h1>Error generating chat history</h1>",
+          "<p>", error_msg, "</p>",
+          "<pre>", paste(capture.output(print(e)), collapse="\n"), "</pre>",
+          "</body></html>"
+        ), file)
+      })
+    }
+  )
 }

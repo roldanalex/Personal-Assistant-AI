@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.8.25">
 
   <meta name="author" content="Alexis Roldan">
-  <meta name="dcterms.date" content="2025-10-18">
+  <meta name="dcterms.date" content="2025-12-29">
   <title>Lucy - Plataforma Avanzada de Asistente IA</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -142,7 +142,7 @@ Alexis Roldan
 </div>
 </div>
 
-  <p class="date">2025-10-18</p>
+  <p class="date">2025-12-29</p>
 </section>
 <section id="bienvenidos-a-lucy" class="slide level2 center" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Bienvenidos a Lucy 🤖✨</h2>
@@ -156,7 +156,8 @@ Alexis Roldan
 </div><div class="column" style="width:55%;">
 <h3 id="tu-tutor-personal-de-ia-avanzada">Tu Tutor Personal de IA Avanzada</h3>
 <ul>
-<li><strong>🖼️ IA Multimodal</strong> - Texto + Imágenes</li>
+<li><strong>🖼️ IA Multimodal</strong> - Texto + Imágenes + Documentos</li>
+<li><strong>🎤 Interacción por Voz</strong> - Dictado a texto en tiempo real</li>
 <li><strong>🔒 Seguridad Total</strong> - Gestión de usuarios</li>
 <li><strong>📚 Enfoque Educativo</strong> - Todos los niveles</li>
 <li><strong>💬 Memoria Persistente</strong> - Recuerda conversaciones</li>
@@ -200,10 +201,43 @@ Alexis Roldan
 <h3 id="ve-y-comprende">📸 Ve y Comprende</h3>
 <ul>
 <li>Analiza tus tareas fotografiadas</li>
-<li>Interpreta diagramas y gráficos</li>
+<li><strong>NUEVO</strong>: Lee PDFs, Word y Excel</li>
 <li>Lee ecuaciones manuscritas</li>
 <li>Entiende mapas y esquemas</li>
 </ul>
+<section id="novedades-multimodales-2025" class="slide level2">
+<h2>Novedades Multimodales (2025)</h2>
+<ul>
+<li><strong>Dictado (Speech-to-Text)</strong>: Presiona el botón de micrófono para dictar tu pregunta. La transcripción se añade al cuadro de chat para que la revises antes de enviar.</li>
+<li><strong>Cámara y Subida de Múltiples Imágenes</strong>: Toma fotos o sube varias imágenes en un solo mensaje; Lucy las analiza en conjunto para una respuesta integrada.</li>
+<li><strong>Ingesta de Documentos</strong>: Sube PDFs, Word (.docx), Excel (.xlsx/.xls) y CSV; Lucy extrae texto y transforma hojas de cálculo en texto CSV para que el modelo pueda consultarlas.</li>
+<li><strong>Previsualizaciones y Metadatos</strong>: Las imágenes muestran miniaturas con nombre, tamaño y dimensiones; los documentos aparecen como entradas compactas para confirmar archivos adjuntos.</li>
+</ul>
+<p>Estas mejoras facilitan flujos de trabajo reales: fotos de ejercicios, documentos de apoyo y preguntas habladas.</p>
+</section>
+<section id="herramientas-de-configuración-y-administración" class="slide level2">
+<h2>Herramientas de Configuración y Administración</h2>
+<ul>
+<li><strong>Verificador de Variables de Entorno (Admin)</strong>: La aplicación valida las variables de entorno necesarias al iniciar y muestra una alerta visible y una notificación persistente para administradores si falta configuración.</li>
+<li><strong>Búsqueda Web Segura</strong>: Lucy puede realizar búsquedas web controladas mediante la herramienta <code>perform_google_search</code> usando Google Custom Search (requiere <code>google_search_api_key</code> y <code>google_search_engine_id</code>).</li>
+<li><strong>Script de Prueba Rápida</strong>: Ejecuta <code>Rscript scripts/check_google_search.R</code> desde la raíz del proyecto para validar las credenciales de Google CSE antes de usar búsquedas web.</li>
+</ul>
+</section>
+<section id="resultados-de-búsqueda-web-ejemplo" class="slide level2">
+<h2>Resultados de Búsqueda Web (Ejemplo)</h2>
+<p><strong>Cómo aparecen los resultados para los usuarios:</strong></p>
+<ul>
+<li><strong>Título</strong>: Título del Artículo de Ejemplo</li>
+<li><strong>Enlace</strong>: https://ejemplo.com/articulo</li>
+<li><strong>Extracto</strong>: Resumen breve (1-2 líneas) indicando la relevancia a la consulta.</li>
+</ul>
+<hr>
+<p><strong>Prompts de ejemplo</strong></p>
+<ul>
+<li>Usuario (fin-usuario): “Busca en la web estudios recientes sobre aprendizaje activo en matemáticas de secundaria y resume los hallazgos principales.”</li>
+<li>Desarrollador (programático): <code>perform_google_search(query = "aprendizaje activo matemáticas secundaria", n = 3)</code></li>
+</ul>
+<p>Nota: las búsquedas web están controladas — los resultados se devuelven como texto (título, enlace, extracto) y se usan solo para complementar el contexto que recibe el modelo.</p>
 <h3 id="método-socrático">🎓 Método Socrático</h3>
 <ul>
 <li>Te guía hacia las respuestas</li>
@@ -211,6 +245,7 @@ Alexis Roldan
 <li>Explica el “¿por qué?” no solo el “¿cómo?”</li>
 <li>Fomenta el pensamiento crítico</li>
 </ul>
+</section>
 </div></div>
 <div class="footer">
 <p>Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨</p>
@@ -219,7 +254,7 @@ Alexis Roldan
 <section id="apoyo-académico-completo" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Apoyo Académico Completo 📚</h2>
 <div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Matemáticas 📐</a></li><li><a href="#tabset-1-2">Ciencias 🔬</a></li><li><a href="#tabset-1-3">Idiomas 🌍</a></li><li><a href="#tabset-1-4">Historia y Sociales 🏛️</a></li></ul>
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Matemáticas 📐</a></li><li><a href="#tabset-1-2">Ciencias 🔬</a></li><li><a href="#tabset-1-3">Idiomas 🌍</a></li><li><a href="#tabset-1-4">Historia y Sociales 🏛️</a></li><li><a href="#tabset-1-5">Especializado Perú 🇵🇪</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
 <div data-auto-animate="true">
@@ -265,6 +300,17 @@ Alexis Roldan
 </ul>
 </div>
 </div>
+<div id="tabset-1-5">
+<div data-auto-animate="true">
+<ul>
+<li><strong>Pre-Universitario</strong>: Preparación UNI/San Marcos paso a paso</li>
+<li><strong>MYPE</strong>: Asesoría de negocios y análisis de ventas (Excel)</li>
+<li><strong>Trámites</strong>: Guía para SUNAT, RENIEC y burocracia</li>
+<li><strong>Titulación</strong>: Inglés técnico para exámenes de grado</li>
+<li><strong>Ejemplo</strong>: Sube Excel de ventas → Análisis de tendencias</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="footer">
@@ -298,6 +344,7 @@ Alexis Roldan
 <li>Escribe tu pregunta en lenguaje natural</li>
 <li>Sube foto de tu tarea o ejercicio</li>
 <li>No necesitas formateo especial</li>
+<li><strong>Usa el micrófono</strong> para dictar tu duda</li>
 <li>Lucy entiende escritura a mano</li>
 </ul>
 <h3 id="lucy-analiza">2. 🔍 <strong>Lucy Analiza</strong></h3>
@@ -380,6 +427,7 @@ Alexis Roldan
 <div data-auto-animate="true">
 <ul>
 <li><strong>OCR Inteligente</strong>: Lee texto manuscrito y digital</li>
+<li><strong>Documentos</strong>: Procesa Word (.docx), Excel (.xlsx) y PDF</li>
 <li><strong>Diagramas Científicos</strong>: Interpreta gráficos y esquemas</li>
 <li><strong>Ecuaciones Matemáticas</strong>: Reconoce fórmulas complejas</li>
 <li><strong>Mapas y Planos</strong>: Analiza información geográfica</li>

@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.8.25">
 
   <meta name="author" content="Alexis Roldan">
-  <meta name="dcterms.date" content="2025-10-16">
+  <meta name="dcterms.date" content="2025-12-29">
   <title>Lucy - Advanced AI Assistant Platform</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,7 +30,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto-a4253d9a713c3236ed9727809519205b.css">
+  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto-f963a5c50ac7af7314220f5a5a4a9187.css">
   <link rel="stylesheet" href="styles.css">
   <link href="presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="presentation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -145,7 +145,7 @@ Alexis Roldan
 </div>
 </div>
 
-  <p class="date">2025-10-16</p>
+  <p class="date">2025-12-29</p>
 </section>
 <section id="welcome-to-lucy" class="slide level2 center">
 <h2>Welcome to Lucy 🤖✨</h2>
@@ -231,6 +231,42 @@ Alexis Roldan
 </section>
 <section id="educational-use-cases" class="slide level2">
 <h2>Educational Use Cases 📚</h2>
+</section>
+<section id="new-multimodal-features-2025" class="slide level2">
+<h2>New Multimodal Features (2025)</h2>
+<ul>
+<li><strong>Speech-to-Text</strong>: Click the microphone to dictate questions. The app uses browser speech recognition and appends transcriptions to the chat for editing.</li>
+<li><strong>Camera / Multi-Image Upload</strong>: Upload multiple photos (or capture on mobile). Lucy analyzes image sets together and references image metadata when helpful.</li>
+<li><strong>Document Ingestion</strong>: Upload PDF, DOCX, XLSX/XLS and CSV files. Text is extracted from documents and Excel sheets are flattened into CSV-like text for the model.</li>
+<li><strong>Preview &amp; Metadata</strong>: Images are previewed with filename, size and dimensions; documents show compact previews so users confirm attachments.</li>
+</ul>
+<p>These improvements make Lucy better at real homework workflows: photos of problems, supporting documents, and spoken questions.</p>
+</section>
+<section id="configuration-admin-tools" class="slide level2">
+<h2>Configuration &amp; Admin Tools</h2>
+<ul>
+<li><strong>Admin Env-Var Checker</strong>: The app validates required environment variables at startup and shows a clear banner and admin notification when configuration is incomplete.</li>
+<li><strong>Safe Web Lookup Tool</strong>: Lucy can perform controlled web lookups via a registered <code>perform_google_search</code> tool using Google Custom Search (requires <code>google_search_api_key</code> and <code>google_search_engine_id</code>).</li>
+<li><strong>Quick Test Script</strong>: Run <code>Rscript scripts/check_google_search.R</code> from the project root to verify Google CSE credentials and connectivity before using web lookups.</li>
+</ul>
+</section>
+<section id="web-search-results-example" class="slide level2">
+<h2>Web-Search Results (Example)</h2>
+<p><strong>How results appear to users:</strong></p>
+<ul>
+<li><strong>Title</strong>: Example Article Title</li>
+<li><strong>Link</strong>: https://example.com/article</li>
+<li><strong>Snippet</strong>: Short summary or excerpt (1-2 lines) showing relevance to the query.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p><strong>Example prompts</strong></p>
+<ul>
+<li>User (end-user): “Search the web for recent studies on active learning in high school math and summarize the top findings.”</li>
+<li>Developer (programmatic): <code>perform_google_search(query = "active learning high school math", n = 3)</code></li>
+</ul>
+<p>Note: web lookups are performed under strict controls — results are returned as plain text (title, link, snippet) and are used to augment the model context, not for browsing arbitrary sites.</p>
 <div class="panel-tabset">
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">K-12 Education</a></li><li><a href="#tabset-2-2">Higher Education</a></li><li><a href="#tabset-2-3">Professional Development</a></li></ul>
 <div class="tab-content">

@@ -26,6 +26,12 @@
 - **🔍 Research Support**: Literature reviews, data analysis, and academic writing
 - **🎨 Creative Projects**: Art analysis, design feedback, and multimedia education
 
+### 🇵🇪 Localized Support (Peru Edition)
+- **🎓 Pre-University**: Specialized logic for UNI/San Marcos entrance exams
+- **💼 MYPE Assistant**: Business advice and sales analysis for small businesses
+- **⚖️ Bureaucracy Guide**: Help with SUNAT, RENIEC, and municipal procedures
+- **🇬🇧 Degree English**: Preparation for university language certification (B1/B2)
+
 ### For Institutions & Schools
 - **🏫 Scalable Learning**: Deploy across classrooms and departments
 - **📈 Learning Analytics**: Track student progress and educational outcomes
@@ -37,7 +43,8 @@
 ## ✨ Core Features
 
 - **🧠 Advanced AI Integration**: Powered by OpenAI's GPT-4 Vision for comprehensive text and image understanding
-- **🖼️ Multimodal Learning**: Analyze homework images, lab photos, diagrams, documents, and educational content
+- **🖼️ Multimodal Learning**: Analyze images, PDFs, Word docs, Excel sheets, and diagrams
+- **🎤 Voice Interaction**: Speech-to-text integration for natural dictation
 - **💬 Persistent Learning Context**: Maintains conversation history for continuous learning support
 - **🔒 Secure Authentication**: Student and educator account management with AWS S3 integration
 - **📱 Mobile-Friendly Design**: Learn anywhere with responsive interface and dark/light themes
@@ -45,6 +52,19 @@
 - **📁 Multi-File Support**: Upload multiple images for comprehensive analysis
 - **⚡ Real-time Interaction**: Live response streaming for natural learning conversations
 - **📚 Knowledge Building**: Connect new concepts to previous learning for deeper understanding
+
+## 🆕 Latest Updates
+
+- **Speech-to-Text**: Browser-based dictation is available via the microphone button. Speech is transcribed and appended to the chat input so users can edit before sending.
+- **Camera & Multi-Image Input**: Attach multiple photos (or take pictures on mobile) in a single message. Lucy analyzes images together to provide consolidated answers.
+- **Document Ingestion**: Upload PDF, Word (.docx), Excel (.xlsx/.xls) and CSV files. Text is extracted for PDF/DOCX (with a notice for scanned PDFs) and Excel sheets are converted to CSV-like text for model context.
+- **Improved Previews**: Uploaded images show inline previews with filename, size, and basic dimensions; non-image files show a compact document entry.
+- **Safe Web Tool**: A registered `perform_google_search` tool allows controlled Google Custom Search queries (requires environment variables for API key and search engine ID).
+
+- **Admin Env-Var Checker & UI Warning**: The app now checks for required environment variables at startup and surfaces a clear admin-visible warning banner. Administrators see a persistent notification on login to help diagnose missing configuration.
+- **Configuration Test Script**: A helper script `scripts/check_google_search.R` is included to validate Google Custom Search credentials and connectivity before enabling web lookups.
+
+These additions greatly improve multimodal workflows (audio + images + documents) and make Lucy more helpful for homework, lab reports, and document-driven tasks.
 
 ## 🚀 Getting Started
 
@@ -145,6 +165,12 @@
    "Show me a similar example"
    ```
 
+### Using Documents & Voice
+
+- **📄 Document Analysis**: Upload PDF, Word, or Excel files. Lucy will read the text/data and answer questions about it.
+- **🎤 Voice Input**: Click the red microphone button to dictate your questions instead of typing.
+- **📸 Camera**: On mobile, use the camera button to snap photos of homework directly.
+
 ### Advanced Learning Features
 
 - **Multi-Image Analysis**: Upload multiple related images for comprehensive help
@@ -196,6 +222,60 @@
      "bslib", "shinyjs", "DT", "readr"
    ))
    ```
+
+   3. **Google Custom Search (optional)**
+
+   If you want Lucy to be able to perform controlled web lookups, set up Google Custom Search and add the following environment variables.
+
+   Add to your `.Renviron` (persisted) or set in your shell for testing:
+
+   ```
+   # .Renviron or environment
+   OPENAI_API_LUCY_SHINY=your_openai_api_key_here
+   google_search_api_key=your_google_api_key_here
+   google_search_engine_id=your_search_engine_id_here
+   ```
+
+   Or export temporarily in your shell (macOS / Linux):
+
+   ```bash
+   export OPENAI_API_LUCY_SHINY="your_openai_api_key_here"
+   export google_search_api_key="your_google_api_key_here"
+   export google_search_engine_id="your_search_engine_id_here"
+   ```
+
+   - How to obtain keys: Create an API key in Google Cloud Console and enable the Custom Search API. Then create a Custom Search Engine and copy its Search Engine ID (`cx`).
+   - Restart R / the Shiny app after changing environment variables so they're picked up.
+
+   Note: earlier versions of the app had a typo (`goole_search_api_key`). The code now reads `google_search_api_key` — use this correct name in your environment.
+
+   ### How to create a Google API key and Custom Search Engine (quick)
+
+   1. Go to the Google Cloud Console: https://console.cloud.google.com/ and create or select a project.
+   2. Enable the **Custom Search API** for that project (APIs & Services → Library → search "Custom Search API").
+   3. Create an API key: APIs & Services → Credentials → Create Credentials → API key. Copy this key to `google_search_api_key`.
+   4. Create a Custom Search Engine: https://cse.google.com/cse/ → Add a new search engine (specify sites or use the entire web). After creation, go to the control panel and copy the **Search engine ID** (the `cx` value) into `google_search_engine_id`.
+   5. Test with a sample query in the app once the env vars are set and app restarted.
+
+   Security note: Keep your API key secret. Do not commit secrets to source control. Restrict the API key in Google Cloud Console to trusted usage if possible.
+
+## Testing Google Search Configuration
+
+A small helper script `scripts/check_google_search.R` is included to verify your Google Custom Search configuration. Run it from the project root:
+
+```bash
+Rscript scripts/check_google_search.R
+```
+
+If the script exits with an error, it will print guidance about missing env vars or request failures.
+
+## UI Admin / User Warning Banner
+
+If required environment variables are missing, Lucy will show a banner/notification in the UI:
+- Admin users (username `admin`) will see a persistent warning notification on login and a visible alert inside the app.
+- Non-admin users will also see a subtle banner informing them the app is not fully configured.
+
+This helps administrators spot missing configuration quickly.
 
 3. **Environment Configuration**
    Create `.Renviron` file in project root:
