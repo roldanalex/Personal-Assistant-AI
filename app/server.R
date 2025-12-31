@@ -204,7 +204,7 @@ function(input, output, session) {
     req(user_auth$logged_in)
 
     # Initialize with default values if inputs not ready
-    model_val <- if(!is.null(input$model)) input$model else "gpt-4.1"
+    model_val <- if(!is.null(input$model)) input$model else "gpt-5-mini"
     task_val <- if(!is.null(input$task)) input$task else "general"
 
     chat <- ellmer::chat_openai(
@@ -433,14 +433,14 @@ function(input, output, session) {
         })
         cat("History updated. Total messages:", length(isolate(conversation_history$messages)), "\n")
       }
-    }, delay = 20)
+    }, delay = 35)
 
     # DON'T reset images after sending - keep them until new chat
     # Images should persist so user can ask follow-up questions about them
     cat("Images retained for follow-up questions\n")
     
-    # Re-enable download and clear status after delay (25s)
-    delay(25000, {
+    # Re-enable download and clear status after delay (35s)
+    delay(35000, {
       output$chat_status <- renderUI({ NULL })
       shinyjs::enable("download_chat")
     })

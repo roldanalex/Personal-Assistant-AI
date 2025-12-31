@@ -56,10 +56,11 @@ page_sidebar(
       "model",
       "Intelligence Level:",
       choices = list(
+        "Best Reasoning & Coding (GPT-5.1)" = "gpt-5.1",
         "Best Quality (GPT-4)" = "gpt-4.1",
-        "Fast Speed (GPT-3.5)" = "gpt-3.5-turbo"
+        "Fast Speed (GPT-5 Mini)" = "gpt-5-mini"
       ),
-      selected = "gpt-4.1"
+      selected = "gpt-5-mini"
     ),
     selectInput(
       "task",
@@ -440,8 +441,9 @@ page_sidebar(
               var currentVal = $input.val();
               var newVal = currentVal ? currentVal + ' ' + transcript : transcript;
               $input.val(newVal);
-              $input.trigger('input'); // Notify Shiny
-              $input.trigger('change');
+              
+              // Dispatch native input event to ensure UI (Send button) updates
+              $input[0].dispatchEvent(new Event('input', { bubbles: true }));
             }
           };
         } else {
