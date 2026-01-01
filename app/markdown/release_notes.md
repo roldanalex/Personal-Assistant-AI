@@ -1,5 +1,28 @@
 # Release Notes
 
+## Version 1.3.2 (December 2025)
+
+### 🎉 New Features
+- **Complete Chat History Download**: Download your full conversation history as a beautifully formatted HTML file
+  - Perfect for reviewing your learning progress
+  - Share with teachers or study partners
+  - Keep important explanations for future reference
+  - Works great for documenting homework help sessions
+
+### 🐛 Bug Fixes & Improvements
+- **Fixed Assistant Response Saving**: Chat downloads now include complete AI responses, not just your questions
+- **Optimized Timing**: Added smart 40-second capture window to ensure long, detailed responses are fully saved
+- **Better Memory Management**: Improved how conversations are stored and tracked
+- **Reliable Exports**: Enhanced HTML generation with proper formatting and styling
+
+### 💡 What This Means for You
+- **Students**: Save complete homework help sessions to review before exams
+- **Parents**: Keep parenting advice and child development tips for easy reference
+- **Teachers**: Document example interactions for your students
+- **Everyone**: Build your personal knowledge library of helpful conversations
+
+---
+
 ## Version 1.3.1 (December 2025)
 
 ### 🎉 New Features
@@ -14,7 +37,6 @@
 
 ### 🔧 Improvements
 - Enhanced message storage system for better download reliability
-- Added 20-second timer to ensure streaming responses are captured completely
 - Improved HTML export with proper CSS styling and markdown formatting
 
 ---
