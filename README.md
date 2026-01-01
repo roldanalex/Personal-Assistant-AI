@@ -1,4 +1,4 @@
-# Lucy - Advanced AI Learning Assistant 🤖✨📚
+# MIA - Multimodal Intelligent Assistant 🤖✨📚
 
 [![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)](https://www.r-project.org/)
 [![Shiny](https://img.shields.io/badge/Shiny-276DC3?style=for-the-badge&logo=rstudio&logoColor=white)](https://shiny.rstudio.com/)
@@ -6,7 +6,7 @@
 [![AWS](https://img.shields.io/badge/AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)](https://aws.amazon.com/)
 [![Education](https://img.shields.io/badge/Education-28a745?style=for-the-badge&logo=academia&logoColor=white)](#educational-applications)
 
-> **Lucy** is an advanced AI-powered learning assistant built with R Shiny, featuring multimodal capabilities for text and image analysis. Designed for educational excellence, research support, and intelligent learning assistance with persistent memory across sessions. Perfect for students, educators, and lifelong learners across all disciplines.
+> **MIA** is an advanced AI-powered learning assistant built with R Shiny, featuring multimodal capabilities for text and image analysis. Designed for educational excellence, research support, and intelligent learning assistance with persistent memory across sessions. Perfect for students, educators, and lifelong learners across all disciplines.
 
 ## 🎓 Educational Applications
 
@@ -44,29 +44,110 @@
 
 - **🧠 Advanced AI Integration**: Powered by OpenAI's GPT-4 Vision for comprehensive text and image understanding
 - **🖼️ Multimodal Learning**: Analyze images, PDFs, Word docs, Excel sheets, and diagrams
-- **🎤 Voice Interaction**: Speech-to-text integration for natural dictation
+- **🎤 Voice Interaction**: Speak your questions naturally - perfect for busy parents and multitaskers
 - **💬 Persistent Learning Context**: Maintains conversation history for continuous learning support
+- **📥 Download Conversations**: Save your complete chat history as formatted HTML files for offline review
 - **🔒 Secure Authentication**: Student and educator account management with AWS S3 integration
-- **📱 Mobile-Friendly Design**: Learn anywhere with responsive interface and dark/light themes
+- **📱 Mobile-Friendly Design**: Learn anywhere with responsive interface and light theme optimized for all devices
 - **🎯 Educational Modes**: Specialized assistance for different subjects and learning levels
 - **📁 Multi-File Support**: Upload multiple images for comprehensive analysis
 - **⚡ Real-time Interaction**: Live response streaming for natural learning conversations
 - **📚 Knowledge Building**: Connect new concepts to previous learning for deeper understanding
+- **🌐 Web Search Integration**: Get up-to-date information from the internet when needed
 
-## 🆕 Latest Updates
+## 🆕 Latest Updates (December 2025)
 
-- **Speech-to-Text**: Browser-based dictation is available via the microphone button. Speech is transcribed and appended to the chat input so users can edit before sending.
-- **Camera & Multi-Image Input**: Attach multiple photos (or take pictures on mobile) in a single message. Lucy analyzes images together to provide consolidated answers.
-- **Document Ingestion**: Upload PDF, Word (.docx), Excel (.xlsx/.xls) and CSV files. Text is extracted for PDF/DOCX (with a notice for scanned PDFs) and Excel sheets are converted to CSV-like text for model context.
-- **Improved Previews**: Uploaded images show inline previews with filename, size, and basic dimensions; non-image files show a compact document entry.
-- **Safe Web Tool**: A registered `perform_google_search` tool allows controlled Google Custom Search queries (requires environment variables for API key and search engine ID).
+### 🎉 Save Your Conversations
+- **Download Chat History**: Export your complete conversation as a beautifully formatted HTML file that you can read offline, share with teachers, or keep for future reference
+- **Perfect for Studying**: Review your learning journey, revisit explanations, and track your progress over time
 
-- **Admin Env-Var Checker & UI Warning**: The app now checks for required environment variables at startup and surfaces a clear admin-visible warning banner. Administrators see a persistent notification on login to help diagnose missing configuration.
-- **Configuration Test Script**: A helper script `scripts/check_google_search.R` is included to validate Google Custom Search credentials and connectivity before enabling web lookups.
+### 🎤 Talk Naturally
+- **Speech-to-Text**: Simply press the microphone button and speak your question - great for busy parents cooking dinner or students doing homework
+- **Edit Before Sending**: Review and adjust the transcription before submitting
 
-These additions greatly improve multimodal workflows (audio + images + documents) and make Lucy more helpful for homework, lab reports, and document-driven tasks.
+### 📸 Show, Don't Just Tell
+- **Multi-Image Upload**: Snap photos of multiple pages, problems, or documents and get comprehensive answers
+- **Camera Integration**: Take pictures directly from your phone or tablet
+- **Smart Analysis**: MIA looks at all your images together to provide better, more complete answers
 
-## 🚀 Getting Started
+### 📄 Work With Documents
+- **PDF & Word Support**: Upload reading materials, textbooks, or study guides
+- **Excel & CSV Analysis**: Get help understanding data tables and spreadsheets
+- **Automatic Text Extraction**: MIA reads your documents so you can ask questions about the content
+
+### 🌐 Stay Current
+- **Web Search Tool**: MIA can look up current information online when you need the latest data
+- **Reliable Sources**: Controlled search results from trusted websites
+
+### 👨‍👩‍👧‍👦 Special Features for Parents
+- **Mother Assistant Mode**: Get parenting advice, child development tips, and activity ideas
+- **Quick Voice Queries**: Ask questions hands-free while caring for children
+- **Save Important Advice**: Download conversations to reference later
+
+These improvements make MIA your perfect everyday assistant - whether you're helping with homework, learning something new, or managing family life.
+
+## � How MIA Works - Your Question's Journey
+
+```mermaid
+flowchart TD
+    A[👤 You Ask a Question] --> B{What Type?}
+    B -->|💬 Text Only| C[Type or Speak]
+    B -->|📸 With Images| D[Upload Photos/Documents]
+    B -->|🎤 Voice| E[Press Microphone Button]
+    
+    C --> F[🧠 MIA Processes Your Request]
+    D --> F
+    E --> G[🎯 Speech Recognition] --> F
+    
+    F --> H{Need More Info?}
+    H -->|Yes| I[🌐 Search the Web]
+    H -->|No| J[📚 Use AI Knowledge]
+    
+    I --> K[📊 Gather Current Data]
+    K --> J
+    
+    J --> L[💭 Think & Analyze]
+    L --> M[✍️ Generate Answer]
+    M --> N[💬 Stream Response to You]
+    
+    N --> O[💾 Save to History]
+    O --> P{What Next?}
+    
+    P -->|Continue| Q[Ask Follow-up Question]
+    P -->|Save| R[📥 Download Chat History]
+    P -->|Start Fresh| S[🆕 New Chat]
+    
+    Q --> F
+    
+    style A fill:#e3f2fd
+    style F fill:#fff3e0
+    style J fill:#f3e5f5
+    style N fill:#e8f5e9
+    style R fill:#fce4ec
+```
+
+### 📖 What This Means for You
+
+**Simple as 1-2-3:**
+1. **Ask Your Question** - Type, speak, or show a picture
+2. **MIA Thinks** - Uses advanced AI to understand and analyze
+3. **Get Your Answer** - Clear, helpful responses in seconds
+
+**Smart Features:**
+- 🧠 **Remembers Your Conversation** - No need to repeat yourself
+- 🌐 **Finds Latest Info** - Can search the web for current data
+- 📥 **Saves Your Learning** - Download conversations to review later
+- 🔄 **Gets Better With Use** - Understands your needs over time
+
+**Perfect For:**
+- 👨‍👩‍👧 **Parents**: "How do I help my child with fractions?"
+- 📚 **Students**: "Explain this chemistry equation" + photo
+- 👩‍🏫 **Teachers**: "Create a lesson plan for photosynthesis"
+- 💼 **Professionals**: "Analyze this sales data" + Excel file
+
+---
+
+## �🚀 Getting Started
 
 ### Educational Institution Setup
 
@@ -167,7 +248,7 @@ These additions greatly improve multimodal workflows (audio + images + documents
 
 ### Using Documents & Voice
 
-- **📄 Document Analysis**: Upload PDF, Word, or Excel files. Lucy will read the text/data and answer questions about it.
+- **📄 Document Analysis**: Upload PDF, Word, or Excel files. MIA will read the text/data and answer questions about it.
 - **🎤 Voice Input**: Click the red microphone button to dictate your questions instead of typing.
 - **📸 Camera**: On mobile, use the camera button to snap photos of homework directly.
 
@@ -225,7 +306,7 @@ These additions greatly improve multimodal workflows (audio + images + documents
 
    3. **Google Custom Search (optional)**
 
-   If you want Lucy to be able to perform controlled web lookups, set up Google Custom Search and add the following environment variables.
+   If you want MIA to be able to perform controlled web lookups, set up Google Custom Search and add the following environment variables.
 
    Add to your `.Renviron` (persisted) or set in your shell for testing:
 
@@ -271,7 +352,7 @@ If the script exits with an error, it will print guidance about missing env vars
 
 ## UI Admin / User Warning Banner
 
-If required environment variables are missing, Lucy will show a banner/notification in the UI:
+If required environment variables are missing, MIA will show a banner/notification in the UI:
 - Admin users (username `admin`) will see a persistent warning notification on login and a visible alert inside the app.
 - Non-admin users will also see a subtle banner informing them the app is not fully configured.
 
@@ -308,7 +389,7 @@ rsconnect::setAccountInfo(name="your-account",
                          secret="your-secret")
 
 # Deploy application
-rsconnect::deployApp("app", appName="lucy-ai-assistant")
+rsconnect::deployApp("app", appName="mia-ai-assistant")
 ```
 
 #### Docker Deployment

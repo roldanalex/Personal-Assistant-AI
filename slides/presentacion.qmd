@@ -1,6 +1,5 @@
 ---
-title: "Lucy - Plataforma Avanzada de Asistente IA"
-subtitle: "Chatbot de IA Multimodal con Análisis de Imágenes y Contexto Persistente"
+title: ": "Chatbot de IA Multimodal con Análisis de Imágenes y Contexto Persistente"
 author: "Alexis Roldan"
 date: "`r Sys.Date()`"
 format:
@@ -10,8 +9,7 @@ format:
     chalkboard: true
     preview-links: auto
     css: styles.css
-    footer: "Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨"
-    transition: slide
+    footer: "MIA 
     background-transition: fade
     highlight-style: github
     code-fold: true
@@ -22,35 +20,77 @@ format:
     auto-animate-duration: 0.5
 ---
 
-## Bienvenidos a Lucy 🤖✨ {.center auto-animate="true"}
+## 
 
-::::: columns
 ::: {.column width="45%"}
 ![](/presentacion_files/lucy_sc_main.png){fig-align="center" width="100%"}
 :::
 
 ::: {.column width="55%"}
-### Tu Tutor Personal de IA Avanzada
+### Tu Asistente Personal de IA para la Vida
 
--   **🖼️ IA Multimodal** - Texto + Imágenes + Documentos
--   **🎤 Interacción por Voz** - Dictado a texto en tiempo real
--   **🔒 Seguridad Total** - Gestión de usuarios
--   **📚 Enfoque Educativo** - Todos los niveles
--   **💬 Memoria Persistente** - Recuerda conversaciones
--   **🎨 Interfaz Adaptable** - Claro/Oscuro
--   **📱 Acceso Universal** - Todos los dispositivos
+-   **🗣️ Habla o Escribe** - Usa tu voz o el teclado
+-   **📸 Muestra Fotos** - Sube imágenes de cualquier cosa
+-   **📄 Comparte Documentos** - PDFs, Word, Excel
+-   **💾 Guarda Conversaciones** - Descarga para revisar después
+-   **📚 Siempre Aprendiendo** - Recuerda tu historial de chat
+-   **📱 Funciona en Todas Partes** - Celular, tablet o computadora
+-   **🎓 Hecho para Todos** - Estudiantes, padres, profesores, profesionales
 :::
 :::::
 
 ::: notes
-Lucy es tu compañero de aprendizaje personal que nunca se cansa, nunca juzga y siempre está disponible para ayudarte.
+MIA es tu compañero que hace la vida más fácil - ya sea ayudando con tareas, aprendiendo algo nuevo o gestionando la vida familiar.
 :::
 
-## ¿Por Qué Lucy es Tu Tutor Ideal? 🎯 {auto-animate="true"}
+## Cómo Funciona MIA - El Viaje de Tu Pregunta 🔄 {auto-animate="true"}
 
-::::: columns
-::: {.column width="50%" auto-animate="true"}
-### 🔄 Nunca Se Cansa
+```{mermaid}
+%%| fig-width: 12
+%%| fig-height: 7
+flowchart TD
+    A[👤 TÚ: Haces una Pregunta] --> B{¿Cómo?}
+    B -->|💬 Texto| C[Escribe Tu Pregunta]
+    B -->|🎤 Voz| D[Habla Tu Pregunta]
+    B -->|📸 Imagen| E[Sube Foto/Documento]
+    
+    C --> F[🧠 MIA PIENSA]
+    D --> F
+    E --> F
+    
+    F --> G{¿Necesita Info Actual?}
+    G -->|Sí| H[🌐 Busca en la Web]
+    G -->|No| I[📚 Usa Cerebro IA]
+    
+    H --> J[📊 Recopila Datos Actuales]
+    J --> I
+    
+    I --> K[💡 Entiende y Analiza]
+    K --> L[✍️ Crea Respuesta Útil]
+    L --> M[💬 Te Muestra la Respuesta]
+    
+    M --> N[💾 Auto-Guarda en Historial]
+    N --> O{¿Y Ahora?}
+    
+    O -->|Continuar| P[💬 Pregunta de Seguimiento]
+    O -->|Listo| Q[📥 Descarga el Chat]
+    O -->|Cambiar Tema| R[🆕 Nuevo Chat]
+    
+    P --> F
+    
+    style A fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style F fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+    style I fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+    style M fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style Q fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+```
+
+::: notes
+¡Este es el simple viaje que cada pregunta toma - desde tu mente al cerebro de MIA y de vuelta con una respuesta útil!
+:::
+
+## Características Revolucionarias 🚀 {auto-animate="true"}
+
 
 -   Disponible 24/7 para tus dudas
 -   Paciencia infinita con preguntas repetidas
@@ -76,24 +116,21 @@ Lucy es tu compañero de aprendizaje personal que nunca se cansa, nunca juzga y 
 ## Novedades Multimodales (2025)
 
 - **Dictado (Speech-to-Text)**: Presiona el botón de micrófono para dictar tu pregunta. La transcripción se añade al cuadro de chat para que la revises antes de enviar.
-- **Cámara y Subida de Múltiples Imágenes**: Toma fotos o sube varias imágenes en un solo mensaje; Lucy las analiza en conjunto para una respuesta integrada.
-- **Ingesta de Documentos**: Sube PDFs, Word (.docx), Excel (.xlsx/.xls) y CSV; Lucy extrae texto y transforma hojas de cálculo en texto CSV para que el modelo pueda consultarlas.
+- **Cámara y Subida de Múltiples Imágenes**: Toma fotos o sube varias imágenes en un solo mensaje; MIA las analiza en conjunto para una respuesta integrada.
+- **Ingesta de Documentos**: Sube PDFs, Word (.docx), Excel (.xlsx/.xls) y CSV; MIA extrae texto y transforma hojas de cálculo en texto CSV para que el modelo pueda consultarlas.
 - **Previsualizaciones y Metadatos**: Las imágenes muestran miniaturas con nombre, tamaño y dimensiones; los documentos aparecen como entradas compactas para confirmar archivos adjuntos.
 
 Estas mejoras facilitan flujos de trabajo reales: fotos de ejercicios, documentos de apoyo y preguntas habladas.
 
-## Herramientas de Configuración y Administración
-
 - **Verificador de Variables de Entorno (Admin)**: La aplicación valida las variables de entorno necesarias al iniciar y muestra una alerta visible y una notificación persistente para administradores si falta configuración.
-- **Búsqueda Web Segura**: Lucy puede realizar búsquedas web controladas mediante la herramienta `perform_google_search` usando Google Custom Search (requiere `google_search_api_key` y `google_search_engine_id`).
+- **Búsqueda Web Segura**: MIA puede realizar búsquedas web controladas mediante la herramienta `perform_google_search` usando Google Custom Search (requiere `google_search_api_key` y `google_search_engine_id`).
 - **Script de Prueba Rápida**: Ejecuta `Rscript scripts/check_google_search.R` desde la raíz del proyecto para validar las credenciales de Google CSE antes de usar búsquedas web.
 
 ## Resultados de Búsqueda Web (Ejemplo)
 
 **Cómo aparecen los resultados para los usuarios:**
 
-- **Título**: Título del Artículo de Ejemplo
-- **Enlace**: https://ejemplo.com/articulo
+- **Título**: Título del Arlo.com/articulo
 - **Extracto**: Resumen breve (1-2 líneas) indicando la relevancia a la consulta.
 
 ---
@@ -115,7 +152,7 @@ Nota: las búsquedas web están controladas — los resultados se devuelven como
 :::::
 
 ::: footer
-Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
+MIA - Asistente Inteligente Multimodal 🤖✨
 :::
 
 ## Apoyo Académico Completo 📚 {auto-animate="true"}
@@ -123,7 +160,6 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 ::::::: {.panel-tabset}
 ### Matemáticas 📐
 
-::: {auto-animate="true"}
 -   **Álgebra**: Ecuaciones paso a paso
 -   **Geometría**: Análisis visual de figuras
 -   **Cálculo**: Derivadas e integrales explicadas
@@ -173,7 +209,7 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 :::::::
 
 ::: footer
-Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
+MIA - Asistente Inteligente Multimodal 🤖✨
 :::
 
 ## Casos Reales de Estudiantes 🌟 {auto-animate="true"}
@@ -181,45 +217,38 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 ::::: {.columns auto-animate="true"}
 ::: {.column width="50%"}
 ### 📐 María - Matemáticas
-
-**Problema**: Geometría analítica confusa **Solución Lucy**: - Fotografió su ejercicio de coordenadas - Lucy explicó paso a paso la distancia entre puntos - Proporcionó 3 ejercicios similares para practicar - **Resultado**: De 6/10 a 9/10 en el examen
+ icMIA**: - Fotografió su ejercicio de coordenadas - MIA explicó paso a paso la distancia entre puntos - Proporcionó 3 ejercicios similares para practicar - **Resultado**: De 6/10 a 9/10 en el examen
 
 ### 🧪 Carlos - Química
 
-**Problema**: Balanceo de ecuaciones químicas **Solución Lucy**: - Subió foto de ecuación desequilibrada - Lucy mostró método sistemático de balanceo - Explicó la ley de conservación de masa - **Resultado**: Ahora balancea solo cualquier ecuación
+**Problema**: Balanceo de ecuaciones químicas **Solución MIA**: - Subió foto de ecuación desequilibrada - MIA mostró método sistemático de balanceo - Explicó la ley de conservación de masa - **Resultado**: Ahora balancea solo cualquier ecuación
 :::
 
 ::: {.column width="50%"}
 ### 📚 Ana - Literatura
 
-**Problema**: Análisis de poemas complejos **Solución Lucy**: - Compartió poema de Neruda - Lucy identificó metáforas y simbolismo - Explicó contexto histórico del autor - **Resultado**: Mejoró comprensión lectora 40%
-
+**Problema**: Análisis de poemas complejos **o-iut 
 ### 🌍 Diego - Historia
 
-**Problema**: Cronología de independencias americanas **Solución Lucy**: - Subió mapa de América del siglo XIX - Lucy creó línea temporal interactiva - Conectó eventos entre países - **Resultado**: Aprobó con honor su examen final
-:::
+
 :::::
 
 ::: footer
-Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
+MIA - Asistente Inteligente Multimodal 🤖✨
 :::
 
-## Cómo Lucy Te Ayuda Paso a Paso 🔄 {auto-animate="true"}
-
+## Cómo MIA Te Ayuda Paso a Paso 🔄 {auto-animat
 ::::: columns
 ::: {.column width="50%" auto-animate="true"}
 ### 1. 📤 **Comparte Tu Duda**
 
--   Escribe tu pregunta en lenguaje natural
 -   Sube foto de tu tarea o ejercicio
 -   No necesitas formateo especial
 -   **Usa el micrófono** para dictar tu duda
--   Lucy entiende escritura a mano
+-   MIA en
+### 2. 🔍 **MIA Analiza**
 
-### 2. 🔍 **Lucy Analiza**
 
--   Identifica el tema y nivel académico
--   Detecta conceptos clave involucrados
 -   Evalúa tu nivel de comprensión actual
 -   Prepara explicación personalizada
 :::
@@ -230,9 +259,7 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 -   Desglose paso a paso del problema
 -   Explicación de conceptos fundamentales
 -   Ejemplos adicionales similares
--   Conexión con temas relacionados
-
-### 4. ✅ **Verificación de Comprensión**
+- xo
 
 -   Preguntas para confirmar entendimiento
 -   Ejercicios de práctica sugeridos
@@ -246,7 +273,7 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 :::
 
 ::: footer
-Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
+MIA - Asistente Inteligente Multimodal 🤖✨
 :::
 
 ## Ventajas de Tener Tu Tutor IA 🚀 {auto-animate="true"}
@@ -264,7 +291,6 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 
 -   Estudia cuando quieras, donde quieras
 -   Sin horarios fijos ni citas
--   Pausa y retoma cuando necesites
 -   Se adapta a tu horario escolar
 :::
 
@@ -290,7 +316,7 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 :::
 
 ::: footer
-Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
+MIA - Asistente Inteligente Multimodal 🤖✨
 :::
 
 ## Capacidades Técnicas Avanzadas 💻 {auto-animate="true"}
@@ -309,7 +335,6 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 :::
 
 ### Memoria Contextual 🧠
-
 ::: {auto-animate="true"}
 -   **Progreso Personal**: Recuerda tu nivel en cada materia
 -   **Conversaciones Anteriores**: Conecta temas relacionados
@@ -332,7 +357,7 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 ::::::
 
 ::: footer
-Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
+MIA - Asistente Inteligente Multimodal 🤖✨
 :::
 
 <!-- ## Guía de Implementación 🛠️ -->
@@ -351,8 +376,7 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 <!-- 4. Personalizar para necesidades curriculares -->
 
 <!-- # Pasos de Integración: -->
-<!-- - Integración LMS (Canvas, Blackboard) -->
-<!-- - Configuración Single Sign-On (SSO) -->
+<!-- - ugn
 <!-- - Marca personalizada y temas -->
 <!-- - Configuración dashboard analítico -->
 <!-- ``` -->
@@ -393,38 +417,34 @@ library(ggplot2)
 # Crear datos de evaluación de impacto
 impact_data <- data.frame(
   Categoria = c("Calificaciones", "Comprensión", "Confianza", "Autonomía", "Motivación"),
-  Antes_Lucy = c(6.2, 6.1, 5.8, 5.9, 6.0),
-  Despues_Lucy = c(8.6, 8.4, 8.5, 8.3, 8.2)
+  Antes_MIA = c(6.2, 6.1, 5.8, 5.9, 6.0),
+  Despues_MIA = c(8.6, 8.4, 8.5, 8.3, 8.2)
 )
 
 # Reestructurar datos
 impact_long <- data.frame(
   Categoria = rep(impact_data$Categoria, 2),
-  Periodo = c(rep("Antes de Lucy", 5), rep("Con Lucy", 5)),
-  Puntuacion = c(impact_data$Antes_Lucy, impact_data$Despues_Lucy)
+  Periodo = c(rep("Antes de MIA", 5), rep("Con MIA", 5)),
+  Puntuacion = c(impact_data$Antes_MIA, impact_data$Despues_MIA)
 )
 
 ggplot(impact_long, aes(x = Categoria, y = Puntuacion, fill = Periodo)) +
   geom_col(position = "dodge", alpha = 0.8, width = 0.7) +
   coord_flip() +
   labs(title = "Mejora del Rendimiento Académico",
-       subtitle = "Resultados de estudiantes usando Lucy (Escala: 1-10)",
+       subtitle = "Resultados de estudiantes usando MIA (Escala: 1-10)",
        x = "", y = "Puntuación Promedio") +
   theme_minimal() +
-  scale_fill_manual(values = c("Antes de Lucy" = "#FF6B6B", "Con Lucy" = "#4ECDC4")) +
+  scale_fill_manual(values = c("Antes de MIA" = "#FF6B6B", "Con MIA" = "#4ECDC4")) +
   theme(plot.title = element_text(face = "bold", hjust = 0.5, size = 12),
         plot.subtitle = element_text(hjust = 0.5, size = 10),
-        text = element_text(size = 10)) +
-  scale_y_continuous(limits = c(0, 10), breaks = seq(0, 10, 2))
-```
+        
 
 ::: {.fragment auto-animate="true" style="font-size: 0.8em"}
 ### 🎯 Mejoras Destacadas
 
 -   **💯 39% mejor** en calificaciones promedio
--   **🧠 37% más** comprensión de conceptos\
--   **💪 47% mayor** confianza académica
--   **🎯 40% más** autonomía en el estudio
+-   **🧠 37% más** comprensión de concepto
 -   **⚡ 37% mayor** motivación por aprender
 :::
 
@@ -432,65 +452,57 @@ ggplot(impact_long, aes(x = Categoria, y = Puntuacion, fill = Periodo)) +
 Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 :::
 
-## Testimonios de Estudiantes 🗣️ {auto-animate="true" style="font-size: 0.8em"}
-
+## Testimonios de Estudiantes 🗣️ {auto-animate
 ::::: {.columns style="font-size: 0.75em"}
 ::: {.column width="50%" auto-animate="true"}
-> *"Antes odiaba matemáticas. Ahora con Lucy entiendo todo paso a paso. ¡Subí de 5 a 9 en mi boletín!"*
->
+> *"Antes odiab
 > **- Sofía, 15 años, Bachillerato**
 
-> *"Lucy me ayudó con química orgánica cuando nadie más podía. Explica tan claro que parece fácil."*
+> *"MIA me ayudó con química orgánica cuando nadie más podía. Explica tan claro que parece fácil."*
 >
 > **- Miguel, 17 años, Preparatoria**
 
-> *"Mi inglés mejoró muchísimo. Lucy corrige mis ensayos y explica por qué cada error está mal."*
+> *"Mi inglés mejoró muchísimo. MIA corrige mis ensayos y explica por qué cada error está mal."*
 >
 > **- Carla, 16 años, Secundaria**
 :::
 
 ::: {.column width="50%" auto-animate="true"}
-> *"Trabajo de noche y estudio de día. Lucy está siempre disponible cuando puedo estudiar."*
+> *"Trabajo de noche y estudio de día. MIA está siempre disponible cuando puedo estudiar."*
 >
 > **- Roberto, 19 años, Universidad**
 
-> *"Para mi tesis de biología, Lucy analizó mis fotos de laboratorio mejor que algunos profesores."*
+> *"Para mi tesis de biología, MIA analizó mis fotos de laboratorio mejor que algunos profesores."*
 >
 > **- Patricia, 22 años, Licenciatura**
 
-> *"Mis padres están felices porque ya no necesito tutor presencial. Lucy es mejor y más barata."*
+> *"Mis padres están felices porque ya no necesito tutor presencial. MIA es mejor y más barata."*
 >
 > **- Andrés, 14 años, Secundaria**
 :::
 :::::
 
-::: footer
-Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
+MIA - Asistente Inteligente Multimodal 🤖✨
 :::
 
-## Cómo Empezar con Lucy Hoy 🚀 {auto-animate="true" style="font-size: 0.8em"}
-
+## C
 ::::: {.columns style="font-size: 0.8em"}
 ::: {.column width="60%" auto-animate="true"}
 ### 📱 **Pasos Súper Fáciles** {style="font-size: 0.85em"}
-
-1.  **Crear Cuenta** → Solo email y contraseña
+* y contraseña
 2.  **Subir Primera Tarea** → Foto o texto de tu duda
 3.  **Recibir Ayuda** → Explicación personalizada inmediata
-4.  **Seguir Practicando** → Lucy recuerda tu progreso
+4.  **Seguir Practicando** → MIA recuerda tu progreso
 
-### 💻 **Dispositivos Compatibles** {style="font-size: 0.85em"}
-
+### 💻 **Dispositivos Compatibles** {style="f
 -   🖥️ Computadora (Windows/Mac/Linux)
 -   📱 Celular (Android/iPhone)
 -   📟 Tablet (iPad/Android)
 -   🌐 Cualquier navegador web
 :::
-
 ::: {.column width="40%" auto-animate="true"}
 ### 🎯 **Para Estudiantes** {style="font-size: 0.85em"}
 
--   ✅ Cuenta gratuita básica
 -   ✅ 10 consultas diarias
 -   ✅ Análisis de imágenes
 -   ✅ Chat persistente
@@ -498,22 +510,19 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 ### 👨‍👩‍👧‍👦 **Para Familias** {style="font-size: 0.85em"}
 
 -   ✅ Múltiples cuentas
--   ✅ Seguimiento parental
 -   ✅ Reportes de progreso
 -   ✅ Soporte 24/7
 :::
 :::::
-
 ::: {.fragment auto-animate="true" style="font-size: 0.9em"}
 ### 🎁 **¡Prueba GRATIS por 30 días!**
 :::
 
 ::: footer
-Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
+MIA - Asistente Inteligente Multimodal 🤖✨
 :::
 
-## El Futuro del Aprendizaje 🔮 {auto-animate="true"}
-
+## El Futuro del Aprendizajea
 ::::: columns
 ::: {.column width="50%" auto-animate="true"}
 ### 🆕 **Próximas Funciones**
@@ -545,10 +554,9 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 
 ### 🚀 **¡El Cambio Empieza Contigo!** {style="font-size: 0.85em"}
 :::
-:::::
 
 ::: footer
-Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
+MIA - Asistente Inteligente Multimodal 🤖✨
 :::
 
 ## ¡Tu Éxito Académico Comienza Ahora! 📢 {.center auto-animate="true" style="font-size: 0.8em"}
@@ -561,7 +569,7 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 ::: {.column width="50%" auto-animate="true"}
 ### 🎓 **Para Estudiantes** {style="font-size: 0.85em"}
 
-🚀 **Comienza Tu Transformación Académica** - [**Crear Cuenta Gratis**](mailto:alexis.m.roldan.ds@gmail.com?subject=Lucy%20AI%20Student%20Account) - [**Ver Demo en Vivo**](https://github.com/roldanalex/Personal-Assistant-AI) - [**Unirse a Comunidad Estudiantil**](mailto:alexis.m.roldan.ds@gmail.com?subject=Student%20Community)
+🚀 **Comienza Tu Transformación Académica** - **Crear Cuenta Gratis** - **Ver Demo en Vivo** - **Unirse a Comunidad Estudiantil**
 
 ### 👨‍👩‍👧‍👦 **Para Padres** {style="font-size: 0.85em"}
 
@@ -585,7 +593,6 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 
 ## ¡Comienza Tu Transformación Educativa Hoy! 🌟 {.center auto-animate="true" style="font-size: 0.8em"}
 
-::: {.r-fit-text auto-animate="true" style="font-size: 0.8em"}
 **Lucy AI - Donde la Educación Se Encuentra con el Futuro**
 :::
 
@@ -598,8 +605,7 @@ Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
 ### 🎯 **Próximos Pasos** {style="font-size: 0.85em"}
 
 1.  **📝 Regístrate** → Cuenta gratuita en minutos
-2.  **🎮 Explora** → Tutorial interactivo incluido\
-3.  **📚 Aprende** → Primera sesión de tutoría gratis
+
 4.  **🏆 Destaca** → Mejora tus notas en 30 días
 :::
 

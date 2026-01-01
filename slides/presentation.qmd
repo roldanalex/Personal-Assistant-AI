@@ -1,5 +1,5 @@
 ---
-title: "Lucy - Advanced AI Assistant Platform"
+title: "MIA - Multimodal Intelligent Assistant"
 subtitle: "Multimodal AI Chatbot with Image Analysis & Persistent Context"
 author: "Alexis Roldan"
 date: "`r Sys.Date()`"
@@ -10,7 +10,7 @@ format:
     chalkboard: true
     preview-links: auto
     css: styles.css
-    footer: "Lucy AI Assistant - Advanced Multimodal AI for Education & Beyond"
+    footer: "MIA - Multimodal Intelligent Assistant"
     transition: slide
     background-transition: fade
     highlight-style: github
@@ -18,12 +18,12 @@ format:
     code-summary: "Show Code"
 ---
 
-## Welcome to Lucy 🤖✨ {.center}
+## Welcome to MIA 🤖✨ {.center}
 
 ::: {.columns}
 
 ::: {.column width="45%"}
-![](../figs/Lucy-AI-Assistant-Web.png){fig-align="center" width="100%"}
+!{fig-align="center" width="100%"}
 :::
 
 ::: {.column width="55%"}
@@ -37,6 +37,52 @@ format:
 - **📱 Mobile Ready** - All devices supported
 :::
 
+:::
+
+## How MIA Works - Your Question's Journey 🔄 {auto-animate="true"}
+
+```{mermaid}
+%%| fig-width: 12
+%%| fig-height: 7
+flowchart TD
+    A[👤 YOU: Ask a Question] --> B{How?}
+    B -->|💬 Text| C[Type Your Question]
+    B -->|🎤 Voice| D[Speak Your Question]
+    B -->|📸 Image| E[Upload Photo/Document]
+    
+    C --> F[🧠 MIA THINKS]
+    D --> F
+    E --> F
+    
+    F --> G{Need Current Info?}
+    G -->|Yes| H[🌐 Search the Web]
+    G -->|No| I[📚 Use AI Brain]
+    
+    H --> J[📊 Gather Latest Data]
+    J --> I
+    
+    I --> K[💡 Understand & Analyze]
+    K --> L[✍️ Create Helpful Answer]
+    L --> M[💬 Show You the Answer]
+    
+    M --> N[💾 Auto-Save to History]
+    N --> O{What Now?}
+    
+    O -->|Keep Going| P[💬 Ask Follow-up]
+    O -->|Done| Q[📥 Download Chat]
+    O -->|Switch Topics| R[🆕 Start New Chat]
+    
+    P --> F
+    
+    style A fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style F fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+    style I fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+    style M fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style Q fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+```
+
+::: notes
+This is the simple journey every question takes - from your mind to MIA's brain and back with a helpful answer!
 :::
 
 ## Revolutionary Features 🚀
@@ -91,8 +137,8 @@ learning_data <- data.frame(
 )
 
 ggplot(learning_data, aes(x = interaction)) +
-  geom_line(aes(y = understanding, color = "Student Understanding"), size = 2) +
-  geom_line(aes(y = context_retention, color = "AI Context Retention"), size = 2) +
+  geom_line(aes(y = understanding, color = "Student Understanding"), linewidth = 2) +
+  geom_line(aes(y = context_retention, color = "AI Context Retention"), linewidth = 2) +
   geom_point(aes(y = understanding, color = "Student Understanding"), size = 3) +
   geom_point(aes(y = context_retention, color = "AI Context Retention"), size = 3) +
   labs(title = "Learning Progression with Persistent Context",
@@ -109,67 +155,110 @@ ggplot(learning_data, aes(x = interaction)) +
 
 ## Educational Use Cases 📚
 
-## New Multimodal Features (2025)
-
-- **Speech-to-Text**: Click the microphone to dictate questions. The app uses browser speech recognition and appends transcriptions to the chat for editing.
-- **Camera / Multi-Image Upload**: Upload multiple photos (or capture on mobile). Lucy analyzes image sets together and references image metadata when helpful.
-- **Document Ingestion**: Upload PDF, DOCX, XLSX/XLS and CSV files. Text is extracted from documents and Excel sheets are flattened into CSV-like text for the model.
-- **Preview & Metadata**: Images are previewed with filename, size and dimensions; documents show compact previews so users confirm attachments.
-
-These improvements make Lucy better at real homework workflows: photos of problems, supporting documents, and spoken questions.
-
-## Configuration & Admin Tools
-
-- **Admin Env-Var Checker**: The app validates required environment variables at startup and shows a clear banner and admin notification when configuration is incomplete.
-- **Safe Web Lookup Tool**: Lucy can perform controlled web lookups via a registered `perform_google_search` tool using Google Custom Search (requires `google_search_api_key` and `google_search_engine_id`).
-- **Quick Test Script**: Run `Rscript scripts/check_google_search.R` from the project root to verify Google CSE credentials and connectivity before using web lookups.
-
-## Web-Search Results (Example)
-
-**How results appear to users:**
-
-- **Title**: Example Article Title
-- **Link**: https://example.com/article
-- **Snippet**: Short summary or excerpt (1-2 lines) showing relevance to the query.
-
----
-
-**Example prompts**
-
-- User (end-user): "Search the web for recent studies on active learning in high school math and summarize the top findings."
-- Developer (programmatic): `perform_google_search(query = "active learning high school math", n = 3)`
-
-Note: web lookups are performed under strict controls — results are returned as plain text (title, link, snippet) and are used to augment the model context, not for browsing arbitrary sites.
+## Real People, Real Benefits 🌟 {auto-animate="true"}
 
 ::: {.panel-tabset}
 
-### K-12 Education
-**Elementary & Middle School:**
-- **📐 Math Problem Solving**: Upload worksheet images for guided solutions
-- **🔤 Reading Comprehension**: Analyze text passages and images
-- **🌱 Science Experiments**: Upload lab photos for analysis
-- **🎨 Art Projects**: Get creative feedback and techniques
+### 👩‍👧 Busy Parents
 
-**High School:**
-- **🧪 Chemistry**: Analyze molecular structures and reactions
-- **📊 Statistics**: Upload graphs and data for interpretation
-- **📝 Essay Writing**: Get structured feedback and improvements
-- **🌍 History**: Analyze historical documents and images
+**Meet Sarah - Working Mom of Two**
 
-### Higher Education
-**University & College:**
-- **🔬 Research Projects**: Analyze complex data and imagery
-- **📋 Thesis Support**: Literature review and methodology guidance
-- **💻 Programming Help**: Debug code with visual error analysis
-- **📈 Data Science**: Statistical analysis and visualization support
+**Her Daily Challenges:**
+- ⏰ Limited time after work
+- 📚 Kids need homework help
+- 🤔 Parenting questions arise
+- 👶 Baby keeps her hands full
 
-### Professional Development
-**Teachers & Educators:**
-- **📖 Curriculum Development**: Create engaging lesson plans
-- **📊 Assessment Design**: Develop effective evaluation methods
-- **🎯 Student Analytics**: Understand learning patterns
-- **💡 Innovation**: Integrate AI tools in education
+**How MIA Helps:**
+- 🎤 **Voice Questions**: Ask while cooking or feeding baby
+- 👩‍👧 **Mother Assistant Mode**: Specialized parenting advice
+- 💾 **Save Conversations**: Download sleep schedules and discipline tips
+- 📸 **Photo Homework**: Snap kids' worksheets, get explanations
 
+**Real Examples:**
+- "My 5-year-old won't eat vegetables - what should I try?"
+- *Photo of math problem*: "Help me explain this to my 3rd grader"
+- "Safe activities for a rainy day with toddlers?"
+- "How do I prepare my child for starting school?"
+
+**Time Saved:** 2-3 hours per week + less stress!
+
+### 🎓 Students
+
+**Meet Alex - High School Junior**
+
+**The Struggle:**
+- 📚 Overwhelmed by homework
+- ⏰ Late-night study sessions
+- 🤔 Teacher not always available
+- 📋 Multiple subjects to juggle
+
+**How MIA Helps:**
+- 📸 **Photo Upload**: Snap textbook problems
+- 💬 **Step-by-Step Help**: Learn, don't just get answers
+- 💾 **Download Sessions**: Review before exams
+- 🌐 **Current Info**: Get latest data for projects
+
+**Real Examples:**
+- *Photo*: "Explain this chemistry equation step by step"
+- "I don't understand photosynthesis - explain it simply"
+- *Excel file*: "Help me analyze this data for my project"
+- "Quiz me on Spanish verbs"
+
+**Results:** Better grades + actual understanding + less anxiety!
+
+### 👩‍🏫 Teachers
+
+**Meet Mr. Johnson - 7th Grade Science Teacher**
+
+**The Challenge:**
+- 📋 150+ students with varied needs
+- ⏰ Limited one-on-one time
+- 📝i Lesson planning takes hours
+- 🔄 Students need different explanations
+
+**How MIA Helps:**
+- 📚 **Create Materials**: Generate lesson plans and worksheets
+- 🎯 **Example Generator**: Create practice problems
+- 👥 **Recommend to Students**: 24/7 homework help
+- 💾 **Share Solutions**: Download and post common questions
+
+**Real Examples:**
+- "Create a lesson plan for teaching fractions to visual learners"
+- "Generate 10 practice problems about ecosystems"
+- "Explain DNA replication three different ways"
+- "What are common misconceptions about gravity?"
+
+**Impact:** More engaging classes + happier students + time for family!
+
+### 💼 Professionals
+
+**Meet Lisa - Small Business Owner**
+
+**Daily Tasks:**
+- 📊 Analyze sales data
+- 📝 Write reports and emails
+- 🤝 Make business decisions
+- 📚 Stay updated on trends
+
+**How MIA Helps:**
+- 📊 **Data Analysis**: Upload Excel files for insights
+- 📝 **Writing Help**: Polish emails and proposals
+- 🌐 **Market Research**: Get current industry info
+- 💡 **Problem Solving**: Brainstorm solutions
+
+**Real Examples:**
+- *Excel upload*: "What are my top-selling products this quarter?"
+- "Draft a professional email to a difficult client"
+- "Current social media marketing strategies for small businesses"
+- "How do I improve customer retention?"
+
+**Results:** Better decisions + saved consulting fees + business growth!
+
+:::
+
+::: notes
+These are real scenarios where MIA saves time, reduces stress, and improves outcomes!
 :::
 
 ## Technical Architecture 🏗️
@@ -236,7 +325,7 @@ flowchart TB
 
 ### Scenario 2: Science Lab Analysis
 **Student uploads**: Microscope images
-**Lucy provides**:
+**MIA provides**:
 - Detailed specimen identification
 - Biological process explanations
 - Connection to course concepts
@@ -246,7 +335,7 @@ flowchart TB
 ::: {.column width="50%"}
 ### Scenario 3: Language Learning
 **Student uploads**: Foreign text or signs
-**Lucy provides**:
+**MIA provides**:
 - Accurate translation
 - Cultural context
 - Grammar explanations
@@ -254,7 +343,7 @@ flowchart TB
 
 ### Scenario 4: Art & Design Feedback
 **Student uploads**: Creative artwork
-**Lucy provides**:
+**MIA provides**:
 - Technical analysis
 - Style identification
 - Improvement suggestions
@@ -357,7 +446,7 @@ impact_data <- data.frame(
 # Reshape manually to avoid tidyr dependency issues
 impact_long <- data.frame(
   Category = rep(impact_data$Category, 2),
-  Period = c(rep("Before Lucy", 5), rep("After Lucy", 5)),
+  Period = c(rep("Before MIA", 5), rep("After MIA", 5)),
   Score = c(impact_data$Before_Lucy, impact_data$After_Lucy)
 )
 
@@ -368,7 +457,7 @@ ggplot(impact_long, aes(x = Category, y = Score, fill = Period)) +
        subtitle = "Student Learning Outcomes (Scale: 1-5)",
        x = "", y = "Average Score") +
   theme_minimal() +
-  scale_fill_manual(values = c("Before Lucy" = "#FF6B6B", "After Lucy" = "#4ECDC4")) +
+  scale_fill_manual(values = c("Before MIA" = "#FF6B6B", "After MIA" = "#4ECDC4")) +
   theme(plot.title = element_text(face = "bold", hjust = 0.5),
         plot.subtitle = element_text(hjust = 0.5))
 ```
