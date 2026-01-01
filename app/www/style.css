@@ -12,9 +12,66 @@
   display: none !important;
 }
 
+/* Fix sidebar position - use correct bslib structure */
+.bslib-page-sidebar aside.sidebar,
+.bslib-sidebar-layout aside.sidebar,
+aside[role="complementary"] {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  height: 100vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  z-index: 999 !important;
+  width: 250px !important;
+}
+
+/* Main content area adjustments */
+.bslib-page-sidebar > .main,
+.bslib-sidebar-layout > .main,
+main[role="main"] {
+  margin-left: 0 !important;
+  transition: margin-left 0.3s ease;
+  min-height: 100vh;
+}
+
+/* When sidebar is open (not collapsed) - add margin to main */
+body:not(.sidebar-collapsed) .bslib-page-sidebar > .main,
+body:not(.sidebar-collapsed) main[role="main"] {
+  margin-left: 250px !important;
+}
+
+/* Ensure sidebar toggle works */
+.sidebar-toggle {
+  z-index: 1001 !important;
+}
+
+/* Ensure sidebar collapses properly on mobile */
+@media (max-width: 768px) {
+  .bslib-page-sidebar aside.sidebar,
+  aside[role="complementary"] {
+    width: 200px !important;
+  }
+  body:not(.sidebar-collapsed) .bslib-page-sidebar > .main,
+  body:not(.sidebar-collapsed) main[role="main"] {
+    margin-left: 200px !important;
+  }
+}
+
 /* ========================================
    AUTHENTICATION PANEL & OVERLAY
    ======================================== */
+
+/* Force Inter font on app title */
+.bslib-page-title,
+.navbar-brand,
+header .navbar-brand span,
+[data-bs-theme] .navbar-brand span {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
 
 #auth-panel {
   position: fixed;
@@ -25,21 +82,59 @@
   background: rgba(50, 50, 60, 0.94);
   z-index: 99999;
   color: white;
-  display: flex;
+  display: none; /* Hidden by default to prevent flash */
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
+}
+
+#auth-panel.visible {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
 }
 
 #welcome-panel {
-  max-width: 360px;
+  max-width: 420px;
   width: 90vw;
   margin-bottom: 18px;
   text-align: center;
 }
 
+#welcome-panel h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+#welcome-panel p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
 .welcome-logo {
   margin-bottom: 10px;
+}
+
+/* Login form styling */
+#auth-panel .form-group {
+  margin-bottom: 20px;
+}
+
+#auth-panel .form-control {
+  height: 50px;
+  font-size: 1.1rem;
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+#auth-panel .btn {
+  height: 50px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border-radius: 8px;
+  margin-top: 10px;
 }
 
 /* Authentication links styling */

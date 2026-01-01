@@ -66,19 +66,15 @@ function(input, output, session) {
     }
   })
 
-  # Toggle UI panels based on login state
-  observe({
-    cat("Login state changed. Logged in:", user_auth$logged_in, "\n")
+  # Render Main UI based on login state
+  output$main_view <- renderUI({
     if (user_auth$logged_in) {
-      cat("Showing main panels...\n")
-      shinyjs::hide("auth-panel")
-      shinyjs::removeClass("main-sidebar", "sidebar-hidden")
-      shinyjs::removeClass("main-content-panel", "content-hidden")
+      # User is logged in, keep auth panel hidden
+      chat_ui_view()
     } else {
-      cat("Hiding main panels...\n")
-      shinyjs::show("auth-panel")
-      shinyjs::addClass("main-sidebar", "sidebar-hidden")
-      shinyjs::addClass("main-content-panel", "content-hidden")
+      # Show auth panel when not logged in
+      runjs("$('#auth-panel').addClass('visible');")
+      login_ui_view()
     }
   })
 
@@ -86,8 +82,8 @@ function(input, output, session) {
   observeEvent(input$log_out, {
     user_auth$logged_in <- FALSE
     user_auth$user <- NULL
-    shinyjs::show("auth-panel")
-    shinyjs::hide("main-app-panel")
+    # Show auth panel again
+    runjs("$('#auth-panel').addClass('visible');")
   })
 
   output$current_user <- renderUI({
@@ -131,14 +127,6 @@ function(input, output, session) {
   chat_obj <- reactiveVal()
   current_images <- reactiveVal(NULL)
   conversation_history <- reactiveValues(messages = list())
-
-  # THEME OBSERVE
-  observeEvent(input$current_theme, {
-    req(user_auth$logged_in)
-    session$setCurrentTheme(
-      bs_theme_update(my_theme, bootswatch = input$current_theme)
-    )
-  }, ignoreInit = TRUE)
 
   observeEvent(input$uploaded_image, {
     req(user_auth$logged_in, input$uploaded_image)
@@ -199,32 +187,6 @@ function(input, output, session) {
     )
   })
 
-  # MAIN CHAT INIT: On login or model/task change, always safely (re-)init chat and greeting
-  observeEvent(user_auth$logged_in, {
-    req(user_auth$logged_in)
-
-    # Initialize with default values if inputs not ready
-    model_val <- if(!is.null(input$model)) input$model else "gpt-5-mini"
-    task_val <- if(!is.null(input$task)) input$task else "general"
-
-    chat <- ellmer::chat_openai(
-      model = model_val,
-      system_prompt = get_system_prompt(task_val)
-    )
-    chat$register_tool(tool_google_search)
-    chat_obj(chat)
-
-    chat_clear("chat")
-    chat_append("chat", list(
-      list(
-        role = " ",
-        content = "Hi, I'm Lucy, your personal chatbot. How can I help you today?\n\nNote: I may perform controlled web searches to fetch up-to-date information when needed; results include title, link, and short snippet."
-      )
-    ))
-    current_images(NULL)
-    session$sendCustomMessage("resetFileInput", "uploaded_image")
-  }, ignoreInit = TRUE)
-
   # Update chat when model or task changes (after login)
   observeEvent(
     { list(input$model, input$task) },
@@ -240,17 +202,19 @@ function(input, output, session) {
       chat_obj(chat)
 
       chat_clear("chat")
-      chat_append("chat", list(
-        list(
-          role = " ",
-          content = "Hi, I'm Lucy, your personal chatbot. How can I help you today?\n\nNote: I may perform controlled web searches to fetch up-to-date information when needed; results include title, link, and short snippet."
-        )
-      ))
+      # Add delay to ensure UI is fully rendered before appending greeting
+      shinyjs::delay(250, {
+        chat_append("chat", list(
+          list(
+            role = " ",
+            content = "Hi, I'm MIA, your personal AI assistant. How can I help you today?\n\nNote: I may perform controlled web searches to fetch up-to-date information when needed; results include title, link, and short snippet."
+          )
+        ))
+      })
       current_images(NULL)
       session$sendCustomMessage("resetFileInput", "uploaded_image")
-    },
-    ignoreInit = TRUE
-  )
+    }
+  ) # Removed ignoreInit=TRUE so this runs once when UI loads
 
   # CHAT SUBMISSION: Only send when everything is truly ready
   observeEvent(input$chat_user_input, {
@@ -265,14 +229,14 @@ function(input, output, session) {
     imgs <- current_images()
     
     # Reset status
-    output$chat_status <- renderUI({ NULL })
+    shinyjs::html("chat_status", "")
 
     # Only manually append user message if there are images
     # shinychat handles text-only messages automatically
     if (!is.null(imgs) && nrow(imgs) > 0) {
       # Show notification while processing files
       showNotification("Analyzing attached files...", duration = 3, type = "message")
-      output$chat_status <- renderUI({ tags$span(icon("layer-group"), " Processing attachments...") })
+      shinyjs::html("chat_status", as.character(tags$span(icon("layer-group"), " Processing attachments...")))
 
       # Prepare user message content with images and text
       user_content_elements <- list()
@@ -383,7 +347,7 @@ function(input, output, session) {
     )
     
     # Update status for thinking phase
-    output$chat_status <- renderUI({ tags$span(icon("brain"), " Generating response...") })
+    shinyjs::html("chat_status", as.character(tags$span(icon("brain"), " Generating response...")))
 
     # Send to AI and get response stream
     # Accumulate response for history
@@ -417,33 +381,41 @@ function(input, output, session) {
         
         if (had_error) break
       }
+      
+      # --- STREAM COMPLETED ---
+      cat("Stream complete. Response length:", nchar(current_response), "\n")
     })
     
     chat_append("chat", wrapped_stream())
     
-    # Timer to add assistant response to history after streaming completes
-    later::later(function() {
+    # 2. Save assistant response to history after 40 seconds
+    observe({
+      # Wait 40 seconds to ensure full response is captured
+      invalidateLater(40000, session)
+      
       if (nchar(current_response) > 0) {
-        cat("Adding assistant response to history. Length:", nchar(current_response), "\n")
+        cat("Saving assistant response to history. Length:", nchar(current_response), "\n")
         isolate({
           conversation_history$messages <- append(
             conversation_history$messages,
             list(list(role = "assistant", content = current_response))
           )
         })
-        cat("History updated. Total messages:", length(isolate(conversation_history$messages)), "\n")
+        cat("Assistant response saved. Total messages:", length(isolate(conversation_history$messages)), "\n")
       }
-    }, delay = 35)
-
+    })
+    
+    # 3. Clear Status & Enable Download after delay (outside async generator)
+    # Capture session reference for use in later callback
+    current_session <- session
+    later::later(function() {
+      cat("Timer expired - clearing status and enabling download\n")
+      current_session$sendCustomMessage("clearChatStatus", list())
+      current_session$sendCustomMessage("enableDownloadButton", list())
+    }, delay = 40)
     # DON'T reset images after sending - keep them until new chat
     # Images should persist so user can ask follow-up questions about them
     cat("Images retained for follow-up questions\n")
-    
-    # Re-enable download and clear status after delay (35s)
-    delay(35000, {
-      output$chat_status <- renderUI({ NULL })
-      shinyjs::enable("download_chat")
-    })
   })
 
   # NEW CHAT BUTTON
@@ -463,7 +435,7 @@ function(input, output, session) {
     chat_append("chat", list(
       list(
         role = " ",
-        content = "Hi, I'm Lucy, your personal chatbot. How can I help you today?"
+        content = "Hi, I'm MIA, your personal AI assistant. How can I help you today?\n\nNote: I may perform controlled web searches to fetch up-to-date information when needed; results include title, link, and short snippet."
       )
     ))
     # Reset images and conversation history when starting new chat
@@ -480,23 +452,32 @@ function(input, output, session) {
   # DOWNLOAD CHAT HISTORY
   output$download_chat <- downloadHandler(
     filename = function() {
-      paste("lucy-chat-history-", format(Sys.time(), "%Y%m%d-%H%M"), ".html", sep = "")
+      paste("mia-chat-history-", format(Sys.time(), "%Y%m%d-%H%M"), ".html", sep = "")
     },
     content = function(file) {
       tryCatch({
         cat("Starting download handler...\n")
         
+        # Add small delay to ensure history is fully updated
+        Sys.sleep(0.5)
+        
         # Get conversation history from manually tracked messages
         messages <- isolate(conversation_history$messages)
         cat("Number of messages in history:", length(messages), "\n")
+        
+        # Debug: print all messages
+        for (i in seq_along(messages)) {
+          msg <- messages[[i]]
+          cat("Message", i, "- Role:", msg$role, "Content length:", nchar(msg$content), "\n")
+        }
         
         # If no messages yet, just create a simple message
         if (length(messages) == 0) {
           cat("No conversation history yet - creating info page\n")
           writeLines(paste0(
-            "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Lucy Chat History</title></head><body>",
+            "<!DOCTYPE html><html><head><meta charset='utf-8'><title>MIA Chat History</title></head><body>",
             "<div style='text-align: center; margin-top: 100px; font-family: system-ui;'>",
-            "<h1>🤖 Lucy Chat History</h1>",
+            "<h1>🤖 MIA Chat History</h1>",
             "<p style='color: #666;'>No messages yet. Start a conversation and try again!</p>",
             "<p style='color: #999; font-size: 0.9em;'>Exported on ", format(Sys.time(), "%B %d, %Y at %H:%M"), "</p>",
             "</div></body></html>"
@@ -510,7 +491,7 @@ function(input, output, session) {
           "<html><head>\n",
           "<meta charset='utf-8'>\n",
           "<meta name='viewport' content='width=device-width, initial-scale=1'>\n",
-          "<title>Lucy Chat History</title>\n",
+          "<title>MIA Chat History</title>\n",
           "<style>\n",
           "body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; color: #333; }\n",
           ".chat-container { display: flex; flex-direction: column; gap: 15px; }\n",
@@ -526,7 +507,7 @@ function(input, output, session) {
           "</style>\n",
           "</head><body>\n",
           "<div style='text-align: center; margin-bottom: 30px;'>\n",
-          "<h1>🤖 Lucy Chat History</h1>\n",
+          "<h1>🤖 MIA Chat History</h1>\n",
           "<p>Exported on ", format(Sys.time(), "%B %d, %Y at %H:%M"), "</p>\n",
           "</div>\n",
           "<div class='chat-container'>\n"
@@ -552,7 +533,7 @@ function(input, output, session) {
             }
             
             role_cls <- if (role == "user") "user" else "assistant"
-            role_name <- if (role == "user") "You" else "Lucy"
+            role_name <- if (role == "user") "You" else "MIA"
             
             cat("Content length:", nchar(content), "\n")
             

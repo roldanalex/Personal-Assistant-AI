@@ -1,14 +1,31 @@
 # Load required libraries for this file
 library(bslib)
 
+# Force light theme as default
 my_theme <- bs_theme(
-  bootswatch = "darkly",
+  bootswatch = "zephyr",
+  bg = "#ffffff",
+  fg = "#000000",
+  primary = "#dc3545",
   heading_font = font_google("Lobster"),
   base_font = font_collection(
     font_google("Roboto Slab"), font_google("Merriweather")
   ),
   code_font = font_google("Inconsolata")
 )
+# my_theme <- bs_theme(
+#   bg = "#e5e5e5", fg = "#0d0c0c", primary = "#dd2020",
+#   base_font = font_google("Press Start 2P"),
+#   code_font = font_google("Press Start 2P"),
+#   "font-size-base" = "0.75rem", "enable-rounded" = FALSE
+# )
+  # bs_add_rules(
+  #   list(
+  #     sass::sass_file("nes.min.css"),
+  #     sass::sass_file("custom.scss"),
+  #     "body { background-color: $body-bg; }"
+  #   )
+  # )
 
 get_system_prompt <- function(task) {
   # Safety: fallback prompt
@@ -51,11 +68,11 @@ get_system_prompt <- function(task) {
     } else {
       # Fallback prompts if files don't exist
       fallback_prompts <- list(
-        general = "You are Lucy, a helpful AI learning assistant. Respond in a friendly, professional tone and help users learn effectively.",
-        r_code = "You are Lucy, an expert R programming mentor. Provide clear, well-commented R code with explanations.",
-        python_code = "You are Lucy, an expert Python programming mentor. Provide clean, Pythonic code with detailed explanations.",
-        sql_code = "You are Lucy, an expert SQL database consultant. Provide efficient, well-formatted SQL queries with explanations.",
-        agente_primaria = "Eres Lucy, un asistente educativo especializado en educación primaria peruana. Ayuda con todas las áreas curriculares siguiendo el Currículo Nacional del Perú.",
+        general = "You are MIA, a helpful AI learning assistant. Respond in a friendly, professional tone and help users learn effectively.",
+        r_code = "You are MIA, an expert R programming mentor. Provide clear, well-commented R code with explanations.",
+        python_code = "You are MIA, an expert Python programming mentor. Provide clean, Pythonic code with detailed explanations.",
+        sql_code = "You are MIA, an expert SQL database consultant. Provide efficient, well-formatted SQL queries with explanations.",
+        agente_primaria = "Eres MIA, un asistente educativo especializado en educación primaria peruana. Ayuda con todas las áreas curriculares siguiendo el Currículo Nacional del Perú.",
         pre_universitario = "Eres un tutor experto en preparación pre-universitaria (UNI/San Marcos). Explica paso a paso.",
         asistente_mype = "Eres un consultor de negocios para MYPEs peruanas. Da consejos prácticos.",
         tramites_peru = "Eres un guía de trámites peruanos (SUNAT, RENIEC). Explica los procesos claramente.",
@@ -71,7 +88,7 @@ get_system_prompt <- function(task) {
     }
   }, error = function(e) {
     # Final fallback in case of any errors
-    return("You are Lucy, a helpful AI assistant. Respond in a friendly, professional tone.")
+    return("You are MIA, a helpful AI assistant. Respond in a friendly, professional tone.")
   })
 }
 
@@ -80,7 +97,7 @@ chat_response <- function(
   user_message, history = NULL,
   system_prompt = c("general", "r_code", "python_code", "sql_code"),
   api_key = Sys.getenv("OPENAI_API_LUCY_SHINY"),
-  model_selected = "gpt-3.5-turbo") {
+  model_selected = "gpt-4.1") {
 
     system <- get_system_prompt(system_prompt)
     prompt <- prepare_prompt(user_message, system, history)
@@ -213,6 +230,12 @@ perform_google_search <- function(query) {
       )
     })
 
+    # Update status to show aggregation phase
+    session <- shiny::getDefaultReactiveDomain()
+    if (!is.null(session)) {
+      shinyjs::html("chat_status", "<span><i class='fa fa-layer-group'></i> Aggregating search results...</span>")
+    }
+    
     return(list(results = results, retrieved_at = as.character(Sys.time())))
   }, error = function(e) {
     return(list(error = paste("Error performing Google search:", e$message)))

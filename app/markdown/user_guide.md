@@ -1,6 +1,8 @@
-# Lucy - AI Assistant User Guide
+# MIA - Multimodal Intelligent Assistant 🤖✨📚
 
-Welcome to **Lucy**, your personal AI-powered learning assistant!
+User Guide
+
+Welcome to **MIA**, your personal AI-powered learning assistant!
 
 ## 🎤 How to Use Speech-to-Text
 1. **Click the Red Microphone Button** below the chat input.
