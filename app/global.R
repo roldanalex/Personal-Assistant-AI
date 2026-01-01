@@ -56,6 +56,12 @@ save_credentials <- function(df) {
   put_object(file = tmp, object = credentials_key, bucket = bucket_name)
 }
 
+# ---- APP CONFIGURATION ----
+# Maximum file upload size in MB (configurable for memory optimization)
+MAX_FILE_SIZE_MB <- 10
+# Maximum number of messages to keep in conversation history (prevents memory bloat)
+MAX_CONVERSATION_HISTORY <- 10
+
 # Ensure admin account exists
 admin_user <- "admin"
 admin_password <- "pwd123"

@@ -17,14 +17,15 @@
 .bslib-sidebar-layout aside.sidebar,
 aside[role="complementary"] {
   position: fixed !important;
-  top: 0 !important;
+  top: 80px !important; /* Add space for header */
   left: 0 !important;
   bottom: 0 !important;
-  height: 100vh !important;
+  height: calc(100vh - 80px) !important; /* Adjust height to account for top offset */
   overflow-y: auto !important;
   overflow-x: hidden !important;
   z-index: 999 !important;
   width: 250px !important;
+  padding-top: 15px !important; /* Additional padding for content */
 }
 
 /* Main content area adjustments */
@@ -82,15 +83,16 @@ header .navbar-brand span,
   background: rgba(50, 50, 60, 0.94);
   z-index: 99999;
   color: white;
-  display: none; /* Hidden by default to prevent flash */
+  display: flex; /* Visible by default for landing page */
+  opacity: 0;
+  visibility: hidden;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
 }
 
 #auth-panel.visible {
-  display: flex;
   opacity: 1;
   visibility: visible;
 }

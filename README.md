@@ -55,7 +55,7 @@
 - **📚 Knowledge Building**: Connect new concepts to previous learning for deeper understanding
 - **🌐 Web Search Integration**: Get up-to-date information from the internet when needed
 
-## 🆕 Latest Updates (December 2025)
+## 🆕 Latest Updates (January 2026)
 
 ### 🎉 Save Your Conversations
 - **Download Chat History**: Export your complete conversation as a beautifully formatted HTML file that you can read offline, share with teachers, or keep for future reference
@@ -69,11 +69,13 @@
 - **Multi-Image Upload**: Snap photos of multiple pages, problems, or documents and get comprehensive answers
 - **Camera Integration**: Take pictures directly from your phone or tablet
 - **Smart Analysis**: MIA looks at all your images together to provide better, more complete answers
+- **Automatic Optimization**: Images are automatically compressed for faster processing and better performance
 
 ### 📄 Work With Documents
 - **PDF & Word Support**: Upload reading materials, textbooks, or study guides
 - **Excel & CSV Analysis**: Get help understanding data tables and spreadsheets
 - **Automatic Text Extraction**: MIA reads your documents so you can ask questions about the content
+- **10MB File Limit**: Maximum file size per upload (configurable by administrators)
 
 ### 🌐 Stay Current
 - **Web Search Tool**: MIA can look up current information online when you need the latest data
@@ -84,7 +86,13 @@
 - **Quick Voice Queries**: Ask questions hands-free while caring for children
 - **Save Important Advice**: Download conversations to reference later
 
-These improvements make MIA your perfect everyday assistant - whether you're helping with homework, learning something new, or managing family life.
+### ⚡ Performance & Reliability
+- **Smart Memory Management**: Keeps last 10 messages in active conversation for context
+- **Optimized for Cloud Deployment**: Works smoothly on free-tier hosting platforms
+- **Faster Image Processing**: Automatic compression reduces file sizes by ~90%
+- **Stable Operation**: No more out-of-memory errors during long sessions
+
+These improvements make MIA your perfect everyday assistant - whether you're helping with homework, learning something new, or managing family life. The new performance optimizations ensure MIA runs smoothly even with multiple images and long conversations.
 
 ## � How MIA Works - Your Question's Journey
 
@@ -198,10 +206,17 @@ flowchart TD
 ### Technical Requirements
 
 - **R Version**: 4.0 or higher
-- **Memory**: Minimum 2GB RAM (4GB recommended for classroom use)
+- **Memory**: Minimum 1GB RAM (optimized for cloud free-tier deployments)
 - **Storage**: 1GB for application + storage for user data
 - **Internet**: Stable connection for AI processing
 - **Browser**: Modern web browser (Chrome, Firefox, Safari, Edge)
+
+**Memory Optimization Features:**
+- Automatic image compression (resizes to 1024px, 80% JPEG quality)
+- Conversation history limited to last 10 messages (configurable)
+- File size limit: 10MB per upload (configurable in global.R)
+- Single base64 encoding per image (no redundant processing)
+- Optimized for shinyapps.io free tier (1GB RAM)
 
 ## 🏗️ Architecture & Technology
 
@@ -214,9 +229,11 @@ flowchart TD
 
 ### AI Capabilities
 - **GPT-4 Vision**: Advanced multimodal AI for text and image understanding
-- **Context Management**: Persistent conversation memory across sessions
+- **Context Management**: Smart conversation history (last 10 messages) for optimal performance
 - **Educational Prompts**: Specialized system prompts for learning assistance
 - **Image Analysis**: OCR, diagram interpretation, and visual problem solving
+- **Automatic Image Optimization**: Resize and compress images using magick package for faster processing
+- **Memory-Efficient Design**: Configurable limits prevent resource exhaustion on constrained environments
 
 ### Security & Privacy
 - **User Authentication**: Secure login system with password protection

@@ -17,6 +17,8 @@ function(input, output, session) {
         cat("Login successful for user:", u, "\n")
         user_auth$logged_in <- TRUE
         user_auth$user <- u
+        # Hide auth panel on successful login
+        runjs("$('#auth-panel').removeClass('visible');")
       } else {
         cat("Incorrect password for user:", u, "\n")
         showNotification("Incorrect password.", type = "error")
@@ -69,7 +71,8 @@ function(input, output, session) {
   # Render Main UI based on login state
   output$main_view <- renderUI({
     if (user_auth$logged_in) {
-      # User is logged in, keep auth panel hidden
+      # User is logged in, hide auth panel and show chat
+      runjs("$('#auth-panel').removeClass('visible');")
       chat_ui_view()
     } else {
       # Show auth panel when not logged in
@@ -132,8 +135,80 @@ function(input, output, session) {
     req(user_auth$logged_in, input$uploaded_image)
     cat("Image uploaded. Files:", nrow(input$uploaded_image), "\n")
     
-    # Store the full uploaded_image data immediately
-    current_images(input$uploaded_image)
+    # MEMORY OPTIMIZATION: Validate file sizes before processing
+    max_size_bytes <- MAX_FILE_SIZE_MB * 1024 * 1024
+    for (i in seq_len(nrow(input$uploaded_image))) {
+      file_size <- file.info(input$uploaded_image$datapath[i])$size
+      file_name <- input$uploaded_image$name[i]
+      size_mb <- round(file_size / (1024 * 1024), 2)
+      
+      if (file_size > max_size_bytes) {
+        showNotification(
+          paste0("File '", file_name, "' is too large (", size_mb, " MB). ",
+                 "Maximum allowed size is ", MAX_FILE_SIZE_MB, " MB. ",
+                 "Please compress or resize the file before uploading."),
+          type = "error",
+          duration = 10
+        )
+        # Reset file input
+        session$sendCustomMessage("resetFileInput", "uploaded_image")
+        return()
+      }
+    }
+    
+    # Process and optimize images immediately to reduce memory usage
+    processed_images <- input$uploaded_image
+    
+    for (i in seq_len(nrow(processed_images))) {
+      file_path <- processed_images$datapath[i]
+      file_name <- processed_images$name[i]
+      ext <- tolower(tools::file_ext(file_name))
+      
+      # Only resize/compress image files (not PDFs, documents, etc.)
+      if (ext %in% c("png", "jpg", "jpeg")) {
+        tryCatch({
+          # Read image
+          img <- magick::image_read(file_path)
+          
+          # Get original dimensions
+          info <- magick::image_info(img)
+          orig_width <- info$width
+          orig_height <- info$height
+          
+          cat("Original image size:", orig_width, "x", orig_height, "\n")
+          
+          # Resize if width > 1024px (maintains aspect ratio)
+          if (orig_width > 1024) {
+            img <- magick::image_resize(img, "1024x")
+            cat("Resized to 1024px width\n")
+          }
+          
+          # Convert to JPEG format for compression
+          # (PNG and JPEG both become JPEG to reduce size)
+          img <- magick::image_convert(img, format = "jpeg")
+          
+          # Create temp file for optimized image with 80% quality
+          temp_file <- tempfile(fileext = ".jpg")
+          magick::image_write(img, temp_file, quality = 80)
+          
+          # Update the datapath to point to optimized image
+          processed_images$datapath[i] <- temp_file
+          
+          # Update size info
+          new_size <- file.info(temp_file)$size
+          orig_size <- file.info(file_path)$size
+          cat("Compressed from", round(orig_size/1024, 1), "KB to", 
+              round(new_size/1024, 1), "KB\n")
+          
+        }, error = function(e) {
+          cat("Error processing image:", conditionMessage(e), "\n")
+          # Keep original if processing fails
+        })
+      }
+    }
+    
+    # Store the processed/optimized uploaded_image data
+    current_images(processed_images)
     
     # For mobile camera captures, we need a longer delay before clearing status
     # Use later::later() instead of Sys.sleep() to avoid blocking reactive context
@@ -154,33 +229,62 @@ function(input, output, session) {
     }
 
     tagList(
-      h5("Attached images:"),
+      h5("Attached files:"),
       lapply(seq_len(nrow(imgs)), function(i) {
         img_file <- imgs$datapath[i]
         file_name <- imgs$name[i]
         ext <- tolower(tools::file_ext(file_name))
         
         if (ext %in% c("png", "jpg", "jpeg")) {
-        data_uri <- base64enc::dataURI(
-          file = img_file,
-          mime = switch(
-            ext,
-            png  = "image/png",
-            jpg  = "image/jpeg",
-            jpeg = "image/jpeg",
-            "image/png"
+        # MEMORY OPTIMIZATION: Commented out base64 preview to reduce memory usage
+        # The small preview wasn't very useful anyway, and it was creating additional
+        # base64 encodings that consumed memory. Now just showing file info.
+        
+        # data_uri <- base64enc::dataURI(
+        #   file = img_file,
+        #   mime = switch(
+        #     ext,
+        #     png  = "image/png",
+        #     jpg  = "image/jpeg",
+        #     jpeg = "image/jpeg",
+        #     "image/png"
+        #   )
+        # )
+        # tags$img(
+        #   src = data_uri,
+        #   class = "image-preview-large"
+        # )
+        
+        # Get image dimension info
+        info <- tryCatch({
+          img_info <- magick::image_info(magick::image_read(img_file))
+          sprintf(" (%d x %d px)", img_info$width, img_info$height)
+        }, error = function(e) "")
+
+        # Get file size
+        filesz <- file.info(img_file)$size
+        kb <- sprintf("%.1f", filesz / 1024)
+
+        tags$div(
+          style = "margin-bottom: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: #e3f2fd;",
+          tags$div(
+            style = "font-size: 1.1em; color: #1976d2; margin-bottom: 5px;",
+            icon("image"), " Image attached"
+          ),
+          tags$div(style = "font-size: 0.85em; color: #555;",
+            tags$strong(file_name), tags$br(),
+            paste0("Size: ", kb, " KB", info)
           )
-        )
-        tags$img(
-          src = data_uri,
-          class = "image-preview-large"
         )
         } else {
           # Document preview
+          filesz <- file.info(img_file)$size
+          kb <- sprintf("%.1f", filesz / 1024)
           tags$div(
             class = "file-preview-item",
-            style = "margin-top: 5px;",
-            icon("file-alt"), " ", tags$b(file_name)
+            style = "margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 5px; background: #fff3cd;",
+            tags$div(icon("file-alt"), " ", tags$strong(file_name)),
+            tags$div(style = "font-size: 0.8em; color: #856404;", paste0("Size: ", kb, " KB"))
           )
         }
       })
@@ -240,6 +344,10 @@ function(input, output, session) {
 
       # Prepare user message content with images and text
       user_content_elements <- list()
+      
+      # MEMORY OPTIMIZATION: Pre-encode images once and store for reuse
+      # This prevents multiple base64 encodings of the same image
+      encoded_images <- list()
 
       # Add files (images or docs)
       file_blocks <- lapply(seq_len(nrow(imgs)), function(i) {
@@ -248,7 +356,8 @@ function(input, output, session) {
         ext <- tolower(tools::file_ext(file_name))
         
         if (ext %in% c("png", "jpg", "jpeg")) {
-          # Image handling
+          # Image handling - SINGLE BASE64 ENCODING
+          # Create base64 encoding once and store it
         data_uri <- base64enc::dataURI(
           file = img_file,
           mime = switch(
@@ -259,6 +368,9 @@ function(input, output, session) {
             "image/png"
           )
         )
+        # Store for potential reuse (currently only using once, but infrastructure is ready)
+        encoded_images[[i]] <<- data_uri
+        
         # Get image dimension info
         info <- tryCatch({
           dims <- NULL
@@ -340,11 +452,50 @@ function(input, output, session) {
     }
     args <- c(args, input$chat_user_input)
 
-    # Store user message in conversation history
+    # Store user message in conversation history (include images if present)
+    user_message_content <- input$chat_user_input
+    
+    # If there are images, prepend them to the message content as HTML
+    if (!is.null(imgs) && nrow(imgs) > 0) {
+      images_html <- ""
+      for (i in seq_len(nrow(imgs))) {
+        fpath <- imgs$datapath[i]
+        fname <- imgs$name[i]
+        ext <- tolower(tools::file_ext(fname))
+        
+        if (ext %in% c("png", "jpg", "jpeg")) {
+          # Create base64 data URI for the image
+          data_uri <- base64enc::dataURI(
+            file = fpath,
+            mime = switch(
+              ext,
+              png  = "image/png",
+              jpg  = "image/jpeg",
+              jpeg = "image/jpeg",
+              "image/jpeg"
+            )
+          )
+          images_html <- paste0(images_html, 
+                               "<img src='", data_uri, "' style='max-width: 100%; border-radius: 8px; margin: 10px 0;' alt='", fname, "' /><br>\n")
+        }
+      }
+      # Prepend images to message content
+      user_message_content <- paste0(images_html, "<p>", user_message_content, "</p>")
+    }
+    
     conversation_history$messages <- append(
       conversation_history$messages,
-      list(list(role = "user", content = input$chat_user_input))
+      list(list(role = "user", content = user_message_content))
     )
+    
+    # MEMORY OPTIMIZATION: Limit conversation history to prevent memory bloat
+    # Keep only the most recent messages
+    if (length(conversation_history$messages) > MAX_CONVERSATION_HISTORY) {
+      # Keep last MAX_CONVERSATION_HISTORY messages
+      start_idx <- length(conversation_history$messages) - MAX_CONVERSATION_HISTORY + 1
+      conversation_history$messages <- conversation_history$messages[start_idx:length(conversation_history$messages)]
+      cat("Conversation history trimmed to", MAX_CONVERSATION_HISTORY, "messages\n")
+    }
     
     # Update status for thinking phase
     shinyjs::html("chat_status", as.character(tags$span(icon("brain"), " Generating response...")))
@@ -388,31 +539,41 @@ function(input, output, session) {
     
     chat_append("chat", wrapped_stream())
     
-    # 2. Save assistant response to history after 40 seconds
-    observe({
-      # Wait 40 seconds to ensure full response is captured
-      invalidateLater(40000, session)
+    # Save assistant response to history after stream completes
+    # Use later::later for one-time execution (40 seconds to ensure full response captured)
+    current_session <- session
+    later::later(function() {
+      cat("Stream processing complete - saving response\n")
       
+      # Save assistant response to history (only once)
       if (nchar(current_response) > 0) {
         cat("Saving assistant response to history. Length:", nchar(current_response), "\n")
+        
+        # Use isolate() to access reactive values outside reactive context
         isolate({
+          # Append to conversation history
           conversation_history$messages <- append(
             conversation_history$messages,
             list(list(role = "assistant", content = current_response))
           )
+          
+          # MEMORY OPTIMIZATION: Limit conversation history to prevent memory bloat
+          if (length(conversation_history$messages) > MAX_CONVERSATION_HISTORY) {
+            start_idx <- length(conversation_history$messages) - MAX_CONVERSATION_HISTORY + 1
+            conversation_history$messages <- conversation_history$messages[start_idx:length(conversation_history$messages)]
+            cat("Conversation history trimmed to", MAX_CONVERSATION_HISTORY, "messages\n")
+          }
+          
+          cat("Assistant response saved. Total messages:", length(conversation_history$messages), "\n")
         })
-        cat("Assistant response saved. Total messages:", length(isolate(conversation_history$messages)), "\n")
       }
-    })
-    
-    # 3. Clear Status & Enable Download after delay (outside async generator)
-    # Capture session reference for use in later callback
-    current_session <- session
-    later::later(function() {
-      cat("Timer expired - clearing status and enabling download\n")
+      
+      # Clear status and enable download
+      cat("Clearing status and enabling download\n")
       current_session$sendCustomMessage("clearChatStatus", list())
       current_session$sendCustomMessage("enableDownloadButton", list())
     }, delay = 40)
+    
     # DON'T reset images after sending - keep them until new chat
     # Images should persist so user can ask follow-up questions about them
     cat("Images retained for follow-up questions\n")

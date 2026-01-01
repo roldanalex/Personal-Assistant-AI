@@ -59,9 +59,10 @@ login_ui_view <- function() {
         };
         $('#auth-forms').html(forms[which]);
       }
-      // Show login form on first load
+      // Show login form and auth panel on first load
       $(document).ready(function() {
         showAuthForm('login');
+        $('#auth-panel').addClass('visible');
       });
 
       // Listen for dynamic events after form change

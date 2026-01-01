@@ -26,22 +26,40 @@ chat_ui_view <- function() {
         ),
         selected = "gpt-4.1"
       ),
-      selectInput(
-        "task",
-        "I need help with:",
-        choices = list(
-          "General" = "general",
-          "Mother Assistant (English)" = "mother_assistant",
-          "Agente Primaria (Español)" = "agente_primaria",
-          "Pre-Universitario (UNI/San Marcos)" = "pre_universitario",
-          "Asistente MYPE (Negocios)" = "asistente_mype",
-          "Trámites Perú (SUNAT/RENIEC)" = "tramites_peru",
-          "Inglés para Titulación" = "ingles_titulacion",
-          "R Programmer" = "r_code",
-          "Python Programmer" = "python_code",
-          "SQL Programmer" = "sql_code"
+      tags$div(
+        style = "display: flex; align-items: center; gap: 8px;",
+        tags$div(
+          style = "flex: 1;",
+          selectInput(
+            "task",
+            "I need help with:",
+            choices = list(
+              "General" = "general",
+              "Mother Assistant (English)" = "mother_assistant",
+              "Agente Primaria (Español)" = "agente_primaria",
+              "Pre-Universitario (UNI/San Marcos)" = "pre_universitario",
+              "Asistente MYPE (Negocios)" = "asistente_mype",
+              "Trámites Perú (SUNAT/RENIEC)" = "tramites_peru",
+              "Inglés para Titulación" = "ingles_titulacion",
+              "R Programmer" = "r_code",
+              "Python Programmer" = "python_code",
+              "SQL Programmer" = "sql_code"
+            ),
+            selected = "general"
+          )
         ),
-        selected = "general"
+        actionButton(
+          "btn_persona_help",
+          label = NULL,
+          icon = icon("question-circle"),
+          class = "btn-danger btn-sm",
+          title = "Learn about different assistants",
+          style = "margin-top: 25px; border-radius: 50%; width: 32px; height: 32px; padding: 0; display: flex; align-items: center; justify-content: center;",
+          `data-bs-toggle` = "modal",
+          `data-bs-target` = "#personaHelpModal",
+          `data-toggle` = "modal",
+          `data-target` = "#personaHelpModal"
+        )
       ),
       tags$div(
         style = "display: none;",
@@ -91,8 +109,8 @@ chat_ui_view <- function() {
       div(class = "bottom-spacer", style = "height: 80px;"),
       tags$footer(
         fluidRow(
-          column(4, "© Alexis Roldan - 2023"),
-          column(4, "Personal Chatbot v1.3.1"),
+          column(4, "© Alexis Roldan - 2024"),
+          column(4, "Personal Chatbot v1.3.2"),
           column(4, tags$a(href = "mailto:alexis.m.roldan.ds@gmail.com", tags$b("Email me"), class = "externallink footer-link"))
         ),
         class = "app-footer"
@@ -121,8 +139,92 @@ chat_ui_view <- function() {
         tags$div(class = "modal-footer", tags$button(type = "button", class = "btn btn-danger", `data-bs-dismiss`="modal", `data-dismiss`="modal", "Close"))
       ))
     ),
+    
+    # ---- Persona Help Modal ----
+    tags$div(
+      class = "modal fade", id = "personaHelpModal", tabindex = "-1", role = "dialog",
+      tags$div(class = "modal-dialog modal-xl", role = "document", tags$div(class = "modal-content",
+        tags$div(class = "modal-header", 
+          tags$h5(class = "modal-title", "🤖 Meet Your AI Assistants"),
+          tags$button(type = "button", class = "close", `data-bs-dismiss`="modal", `data-dismiss`="modal", aria_label = "Close", tags$span(aria_hidden = "true", "×"))
+        ),
+        tags$div(class = "modal-body", style = "max-height: 70vh; overflow-y: auto;",
+          tags$p(class = "lead", "MIA offers specialized assistants tailored to different needs. Choose the one that best fits your question!"),
+          tags$hr(),
+          
+          # General Assistant
+          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #dc3545; background: #f8f9fa;",
+            tags$h5(tags$b("General Assistant"), style = "color: #dc3545;"),
+            tags$p("Your all-purpose AI learning companion for any subject or question. Perfect for homework help, concept explanations, research support, and everyday learning across all disciplines. Uses a pedagogy-first approach with clear explanations, step-by-step guidance, and encouragement.")
+          ),
+          
+          # Mother Assistant
+          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #e91e63; background: #f8f9fa;",
+            tags$h5(tags$b("Mother Assistant"), tags$span(class = "badge badge-info", "English")),
+            tags$p("Warm, evidence-based parenting support for mothers and grandmothers raising children ages 0-5. Get practical advice on child development, health, nutrition, sleep, behavior, activities, and daily parenting challenges. Non-judgmental, empowering guidance with current research and pediatric recommendations.")
+          ),
+          
+          # Agente Primaria
+          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #ff9800; background: #f8f9fa;",
+            tags$h5(tags$b("Agente Primaria"), tags$span(class = "badge badge-warning", "Español")),
+            tags$p("Asistente educativo especializado en educación primaria peruana (6-12 años). Alineado con el Currículo Nacional del Perú, brinda apoyo en Comunicación, Matemática, Ciencias, Personal Social, Arte, Educación Física e Inglés. Enfoque por competencias con perspectiva intercultural y evaluación formativa.")
+          ),
+          
+          # Pre-Universitario
+          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #9c27b0; background: #f8f9fa;",
+            tags$h5(tags$b("Pre-Universitario (UNI/San Marcos)"), tags$span(class = "badge badge-warning", "Español")),
+            tags$p("Tutor experto en preparación para exámenes de admisión universitaria en Perú (UNI, San Marcos, PUCP). Desarrolla razonamiento lógico, resolución de problemas paso a paso, y estrategias de examen. Tono exigente y motivador con práctica deliberada en matemáticas, ciencias, y razonamiento verbal.")
+          ),
+          
+          # Asistente MYPE
+          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #4caf50; background: #f8f9fa;",
+            tags$h5(tags$b("Asistente MYPE (Negocios)"), tags$span(class = "badge badge-warning", "Español")),
+            tags$p("Consultor práctico para Micro y Pequeñas Empresas en Perú. Consejos accionables de bajo costo en ventas, marketing, finanzas básicas, atención al cliente, y análisis de datos comerciales. Incluye plantillas de comunicación, estrategias locales, y KPIs simples para MYPEs.")
+          ),
+          
+          # Trámites Perú
+          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #2196f3; background: #f8f9fa;",
+            tags$h5(tags$b("Trámites Perú (SUNAT/RENIEC)"), tags$span(class = "badge badge-warning", "Español")),
+            tags$p("Experto en gestión administrativa y burocracia peruana. Guía paso a paso para trámites con SUNAT, RENIEC, SUNARP, municipalidades y otras entidades públicas. Requisitos, documentos, plazos, costos y enlaces oficiales. Información sobre regímenes tributarios, RUC, DNI, licencias y más.")
+          ),
+          
+          # Inglés para Titulación
+          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #00bcd4; background: #f8f9fa;",
+            tags$h5(tags$b("Inglés para Titulación"), tags$span(class = "badge badge-warning", "Español"), " ", tags$span(class = "badge badge-info", "English")),
+            tags$p("English certification tutor for Peruvian university students preparing for B1/B2 graduation exams. Exam-focused strategies for reading, writing, listening, and speaking. Grammar corrections, vocabulary enhancement, writing assistance, and time management techniques. Professional, encouraging guidance in both English and Spanish.")
+          ),
+          
+          # R Programmer
+          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #673ab7; background: #f8f9fa;",
+            tags$h5(tags$b("R Programmer"), style = "color: #673ab7;"),
+            tags$p("Expert R programming mentor specializing in statistical analysis, data science, and visualization. Comprehensive knowledge of tidyverse, ggplot2, Shiny apps, statistical modeling, and R packages. Best practices for clean code, reproducible research, debugging, and performance optimization.")
+          ),
+          
+          # Python Programmer
+          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #ffc107; background: #f8f9fa;",
+            tags$h5(tags$b("Python Programmer"), style = "color: #f57c00;"),
+            tags$p("Expert Python programming consultant covering data science (NumPy, Pandas, Scikit-learn), web development (Flask, Django, FastAPI), automation, and software engineering. Clean code principles, debugging techniques, testing, async programming, and best practices for production-ready Python applications.")
+          ),
+          
+          # SQL Programmer
+          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #607d8b; background: #f8f9fa;",
+            tags$h5(tags$b("SQL Programmer"), style = "color: #607d8b;"),
+            tags$p("Expert SQL database consultant specializing in query optimization, database design, and data analysis. Coverage of PostgreSQL, MySQL, SQL Server, and SQLite. Advanced techniques including window functions, CTEs, stored procedures, indexing strategies, and performance tuning for complex queries.")
+          ),
+          
+          tags$hr(),
+          tags$p(class = "text-muted", style = "font-size: 0.9em;",
+            tags$i(class = "fas fa-info-circle"), " ",
+            "Tip: You can switch between assistants anytime using the dropdown menu. Each assistant maintains its own specialized knowledge and communication style to best serve your needs."
+          )
+        ),
+        tags$div(class = "modal-footer", 
+          tags$button(type = "button", class = "btn btn-danger", `data-bs-dismiss`="modal", `data-dismiss`="modal", "Close")
+        )
+      ))
+    ),
 
-    # ---- Chat JS (File Input & Speech) ----
+    # ---- Chat JS (Custom Message Handlers) ----
     tags$script("
       Shiny.addCustomMessageHandler('resetFileInput', function(id) {
         setTimeout(function() {
@@ -170,58 +272,14 @@ chat_ui_view <- function() {
       });
     "),
     tags$script(HTML("
-      $(document).ready(function() {
-        // Force Inter font on title
-        setTimeout(function() {
-          $('header .navbar-brand, .bslib-page-title, [class*=\"title\"]').css({
-            'font-family': '\'Inter\', sans-serif',
-            'font-weight': '700',
-            'letter-spacing': '-0.02em'
-          });
-        }, 100);
-        
-        var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (SpeechRecognition) {
-          var recognition = new SpeechRecognition();
-          recognition.continuous = true;
-          recognition.interimResults = false;
-          var silenceTimer;
-
-          $('#btn_speech').on('click', function() {
-            var task = $('#task').val();
-            recognition.lang = (task === 'agente_primaria') ? 'es-ES' : 'en-US';
-            var $btn = $(this);
-            var $icon = $btn.find('i');
-            var originalIconClass = $icon.attr('class');
-            $icon.removeClass().addClass('fa fa-spinner fa-spin');
-            $btn.addClass('listening-pulse');
-            try { recognition.start(); } catch(e) { console.log('Recognition already started or error:', e); }
-            clearTimeout(silenceTimer);
-            recognition.onend = function() {
-              $icon.attr('class', originalIconClass);
-              $btn.removeClass('listening-pulse');
-              clearTimeout(silenceTimer);
-            };
-          });
-
-          recognition.onresult = function(event) {
-            clearTimeout(silenceTimer);
-            silenceTimer = setTimeout(function() { recognition.stop(); }, 3000);
-            var lastIdx = event.results.length - 1;
-            var transcript = event.results[lastIdx][0].transcript;
-            var $input = $('#main-content-panel textarea').first();
-            if ($input.length) {
-              var currentVal = $input.val();
-              var newVal = currentVal ? currentVal + ' ' + transcript : transcript;
-              $input.val(newVal);
-              $input[0].dispatchEvent(new Event('input', { bubbles: true }));
-            }
-          };
-        } else {
-          $('#btn_speech').hide();
-        }
-        $('#btn_camera').on('click', function() { $('#uploaded_image').click(); });
-      });
+      // Force Inter font on title after UI renders
+      setTimeout(function() {
+        $('header .navbar-brand, .bslib-page-title, [class*=\"title\"]').css({
+          'font-family': '\'Inter\', sans-serif',
+          'font-weight': '700',
+          'letter-spacing': '-0.02em'
+        });
+      }, 100);
     "))
     )
   )
