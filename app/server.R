@@ -454,7 +454,7 @@ function(input, output, session) {
 
     # Store user message in conversation history (include images if present)
     user_message_content <- input$chat_user_input
-    
+
     # If there are images, prepend them to the message content as HTML
     if (!is.null(imgs) && nrow(imgs) > 0) {
       images_html <- ""
@@ -462,7 +462,7 @@ function(input, output, session) {
         fpath <- imgs$datapath[i]
         fname <- imgs$name[i]
         ext <- tolower(tools::file_ext(fname))
-        
+
         if (ext %in% c("png", "jpg", "jpeg")) {
           # Create base64 data URI for the image
           data_uri <- base64enc::dataURI(
@@ -475,19 +475,25 @@ function(input, output, session) {
               "image/jpeg"
             )
           )
-          images_html <- paste0(images_html, 
-                               "<img src='", data_uri, "' style='max-width: 100%; border-radius: 8px; margin: 10px 0;' alt='", fname, "' /><br>\n")
+          images_html <- paste0(
+            images_html,
+            "<img src='",
+            data_uri,
+            "' style='max-width: 100%; border-radius: 8px; margin: 10px 0;' alt='",
+            fname,
+            "' /><br>\n"
+          )
         }
       }
       # Prepend images to message content
       user_message_content <- paste0(images_html, "<p>", user_message_content, "</p>")
     }
-    
+
     conversation_history$messages <- append(
       conversation_history$messages,
       list(list(role = "user", content = user_message_content))
     )
-    
+
     # MEMORY OPTIMIZATION: Limit conversation history to prevent memory bloat
     # Keep only the most recent messages
     if (length(conversation_history$messages) > MAX_CONVERSATION_HISTORY) {
