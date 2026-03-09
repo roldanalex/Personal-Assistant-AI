@@ -1,133 +1,182 @@
-# MIA - Quick Start Guide 🤖✨
+# MIA - Tu Compañera de Aprendizaje
 
-Welcome to **MIA**, your AI learning assistant! This guide shows you the basics to get started quickly.
-
----
-
-## ⚠️ Important Information
-
-**File Upload Limits:**
-- Maximum file size: **10MB per file**
-- Supported formats: Images (JPG, PNG), PDFs, Word docs, Excel files
-- Images are automatically compressed for faster processing
-
-**Conversation History:**
-- MIA keeps the **last 10 messages** in memory for context
-- Download important conversations to save them permanently
-- Start a "New Chat" to begin fresh on a different topic
+**¡Hola! Bienvenido(a) a MIA**, tu asistente educativa inteligente. MIA esta aqui para ayudarte a aprender, resolver dudas y acompañarte en tu camino — ya seas estudiante, mama, papa o emprendedor(a). Esta guia te muestra todo lo que puedes hacer, paso a paso.
 
 ---
 
-## 🚀 Quick Start - Three Ways to Ask Questions
+## Inicio Rapido — ¡Empieza en 3 Pasos!
 
-### 1. 💬 Type Your Question
-Simply type in the chat box and press Enter. MIA responds in real-time!
+Si quieres empezar ya mismo, sigue estos pasos:
 
-### 2. 🎤 Speak Your Question
-- Click the **red microphone button** below the chat
-- Speak naturally (works great when hands are busy!)
-- Your speech converts to text automatically
-- Edit if needed, then send
+1. **Inicia sesion** con tu usuario y contraseña (o crea una cuenta nueva).
+2. **Elige un asistente** haciendo clic en la tarjeta que necesites (por ejemplo, "Agente Primaria" si tu hijo esta en primaria).
+3. **Escribe tu pregunta** en el cuadro de chat y presiona Enter. ¡Listo, MIA te responde al instante!
 
-### 3. 📸 Show a Picture
-- Click the **📎 paperclip button** to upload images
-- Or use the sidebar "Attach image(s)" section
-- Works with homework, diagrams, notes, documents
-- Upload multiple images for complex problems
+> **Tip rapido:** Debajo de cada tarjeta de asistente veras **ejemplos de preguntas**. Haz clic en cualquiera para empezar sin tener que pensar que escribir.
 
 ---
 
-## 📥 Save Your Conversations
+## Conoce a los Asistentes de MIA
 
-**Why save?** Keep explanations for study, share with teachers, track your progress.
+MIA tiene **10 asistentes especializados** organizados en 4 categorias. Cada uno esta preparado para ayudarte en un tema diferente:
 
-**How to save:**
-1. Click **"Download History"** button in the sidebar
-2. Get a formatted HTML file with your complete chat
-3. Open anytime in any browser (works offline!)
+### Para Estudiantes
 
-**Tip:** Download important conversations right away before starting a new topic.
+- **Agente Primaria** — Para niños y niñas de 6 a 12 años. Explica las materias de primaria siguiendo el Curriculo Nacional del Peru. Ideal para tareas y repasos.
+- **Pre-Universitario** — Te ayuda a prepararte para los examenes de admision de la UNI, San Marcos, PUCP y mas, con problemas resueltos paso a paso.
+- **Ingles para Titulacion** — Practica y preparate para la certificacion B1/B2 de ingles que piden en la universidad.
 
----
+### Para Negocios y Tramites
 
-## 📚 What You Can Upload
+- **Asistente MYPE** — Un consultor virtual para micro y pequeñas empresas peruanas. Te orienta con formalizacion, finanzas y estrategia.
+- **Tramites Peru** — Te guia paso a paso en tramites de SUNAT, RENIEC, SUNARP y otras entidades del estado.
 
-- **Images**: Math problems, science diagrams, handwritten notes, textbook pages
-- **PDFs**: Articles, study guides, textbooks
-- **Word Documents**: Essays, reports, assignments
-- **Excel Files**: Data tables, spreadsheets, grades
+### Para Programacion
 
-**Remember:** Files must be under 10MB. Images are automatically optimized.
+- **R Programmer** — Tidyverse, ggplot2, Shiny y analisis estadistico.
+- **Python Programmer** — Data science, desarrollo web y automatizacion.
+- **SQL Programmer** — Consultas, optimizacion y diseño de bases de datos.
 
----
+### General
 
-## ⚙️ Customize Your Experience
+- **Asistente General** — Para cualquier tema o pregunta que tengas. Tu asistente "todoterreno".
+- **Asistente para Madres** — Consejos de crianza basados en evidencia para niños de 0 a 5 años.
 
-**Find settings in the sidebar (left on desktop, menu icon on mobile)**
-
-### Choose Your AI Model:
-- **GPT-4**: Fast, great for most questions
-- **GPT-5.1**: Best for complex problems, coding, deep reasoning
-
-### Pick Your Assistant Type:
-- **General**: Everyday questions
-- **Code Helpers**: R, Python, SQL
-- **Mother Assistant**: Parenting advice, child development
-- **Subject Tutors**: Math, science, languages (some in Spanish)
-- **Special Tools**: Business help, government forms (Peru)
+> **¿No sabes cual elegir?** Empieza con el **Asistente General**. Siempre puedes cambiar despues.
 
 ---
 
-## 🌐 Web Search
+## Tres Formas de Hacer tu Pregunta
 
-MIA automatically searches the internet when you need current information like:
-- Recent news and statistics
-- Latest research findings
-- Current events
+### Escribir
 
-Just ask normally - MIA decides when to search and brings back reliable answers!
+La forma mas directa. Escribe tu pregunta en el cuadro de chat y presiona Enter.
 
----
+### Hablar
 
-## 💡 Quick Tips
+¿Prefieres hablar? ¡Tambien se puede!
 
-**For Best Results:**
-- 📸 Clear photos with good lighting
-- ❓ Be specific: "Explain this equation" works better than "Help"
-- 📝 Add context: your grade level, subject, what you're working on
-- 💬 Ask follow-ups: "Can you explain that differently?"
-- 💾 Download important conversations
+- Haz clic en el boton del **microfono** debajo del chat.
+- Habla tu pregunta con naturalidad.
+- MIA convierte tu voz en texto. Puedes revisarlo y editarlo antes de enviarlo.
 
-**MIA Remembers:**
-- ✅ Your last 10 messages in the current chat
-- ✅ Images you shared (up to 10MB each)
-- ✅ Your conversation context
-- ❌ Nothing from other chats (each chat is private)
+> **Tip:** El idioma se detecta automaticamente segun el asistente que estes usando (español o ingles).
 
-**Start Fresh:**
-- Click the **"+" button** to begin a new conversation
-- Perfect for switching topics
+### Adjuntar Archivos
+
+¿Tienes una tarea en foto o un documento que necesitas analizar?
+
+- Haz clic en el boton del **clip** para subir archivos.
+- **Imagenes:** Fotos de tareas, diagramas, apuntes (JPG, PNG).
+- **Documentos:** PDF, Word (.docx), Excel (.xlsx), CSV.
+- Tamaño maximo: **10 MB por archivo**.
+
+> **Tip para fotos:** Toma la foto con buena luz y asegurate de que el texto se lea bien. MIA comprime las imagenes automaticamente para que todo funcione rapido.
 
 ---
 
-## 🆘 Need Help?
+## Cambiar de Asistente
 
-- **Stuck?** Try refreshing your browser or starting a new chat
-- **File too large?** Compress images before uploading (10MB limit)
-- **Something wrong?** Contact the administrator (link at bottom of page)
+¿Necesitas otro tipo de ayuda? Cambiar es muy facil:
 
----
+- En la barra superior del chat veras el nombre del asistente activo.
+- Haz clic en **"Cambiar"** para volver a la pantalla de seleccion.
+- Elige un nuevo asistente y empieza una conversacion nueva.
 
-## 🎯 Remember
-
-MIA is here to **help you learn**, not just give answers. The best learning happens when you:
-- Ask questions about the explanations
-- Try solving problems yourself first
-- Review downloaded conversations for study
-- Practice what you've learned
+> **Nota:** Al cambiar de asistente se inicia un chat nuevo. Si la conversacion anterior es importante, descargala primero (ve la seccion "Guardar Conversaciones").
 
 ---
 
-**Ready to Learn? Start chatting! 🎓**
+## Elegir el Modelo de IA
 
-*For technical details, developer information, and advanced features, visit the [GitHub repository](https://github.com/roldanalex/Personal-Assistant-AI).*
+En la barra lateral (el icono de menu a la izquierda), puedes elegir entre dos modelos:
+
+- **GPT-4 (Mejor calidad):** Rapido y excelente para la mayoria de preguntas del dia a dia.
+- **GPT-5.1 (Mejor razonamiento):** Ideal para problemas complejos, codigo avanzado o cuando necesitas un analisis mas profundo.
+
+> **¿Cual usar?** Para tareas escolares y consultas generales, GPT-4 es perfecto. Si estas resolviendo un problema de matematicas avanzado o programando, prueba GPT-5.1.
+
+---
+
+## Busqueda Web
+
+MIA puede buscar informacion actualizada en internet cuando la necesita. No tienes que hacer nada especial — solo pregunta con naturalidad y MIA decide cuando buscar.
+
+Esto es util para:
+
+- Noticias y eventos recientes
+- Datos y estadisticas actualizadas
+- Investigaciones o informacion que cambia con el tiempo
+
+MIA te muestra la fuente y el enlace para que puedas verificar la informacion.
+
+---
+
+## Modo Oscuro / Modo Claro
+
+MIA ahora incluye un **boton para cambiar entre modo claro y modo oscuro**. Encuentralo en la esquina superior de la pantalla.
+
+- **Modo claro:** Ideal para usar de dia o en ambientes bien iluminados.
+- **Modo oscuro:** Mas comodo para los ojos cuando estudias de noche o en lugares con poca luz.
+
+Tu preferencia se aplica de inmediato. Elige el que te resulte mas comodo.
+
+---
+
+## Guardar tus Conversaciones
+
+Las explicaciones de MIA pueden ser muy utiles para repasar despues. ¡No las pierdas!
+
+**Como guardar:**
+
+1. Abre la barra lateral (icono de menu).
+2. Haz clic en **"Descargar historial"**.
+3. Se descarga un archivo HTML que puedes abrir en cualquier navegador, sin internet.
+
+> **Tip para estudiantes:** Descarga las conversaciones donde MIA te explico un tema dificil. Asi puedes repasarlas antes de un examen o compartirlas con tu profesor(a).
+
+---
+
+## El Contador de Mensajes
+
+Para funcionar bien, MIA recuerda los **ultimos 10 mensajes** de tu conversacion. Asi es como funciona:
+
+- Chatea libremente los primeros mensajes.
+- A partir del **mensaje 7**, veras un contador que te avisa cuantos mensajes quedan.
+- Al llegar al **mensaje 9**, recibiras una advertencia.
+- En el **mensaje 10**, los mensajes mas antiguos empiezan a perderse de la memoria.
+
+**¿Que hacer?** Si quieres empezar limpio, haz clic en el boton **"Nuevo chat"** (el boton flotante abajo a la derecha). Tambien puedes descargar tu conversacion antes de iniciar una nueva.
+
+---
+
+## Consejos para Sacarle el Maximo Provecho
+
+- **Se especifico(a):** "Explicame como resolver ecuaciones cuadraticas con ejemplos" funciona mucho mejor que solo "Ayuda con matematicas".
+- **Da contexto:** Cuentale tu nivel, la materia o en que estas trabajando. Asi MIA personaliza mejor su respuesta.
+- **Haz seguimiento:** Si algo no quedo claro, pregunta "¿Puedes explicarlo de otra forma?" o "Dame mas ejemplos".
+- **Sube fotos claras:** Con buena iluminacion y texto legible.
+- **Guarda lo importante:** Descarga las explicaciones que vas a necesitar despues.
+
+> **Recuerda:** MIA esta diseñada para **ayudarte a aprender**, no solo para darte respuestas. El mejor aprendizaje ocurre cuando intentas resolver el problema primero y luego usas MIA para verificar o entender lo que no quedo claro.
+
+---
+
+## Si Algo No Funciona
+
+No te preocupes, aqui van algunas soluciones rapidas:
+
+- **La pagina no carga:** Refresca el navegador (F5) o limpia la cache.
+- **El archivo es muy grande:** Comprime las imagenes antes de subirlas. El limite es 10 MB.
+- **Error al iniciar sesion:** Verifica tu usuario y contraseña. Si olvidaste tu contraseña, usa la opcion "Recuperar contraseña".
+- **¿Necesitas mas ayuda?** Escribenos a **alexis.m.roldan.ds@gmail.com** y te respondemos lo antes posible.
+
+---
+
+## Sobre MIA
+
+MIA es un proyecto educativo creado para hacer la inteligencia artificial accesible a todos — especialmente a estudiantes, familias y emprendedores peruanos. El logo de MIA representa nuestra mision: ser una compañera confiable en tu aprendizaje.
+
+**¡Ahora si, elige tu asistente y empieza a aprender!**
+
+*MIA v2.0 — Tu asistente educativa inteligente | Creado por Alexis Roldan — 2025*

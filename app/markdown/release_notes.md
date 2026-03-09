@@ -1,106 +1,91 @@
-# Release Notes
+# Novedades de MIA
 
-## Version 1.3.2 (January 2026)
+## Version 2.0 — Una nueva MIA (Marzo 2026)
 
-### 🎉 New Features
-- **Complete Chat History Download**: Download your full conversation history as a beautifully formatted HTML file
-  - Perfect for reviewing your learning progress
-  - Share with teachers or study partners
-  - Keep important explanations for future reference
-  - Works great for documenting homework help sessions
-
-### ⚡ Performance & Memory Optimization
-- **Smart Image Compression**: Automatically resizes and compresses uploaded images to ~10% of original size
-  - Images optimized to 1024px max width with 80% JPEG quality
-  - Reduces memory usage by ~90% during image processing
-  - Faster upload and processing times
-- **Conversation History Management**: Keeps last 10 messages in active memory for optimal performance
-  - Prevents memory bloat during long conversations
-  - Maintains sufficient context for follow-up questions
-  - Configurable limit (developers can adjust in `global.R`)
-- **File Size Validation**: 10MB upload limit per file to prevent memory issues
-  - Clear error messages when files exceed limit
-  - Configurable threshold for different deployment environments
-  - Protects against out-of-memory crashes
-- **Optimized Cloud Deployment**: Significant improvements for free-tier hosting platforms
-  - Works smoothly on shinyapps.io free tier (1GB RAM)
-  - Single base64 encoding per image (eliminates redundant processing)
-  - Reduced memory footprint by ~90% overall
-
-### 🐛 Bug Fixes & Improvements
-- **Fixed Assistant Response Saving**: Chat downloads now include complete AI responses, not just your questions
-- **Optimized Timing**: Added smart 40-second capture window to ensure long, detailed responses are fully saved
-- **Better Memory Management**: Improved how conversations are stored and tracked
-- **Reliable Exports**: Enhanced HTML generation with proper formatting and styling
-- **Stable Long Sessions**: No more crashes during extended conversations with multiple images
-
-### 💡 What This Means for You
-- **Students**: Save complete homework help sessions to review before exams, upload multiple photos without slowdown
-- **Parents**: Keep parenting advice and child development tips for easy reference, use voice + images smoothly
-- **Teachers**: Document example interactions for your students, handle multiple student images reliably
-- **Everyone**: Build your personal knowledge library with stable, fast performance even with large files
-
-### 🔧 Technical Details (for Developers)
-- **magick Package Integration**: Image processing with `image_resize()` and `image_convert()`
-- **Configurable Limits**: `MAX_FILE_SIZE_MB` and `MAX_CONVERSATION_HISTORY` in `global.R`
-- **Memory-Efficient Design**: Automatic trimming of conversation arrays, single-pass encoding
-- **Deployment Ready**: Optimized for constrained environments (1GB RAM minimum)
+¡Bienvenido a MIA 2.0! Esta es la actualizacion mas grande que hemos hecho. MIA ahora tiene su propia identidad visual, una interfaz completamente rediseñada, y muchas mejoras pensadas para ti.
 
 ---
 
-## Version 1.3.1 (December 2025)
+### Tu asistente ideal, al alcance de un clic
 
-### 🎉 New Features
-- **Chat History Download**: Download your full conversation history as a formatted HTML file with markdown rendering
-- **Manual Conversation Tracking**: Improved conversation history management for more reliable exports
-- **Robot Favicon**: Added friendly robot emoji (🤖) as browser tab icon
+**10 asistentes especializados con guia visual** — Al iniciar sesion, veras una pantalla con todos los asistentes disponibles organizados por categoria: Estudiantes, Negocios y Tramites, Programacion, y General. Cada uno tiene su descripcion, icono y ejemplos de preguntas listas para usar.
 
-### 🐛 Bug Fixes
-- Fixed corrupt chat history downloads that previously showed "No messages yet"
-- Fixed issue where Speak and Attach buttons were hidden behind footer after multiple messages
-- Improved button z-index and spacing for better visibility
+¿No sabes que preguntar? Haz clic en cualquier ejemplo y empieza tu conversacion al instante.
 
-### 🔧 Improvements
-- Enhanced message storage system for better download reliability
-- Improved HTML export with proper CSS styling and markdown formatting
+- **Estudiantes**: Primaria, Pre-Universitario (para examenes UNI, San Marcos y mas)
+- **Negocios**: Asistente MYPE, Tramites Peru (SUNAT, RENIEC, municipios)
+- **Programacion**: R, Python, SQL — cada uno con su propio asistente
+- **General**: Para cualquier tema de aprendizaje, o para que mama tambien pueda usarlo
 
 ---
 
-## Version 1.2.2 (November 2025)
+### MIA tiene nueva cara
 
-### 🎤 Speech & Media Features
-- **Speech-to-Text**: Browser-based dictation via microphone button with automatic language detection
-- **Camera & Multi-Image Input**: Attach multiple photos (or take pictures on mobile) in a single message
-- **Document Ingestion**: Upload PDF, Word (.docx), Excel (.xlsx/.xls) and CSV files with automatic text extraction
-- **Improved Previews**: Inline previews for uploaded images with filename, size, and dimensions
-
-### 🔍 Advanced Capabilities
-- **Safe Web Search Tool**: Integrated Google Custom Search for controlled web lookups when needed
-- **Admin Environment Checker**: Automatic validation of required environment variables with UI warnings
-- **Configuration Test Script**: Helper script to validate Google Custom Search credentials
-
-### 🎨 User Experience
-- Enhanced multimodal workflows (audio + images + documents)
-- Better file handling for homework, lab reports, and document-driven tasks
-- Improved error messaging and admin diagnostics
+- **Logo y marca propios** — MIA ahora tiene identidad: un logo profesional con colores azul y dorado que reemplaza al antiguo emoji de robot
+- **Tipografia moderna** — Textos mas claros y agradables de leer en cualquier pantalla
+- **Modo oscuro** — ¿Estudias de noche? Activa el modo oscuro con un solo boton para cuidar tus ojos. Lo encuentras en la esquina superior de la pantalla
 
 ---
 
-## Version 1.2.0 (October 2025)
+### Todo en español, como debe ser
 
-### 🎓 Educational Features
-- Specialized modes for different learning contexts
-- Pre-University support for UNI/San Marcos entrance exams (Peru)
-- MYPE business assistant for small businesses
-- English certification preparation (B1/B2 level)
-- Bureaucracy guide for SUNAT, RENIEC, and municipal procedures
-
-### 💼 Core Improvements
-- Enhanced conversation context management
-- Improved system prompts for specialized tasks
-- Better mobile responsiveness
-- Dark/Light theme support
+Toda la interfaz esta en español con convenciones peruanas: botones, mensajes, notificaciones, etiquetas de formulario y saludos personalizados segun el asistente que elijas. Ya no veras textos en ingles perdidos por ahi.
 
 ---
 
-*For more details about Lucy's features and capabilities, please refer to the [User Guide](user_guide.md) or visit our [GitHub repository](https://github.com/roldanalex/Personal-Assistant-AI).*
+### Funciona bien en tu celular
+
+MIA 2.0 fue pensada para usarse desde el celular. La barra lateral se convierte en un panel deslizable, los botones son faciles de tocar, y la pantalla de asistentes se adapta a cualquier tamaño de dispositivo.
+
+---
+
+### Sabes cuantos mensajes te quedan
+
+Cada conversacion tiene un limite de 10 mensajes para mantener la calidad de las respuestas. Ahora veras un **contador visible a partir del mensaje 7**, una advertencia en el mensaje 9, y un aviso claro cuando llegues al limite con opcion de iniciar un nuevo chat.
+
+Asi nunca te sorprendera que la conversacion se reinicie.
+
+---
+
+### Tu cuenta esta mas segura
+
+- **Crea tu propia cuenta** — El registro de usuarios esta habilitado con contraseña segura
+- **Contraseñas protegidas** — Tu contraseña se almacena de forma cifrada, no como texto plano
+- **Aviso de privacidad** visible en la pantalla de inicio de sesion
+
+---
+
+### Accesible para todos
+
+MIA 2.0 incluye mejoras para que mas personas puedan usarla comodamente:
+
+- Navegacion completa con teclado
+- Compatible con lectores de pantalla
+- Animaciones reducidas automaticamente si tu dispositivo lo tiene configurado asi
+- Etiquetas claras en todos los campos de formulario
+
+---
+
+### Habla, adjunta y busca
+
+- **Dictado por voz** — Toca el microfono y dicta tu pregunta
+- **Archivos adjuntos** — Sube imagenes, PDF, Word, Excel o CSV directamente en el chat
+- **Busqueda web** — MIA puede buscar informacion actualizada en internet para complementar sus respuestas
+
+---
+
+## Versiones anteriores
+
+### Version 1.3.x (Diciembre 2025 — Enero 2026)
+- **Descarga tu historial** como archivo HTML para revisarlo o compartirlo
+- **Mejor rendimiento** con imagenes grandes y sesiones largas
+- Correcciones en descargas y visibilidad de botones
+
+### Version 1.2.x (Octubre — Noviembre 2025)
+- Primeras versiones con **dictado por voz, camara y documentos**
+- Se agregaron los **asistentes especializados para Peru**: Pre-Universitario, MYPE, Tramites, Ingles
+- Busqueda web con Google integrada
+
+---
+
+*¿Tienes sugerencias? Visita el [repositorio en GitHub](https://github.com/roldanalex/Personal-Assistant-AI).*

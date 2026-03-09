@@ -1,631 +1,569 @@
 ---
-title: ": "Chatbot de IA Multimodal con Análisis de Imágenes y Contexto Persistente"
+title: "MIA - Tu Asistente Educativo Inteligente"
+subtitle: "El unico asistente de IA disenado para estudiantes, emprendedores y familias peruanas"
 author: "Alexis Roldan"
-date: "`r Sys.Date()`"
+date: "2026-03-08"
 format:
   revealjs:
     theme: [default, custom.scss]
     slide-number: true
     chalkboard: true
     preview-links: auto
-    css: styles.css
-    footer: "MIA 
+    footer: "MIA v2.0 | Created by Alexis Roldan - 2025"
     background-transition: fade
     highlight-style: github
     code-fold: true
-    code-summary: "Mostrar Código"
+    code-summary: "Mostrar Codigo"
     lang: es
     auto-animate: true
     auto-animate-easing: ease-in-out
     auto-animate-duration: 0.5
+    width: 1280
+    height: 720
 ---
 
-## 
+## {background-color="#1565C0"}
+
+::: {style="text-align: center; color: white; padding-top: 80px;"}
+
+[**MIA**]{style="font-size: 5em; font-weight: 700; letter-spacing: -0.03em; display: block; margin-bottom: 0;"}
+
+[Tu asistente educativo inteligente]{style="font-size: 1.6em; opacity: 0.9; display: block; margin-bottom: 40px;"}
+
+[10 asistentes especializados | Voz, imagenes y documentos | 100% en espanol]{style="font-size: 1.0em; opacity: 0.7;"}
+
+:::
+
+::: notes
+MIA es una plataforma de asistentes de IA especializados para el mercado peruano. No es otro ChatGPT generico: cada asistente esta entrenado con conocimiento especifico para educacion, negocios y tramites del Peru.
+:::
+
+## El problema que resolvemos {auto-animate="true"}
+
+::::: columns
+::: {.column width="50%"}
+
+### Sin MIA
+
+- ChatGPT no conoce el Curriculo Nacional del Peru
+- Google no resuelve problemas paso a paso
+- Tutores privados cuestan S/30-80 por hora
+- Los padres no pueden ayudar con temas avanzados
+- Emprendedores pagan S/200+ por consultoria basica
+- Tramites de SUNAT/RENIEC son confusos y costosos
+
+:::
+
+::: {.column width="50%"}
+
+### Con MIA
+
+- Asistente alineado al curriculo peruano
+- Resolucion paso a paso con explicaciones
+- Disponible 24/7 sin costo por hora
+- Interfaz en espanol, facil para toda la familia
+- Consultor MYPE integrado con conocimiento local
+- Guia clara de tramites con requisitos y pasos
+
+:::
+:::::
+
+::: notes
+El mercado peruano tiene necesidades especificas que ChatGPT y Gemini no cubren. MIA llena ese vacio con conocimiento local integrado.
+:::
+
+## 10 asistentes, un solo lugar {auto-animate="true"}
+
+::::: columns
+::: {.column width="50%"}
+
+### Para Estudiantes
+
+| Asistente | Que hace |
+|-----------|----------|
+| **Agente Primaria** | Curriculo Nacional, 6-12 anos |
+| **Pre-Universitario** | Preparacion UNI, San Marcos, PUCP |
+| **Ingles Titulacion** | Certificacion B1/B2 universitaria |
+
+### Para Negocios
+
+| Asistente | Que hace |
+|-----------|----------|
+| **Asistente MYPE** | Ventas, marketing, finanzas basicas |
+| **Tramites Peru** | SUNAT, RENIEC, SUNARP, municipales |
+
+:::
+
+::: {.column width="50%"}
+
+### Para Programadores
+
+| Asistente | Que hace |
+|-----------|----------|
+| **R Programmer** | Tidyverse, ggplot2, Shiny, estadistica |
+| **Python Programmer** | Data science, web, automatizacion |
+| **SQL Programmer** | Consultas, optimizacion, diseno BD |
+
+### General
+
+| Asistente | Que hace |
+|-----------|----------|
+| **Asistente General** | Cualquier tema o pregunta |
+| **Asistente Madres** | Crianza 0-5 anos, basado en evidencia |
+
+:::
+:::::
+
+::: notes
+La ventaja competitiva de MIA son estos 10 asistentes especializados. Cada uno tiene un system prompt detallado con conocimiento especifico del contexto peruano.
+:::
+
+## Asi se ve MIA {auto-animate="true"}
+
+::::: columns
+::: {.column width="55%"}
+
+### Pantalla de seleccion de asistente
+
+Despues de iniciar sesion, el usuario ve una pantalla visual con:
+
+- **Tarjetas organizadas** por categoria (Estudiantes, Negocios, Programacion, General)
+- **Descripcion clara** de cada asistente
+- **Ejemplos de preguntas** que pueden hacer clic para empezar
+- **Selector de modelo** (GPT-4 o GPT-5.1)
+
+> "No necesitas saber que pedir. MIA te muestra lo que puede hacer."
+
+:::
 
 ::: {.column width="45%"}
-![](/presentacion_files/lucy_sc_main.png){fig-align="center" width="100%"}
-:::
 
-::: {.column width="55%"}
-### Tu Asistente Personal de IA para la Vida
+### Experiencia de chat
 
--   **🗣️ Habla o Escribe** - Usa tu voz o el teclado
--   **📸 Muestra Fotos** - Sube imágenes de cualquier cosa
--   **📄 Comparte Documentos** - PDFs, Word, Excel
--   **💾 Guarda Conversaciones** - Descarga para revisar después
--   **📚 Siempre Aprendiendo** - Recuerda tu historial de chat
--   **📱 Funciona en Todas Partes** - Celular, tablet o computadora
--   **🎓 Hecho para Todos** - Estudiantes, padres, profesores, profesionales
+- **Indicador de asistente** activo con boton "Cambiar"
+- **Voz**: Dictado en espanol o ingles automatico
+- **Archivos**: Fotos, PDFs, Word, Excel, CSV
+- **Busqueda web**: Automatica cuando necesita datos actuales
+- **Contador**: Muestra mensajes restantes
+- **Descarga**: Guarda la conversacion como HTML
+
 :::
 :::::
 
-::: notes
-MIA es tu compañero que hace la vida más fácil - ya sea ayudando con tareas, aprendiendo algo nuevo o gestionando la vida familiar.
-:::
-
-## Cómo Funciona MIA - El Viaje de Tu Pregunta 🔄 {auto-animate="true"}
+## Como funciona {auto-animate="true"}
 
 ```{mermaid}
-%%| fig-width: 12
-%%| fig-height: 7
-flowchart TD
-    A[👤 TÚ: Haces una Pregunta] --> B{¿Cómo?}
-    B -->|💬 Texto| C[Escribe Tu Pregunta]
-    B -->|🎤 Voz| D[Habla Tu Pregunta]
-    B -->|📸 Imagen| E[Sube Foto/Documento]
-    
-    C --> F[🧠 MIA PIENSA]
-    D --> F
-    E --> F
-    
-    F --> G{¿Necesita Info Actual?}
-    G -->|Sí| H[🌐 Busca en la Web]
-    G -->|No| I[📚 Usa Cerebro IA]
-    
-    H --> J[📊 Recopila Datos Actuales]
-    J --> I
-    
-    I --> K[💡 Entiende y Analiza]
-    K --> L[✍️ Crea Respuesta Útil]
-    L --> M[💬 Te Muestra la Respuesta]
-    
-    M --> N[💾 Auto-Guarda en Historial]
-    N --> O{¿Y Ahora?}
-    
-    O -->|Continuar| P[💬 Pregunta de Seguimiento]
-    O -->|Listo| Q[📥 Descarga el Chat]
-    O -->|Cambiar Tema| R[🆕 Nuevo Chat]
-    
-    P --> F
-    
-    style A fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
-    style F fill:#fff3e0,stroke:#f57c00,stroke-width:3px
-    style I fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
-    style M fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
-    style Q fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+%%| fig-width: 11
+%%| fig-height: 5.5
+flowchart LR
+    A["Inicia sesion"] --> B["Elige asistente"]
+    B --> C{"Como preguntas?"}
+    C -->|Texto| D["Escribe"]
+    C -->|Voz| E["Habla"]
+    C -->|Archivo| F["Adjunta"]
+
+    D --> G["MIA analiza"]
+    E --> G
+    F --> G
+
+    G --> H{"Necesita info actual?"}
+    H -->|Si| I["Busqueda web"]
+    H -->|No| J["Responde"]
+    I --> J
+
+    J --> K["Respuesta en tiempo real"]
+    K --> L{"Que sigue?"}
+    L -->|Seguir| D
+    L -->|Nuevo tema| B
+    L -->|Guardar| M["Descarga HTML"]
+
+    style A fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style B fill:#FFF3E0,stroke:#F9A825,stroke-width:2px
+    style G fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
+    style K fill:#F3E5F5,stroke:#673AB7,stroke-width:2px
 ```
 
-::: notes
-¡Este es el simple viaje que cada pregunta toma - desde tu mente al cerebro de MIA y de vuelta con una respuesta útil!
+## Para estudiantes de primaria {auto-animate="true"}
+
+::::: columns
+::: {.column width="55%"}
+
+### Agente Primaria
+
+Alineado al **Curriculo Nacional del Peru** para ninos de 6-12 anos:
+
+- **Comunicacion**: Comprension lectora, redaccion, gramatica
+- **Matematica**: Operaciones, fracciones, geometria basica
+- **Ciencias**: Ecosistemas, cuerpo humano, materia
+- **Personal Social**: Historia del Peru, geografia, civismo
+- **Arte y Educacion Fisica**: Expresion artistica, actividades
+
+### Por que importa
+
+- Los padres no siempre pueden ayudar con el curriculo actual
+- Tutores privados cuestan S/30-50/hora
+- MIA explica con paciencia infinita, al ritmo del nino
+- Enfoque por competencias, no memorizacion
+
 :::
 
-## Características Revolucionarias 🚀 {auto-animate="true"}
+::: {.column width="45%"}
 
+### Ejemplo real
 
--   Disponible 24/7 para tus dudas
--   Paciencia infinita con preguntas repetidas
--   Siempre mantiene un tono positivo
--   No hay horarios ni citas necesarias
+**Estudiante**: "Ayudame con fracciones"
 
-### 💡 Aprende Tu Estilo
+**MIA**: Resuelve paso a paso, detecta el nivel del estudiante, propone ejercicios de practica, celebra avances.
 
--   Se adapta a tu ritmo de aprendizaje
--   Recuerda tus temas difíciles
--   Personaliza explicaciones para ti
--   Construye sobre tu conocimiento previo
-:::
+### Preguntas frecuentes
 
-::: {.column width="50%" auto-animate="true"}
-### 📸 Ve y Comprende
+- "Explicame la fotosintesis con dibujos"
+- "Ejercicios de comprension lectora para 4to grado"
+- "Que paso en la independencia del Peru?"
 
--   Analiza tus tareas fotografiadas
--   **NUEVO**: Lee PDFs, Word y Excel
--   Lee ecuaciones manuscritas
--   Entiende mapas y esquemas
-
-## Novedades Multimodales (2025)
-
-- **Dictado (Speech-to-Text)**: Presiona el botón de micrófono para dictar tu pregunta. La transcripción se añade al cuadro de chat para que la revises antes de enviar.
-- **Cámara y Subida de Múltiples Imágenes**: Toma fotos o sube varias imágenes en un solo mensaje; MIA las analiza en conjunto para una respuesta integrada.
-- **Ingesta de Documentos**: Sube PDFs, Word (.docx), Excel (.xlsx/.xls) y CSV; MIA extrae texto y transforma hojas de cálculo en texto CSV para que el modelo pueda consultarlas.
-- **Previsualizaciones y Metadatos**: Las imágenes muestran miniaturas con nombre, tamaño y dimensiones; los documentos aparecen como entradas compactas para confirmar archivos adjuntos.
-
-Estas mejoras facilitan flujos de trabajo reales: fotos de ejercicios, documentos de apoyo y preguntas habladas.
-
-- **Verificador de Variables de Entorno (Admin)**: La aplicación valida las variables de entorno necesarias al iniciar y muestra una alerta visible y una notificación persistente para administradores si falta configuración.
-- **Búsqueda Web Segura**: MIA puede realizar búsquedas web controladas mediante la herramienta `perform_google_search` usando Google Custom Search (requiere `google_search_api_key` y `google_search_engine_id`).
-- **Script de Prueba Rápida**: Ejecuta `Rscript scripts/check_google_search.R` desde la raíz del proyecto para validar las credenciales de Google CSE antes de usar búsquedas web.
-
-## Resultados de Búsqueda Web (Ejemplo)
-
-**Cómo aparecen los resultados para los usuarios:**
-
-- **Título**: Título del Arlo.com/articulo
-- **Extracto**: Resumen breve (1-2 líneas) indicando la relevancia a la consulta.
-
----
-
-**Prompts de ejemplo**
-
-- Usuario (fin-usuario): "Busca en la web estudios recientes sobre aprendizaje activo en matemáticas de secundaria y resume los hallazgos principales."
-- Desarrollador (programático): `perform_google_search(query = "aprendizaje activo matemáticas secundaria", n = 3)`
-
-Nota: las búsquedas web están controladas — los resultados se devuelven como texto (título, enlace, extracto) y se usan solo para complementar el contexto que recibe el modelo.
-
-### 🎓 Método Socrático
-
--   Te guía hacia las respuestas
--   Hace preguntas que te hacen pensar
--   Explica el "¿por qué?" no solo el "¿cómo?"
--   Fomenta el pensamiento crítico
 :::
 :::::
 
-::: footer
-MIA - Asistente Inteligente Multimodal 🤖✨
+## Para pre-universitarios {auto-animate="true"}
+
+::::: columns
+::: {.column width="55%"}
+
+### Preparacion UNI / San Marcos / PUCP
+
+- **Razonamiento matematico**: Algebra, geometria, trigonometria, aritmetica
+- **Razonamiento verbal**: Analogias, comprension, eliminacion de oraciones
+- **Ciencias**: Fisica, quimica, biologia para admision
+- **Estrategias de examen**: Manejo de tiempo, priorizacion, eliminacion
+
+### Diferenciador
+
+- Conoce el **formato real** de los examenes de admision peruanos
+- Problemas tipo examen con dificultad progresiva
+- Tono exigente y motivador (como un profesor de academia)
+- Practica deliberada enfocada en areas debiles
+
 :::
 
-## Apoyo Académico Completo 📚 {auto-animate="true"}
+::: {.column width="45%"}
 
-::::::: {.panel-tabset}
-### Matemáticas 📐
+### El reto peruano
 
--   **Álgebra**: Ecuaciones paso a paso
--   **Geometría**: Análisis visual de figuras
--   **Cálculo**: Derivadas e integrales explicadas
--   **Estadística**: Interpretación de datos y gráficos
--   **Ejemplo**: Sube foto de tu ejercicio → Solución detallada
+> Cada ano, **200,000+ postulantes** compiten por plazas en universidades publicas peruanas. Solo el 10-15% ingresa.
+
+### MIA como ventaja
+
+- Disponible a las 11pm cuando el estudiante estudia
+- No se cansa de repetir el mismo tema
+- Problemas ilimitados para practicar
+- Costo: una fraccion de una academia
+
 :::
+:::::
 
-### Ciencias 🔬
+## Para emprendedores y ciudadanos {auto-animate="true"}
 
-::: {auto-animate="true"}
--   **Física**: Problemas de mecánica y óptica
--   **Química**: Balanceo de ecuaciones y estequiometría
--   **Biología**: Análisis de células y ecosistemas
--   **Laboratorio**: Interpreta resultados experimentales
--   **Ejemplo**: Foto de microscopio → Identificación celular
-:::
-
-### Idiomas 🌍
-
-::: {auto-animate="true"}
--   **Gramática**: Corrección y explicación de errores
--   **Vocabulario**: Contexto cultural de palabras
--   **Traducción**: No solo traduce, explica diferencias
--   **Escritura**: Mejora redacción y estilo
--   **Ejemplo**: Texto en inglés → Análisis gramatical completo
-:::
-
-### Historia y Sociales 🏛️
-
-::: {auto-animate="true"}
--   **Análisis**: Documentos históricos y mapas
--   **Cronología**: Líneas de tiempo interactivas
--   **Geografía**: Interpretación cartográfica
--   **Civismo**: Comprensión de sistemas políticos
--   **Ejemplo**: Mapa histórico → Contexto y significado
-:::
-
-### Especializado Perú 🇵🇪
-
-::: {auto-animate="true"}
--   **Pre-Universitario**: Preparación UNI/San Marcos paso a paso
--   **MYPE**: Asesoría de negocios y análisis de ventas (Excel)
--   **Trámites**: Guía para SUNAT, RENIEC y burocracia
--   **Titulación**: Inglés técnico para exámenes de grado
--   **Ejemplo**: Sube Excel de ventas → Análisis de tendencias
-:::
-:::::::
-
-::: footer
-MIA - Asistente Inteligente Multimodal 🤖✨
-:::
-
-## Casos Reales de Estudiantes 🌟 {auto-animate="true"}
-
-::::: {.columns auto-animate="true"}
+::::: columns
 ::: {.column width="50%"}
-### 📐 María - Matemáticas
- icMIA**: - Fotografió su ejercicio de coordenadas - MIA explicó paso a paso la distancia entre puntos - Proporcionó 3 ejercicios similares para practicar - **Resultado**: De 6/10 a 9/10 en el examen
 
-### 🧪 Carlos - Química
+### Asistente MYPE
 
-**Problema**: Balanceo de ecuaciones químicas **Solución MIA**: - Subió foto de ecuación desequilibrada - MIA mostró método sistemático de balanceo - Explicó la ley de conservación de masa - **Resultado**: Ahora balancea solo cualquier ecuación
+Para los **2.3 millones de MYPEs** en Peru:
+
+- Como mejorar ventas con presupuesto limitado
+- Plan de marketing basico para redes sociales
+- KPIs simples que un emprendedor puede medir
+- Plantillas de comunicacion con clientes
+- Analisis de datos comerciales (sube tu Excel)
+- Estrategias de precio y promocion
+
+**Ejemplo**: "Tengo una bodega en San Juan de Lurigancho. Como puedo atraer mas clientes?"
+
 :::
 
 ::: {.column width="50%"}
-### 📚 Ana - Literatura
 
-**Problema**: Análisis de poemas complejos **o-iut 
-### 🌍 Diego - Historia
+### Tramites Peru
 
+Guia paso a paso para burocracia peruana:
 
-:::::
+- **SUNAT**: RUC, regimenes tributarios, declaraciones
+- **RENIEC**: DNI, partidas, certificados
+- **SUNARP**: Registros publicos, propiedades
+- **Municipalidades**: Licencias, permisos
+- **ESSALUD**: Aportes, cobertura
 
-::: footer
-MIA - Asistente Inteligente Multimodal 🤖✨
-:::
+Incluye: requisitos, documentos, plazos, costos y enlaces oficiales.
 
-## Cómo MIA Te Ayuda Paso a Paso 🔄 {auto-animat
-::::: columns
-::: {.column width="50%" auto-animate="true"}
-### 1. 📤 **Comparte Tu Duda**
+**Ejemplo**: "Quiero formalizar mi negocio. Que pasos debo seguir?"
 
--   Sube foto de tu tarea o ejercicio
--   No necesitas formateo especial
--   **Usa el micrófono** para dictar tu duda
--   MIA en
-### 2. 🔍 **MIA Analiza**
-
-
--   Evalúa tu nivel de comprensión actual
--   Prepara explicación personalizada
-:::
-
-::: {.column width="50%" auto-animate="true"}
-### 3. 🎓 **Explicación Detallada**
-
--   Desglose paso a paso del problema
--   Explicación de conceptos fundamentales
--   Ejemplos adicionales similares
-- xo
-
--   Preguntas para confirmar entendimiento
--   Ejercicios de práctica sugeridos
--   Consejos para evitar errores comunes
--   Seguimiento en próximas sesiones
 :::
 :::::
 
-::: fragment
-### 🎯 **Resultado**: Aprendes el concepto, no solo la respuesta
-:::
-
-::: footer
-MIA - Asistente Inteligente Multimodal 🤖✨
-:::
-
-## Ventajas de Tener Tu Tutor IA 🚀 {auto-animate="true"}
+## Multimodal: mas alla del texto {auto-animate="true"}
 
 ::::: columns
-::: {.column width="50%" auto-animate="true"}
-### 💰 **Económico**
+::: {.column width="50%"}
 
--   Sin costo por hora de tutoría
--   No necesitas múltiples tutores por materia
--   Disponible para toda la familia
--   Inversión única en educación
+### Voz
 
-### ⏰ **Flexible**
+- Boton de microfono integrado
+- Deteccion automatica de idioma (espanol para asistentes peruanos, ingles para programacion)
+- Transcripcion editable antes de enviar
+- Ideal para celulares y cuando las manos estan ocupadas
 
--   Estudia cuando quieras, donde quieras
--   Sin horarios fijos ni citas
--   Se adapta a tu horario escolar
+### Documentos
+
+- **PDF**: Articulos, guias, libros
+- **Word (.docx)**: Ensayos, tareas, reportes
+- **Excel (.xlsx)**: Datos de ventas, inventario, notas
+- **CSV**: Datos tabulares
+- Extraccion automatica de texto para analisis
+
 :::
 
-::: {.column width="50%" auto-animate="true"}
-### 🎯 **Personalizado**
+::: {.column width="50%"}
 
--   Se adapta a tu ritmo de aprendizaje
--   Recuerda tus fortalezas y debilidades
--   Ajusta dificultad automáticamente
--   Conecta con tus intereses personales
+### Imagenes
 
-### 📈 **Efectivo**
+- Fotos de tareas y ejercicios escritos a mano
+- Diagramas, graficos, mapas
+- Ecuaciones matematicas
+- Compresion automatica (1024px, 80% calidad JPEG)
+- Multiples archivos en un solo mensaje
 
--   Método probado científicamente
--   Refuerzo inmediato de conceptos
--   Práctica deliberada guiada
--   Seguimiento de progreso continuo
-:::
-:::::
+### Busqueda web
 
-::: {.fragment auto-animate="true"}
-### 🌟 **Resultado**: Mejor rendimiento académico con menos estrés
-:::
+- MIA decide automaticamente cuando buscar
+- Resultados con titulo, enlace y resumen
+- Datos actualizados para preguntas sobre noticias, estadisticas, investigaciones
 
-::: footer
-MIA - Asistente Inteligente Multimodal 🤖✨
-:::
-
-## Capacidades Técnicas Avanzadas 💻 {auto-animate="true"}
-
-:::::: panel-tabset
-### Análisis de Imágenes 📸
-
-::: {auto-animate="true"}
--   **OCR Inteligente**: Lee texto manuscrito y digital
--   **Documentos**: Procesa Word (.docx), Excel (.xlsx) y PDF
--   **Diagramas Científicos**: Interpreta gráficos y esquemas
--   **Ecuaciones Matemáticas**: Reconoce fórmulas complejas
--   **Mapas y Planos**: Analiza información geográfica
--   **Arte y Diseño**: Evalúa composición y técnica
--   **Experimentos**: Interpreta resultados de laboratorio
-:::
-
-### Memoria Contextual 🧠
-::: {auto-animate="true"}
--   **Progreso Personal**: Recuerda tu nivel en cada materia
--   **Conversaciones Anteriores**: Conecta temas relacionados
--   **Estilo de Aprendizaje**: Se adapta a tus preferencias
--   **Dificultades Específicas**: Enfoca en áreas problemáticas
--   **Logros**: Celebra tus avances y mejoras
--   **Patrones**: Identifica tus mejores horarios de estudio
-:::
-
-### Seguridad y Privacidad 🔒
-
-::: {auto-animate="true"}
--   **Datos Encriptados**: Toda tu información protegida
--   **Sin Uso Comercial**: Tus datos no se venden ni comparten
--   **Acceso Controlado**: Solo tú tienes acceso a tu perfil
--   **Cumplimiento GDPR**: Estándares internacionales de privacidad
--   **Backup Seguro**: Tus conversaciones están respaldadas
--   **Transparencia Total**: Sabes exactamente qué se guarda
-:::
-::::::
-
-::: footer
-MIA - Asistente Inteligente Multimodal 🤖✨
-:::
-
-<!-- ## Guía de Implementación 🛠️ -->
-
-<!-- ::: panel-tabset -->
-<!-- ### Para Instituciones Educativas -->
-
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| code-fold: false -->
-
-<!-- # Configuración Escuela/Universidad -->
-<!-- 1. Desplegar en servidores institucionales -->
-<!-- 2. Configurar autenticación de usuarios -->
-<!-- 3. Configurar AWS S3 para almacenamiento -->
-<!-- 4. Personalizar para necesidades curriculares -->
-
-<!-- # Pasos de Integración: -->
-<!-- - ugn
-<!-- - Marca personalizada y temas -->
-<!-- - Configuración dashboard analítico -->
-<!-- ``` -->
-
-<!-- ### Para Educadores Individuales -->
-
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| code-fold: false -->
-
-<!-- # Configuración Maestro -->
-<!-- 1. Crear instancia personal -->
-<!-- 2. Configurar cuentas de aula -->
-<!-- 3. Configurar plantillas de tareas -->
-<!-- 4. Monitorear progreso estudiantil -->
-
-<!-- # Gestión de Aula: -->
-<!-- - Crear cuentas de estudiantes -->
-<!-- - Establecer categorías de tareas -->
-<!-- - Rastrear analíticas de aprendizaje -->
-<!-- - Generar reportes de progreso -->
-<!-- ``` -->
-
-<!-- ### Para Estudiantes -->
-
-<!-- **Primeros Pasos:** 1. **📝 Registrarse**: Crear cuenta personal 2. **📸 Subir**: Compartir tareas, notas o preguntas 3. **💬 Chatear**: Hacer preguntas en lenguaje natural 4. **📚 Aprender**: Obtener explicaciones detalladas y orientación 5. **🔄 Seguimiento**: Continuar conversaciones sobre temas 6. **🆕 Reiniciar**: Comenzar conversaciones frescas cuando sea necesario -->
-<!-- ::: -->
-
-## Resultados Comprobados 📊 {auto-animate="true" style="font-size: 0.8em"}
-
-```{r}
-#| echo: false
-#| fig-height: 3.5
-#| fig-width: 9
-
-library(ggplot2)
-
-# Crear datos de evaluación de impacto
-impact_data <- data.frame(
-  Categoria = c("Calificaciones", "Comprensión", "Confianza", "Autonomía", "Motivación"),
-  Antes_MIA = c(6.2, 6.1, 5.8, 5.9, 6.0),
-  Despues_MIA = c(8.6, 8.4, 8.5, 8.3, 8.2)
-)
-
-# Reestructurar datos
-impact_long <- data.frame(
-  Categoria = rep(impact_data$Categoria, 2),
-  Periodo = c(rep("Antes de MIA", 5), rep("Con MIA", 5)),
-  Puntuacion = c(impact_data$Antes_MIA, impact_data$Despues_MIA)
-)
-
-ggplot(impact_long, aes(x = Categoria, y = Puntuacion, fill = Periodo)) +
-  geom_col(position = "dodge", alpha = 0.8, width = 0.7) +
-  coord_flip() +
-  labs(title = "Mejora del Rendimiento Académico",
-       subtitle = "Resultados de estudiantes usando MIA (Escala: 1-10)",
-       x = "", y = "Puntuación Promedio") +
-  theme_minimal() +
-  scale_fill_manual(values = c("Antes de MIA" = "#FF6B6B", "Con MIA" = "#4ECDC4")) +
-  theme(plot.title = element_text(face = "bold", hjust = 0.5, size = 12),
-        plot.subtitle = element_text(hjust = 0.5, size = 10),
-        
-
-::: {.fragment auto-animate="true" style="font-size: 0.8em"}
-### 🎯 Mejoras Destacadas
-
--   **💯 39% mejor** en calificaciones promedio
--   **🧠 37% más** comprensión de concepto
--   **⚡ 37% mayor** motivación por aprender
-:::
-
-::: footer
-Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
-:::
-
-## Testimonios de Estudiantes 🗣️ {auto-animate
-::::: {.columns style="font-size: 0.75em"}
-::: {.column width="50%" auto-animate="true"}
-> *"Antes odiab
-> **- Sofía, 15 años, Bachillerato**
-
-> *"MIA me ayudó con química orgánica cuando nadie más podía. Explica tan claro que parece fácil."*
->
-> **- Miguel, 17 años, Preparatoria**
-
-> *"Mi inglés mejoró muchísimo. MIA corrige mis ensayos y explica por qué cada error está mal."*
->
-> **- Carla, 16 años, Secundaria**
-:::
-
-::: {.column width="50%" auto-animate="true"}
-> *"Trabajo de noche y estudio de día. MIA está siempre disponible cuando puedo estudiar."*
->
-> **- Roberto, 19 años, Universidad**
-
-> *"Para mi tesis de biología, MIA analizó mis fotos de laboratorio mejor que algunos profesores."*
->
-> **- Patricia, 22 años, Licenciatura**
-
-> *"Mis padres están felices porque ya no necesito tutor presencial. MIA es mejor y más barata."*
->
-> **- Andrés, 14 años, Secundaria**
 :::
 :::::
 
-MIA - Asistente Inteligente Multimodal 🤖✨
-:::
+## Seguridad y confianza {auto-animate="true"}
 
-## C
-::::: {.columns style="font-size: 0.8em"}
-::: {.column width="60%" auto-animate="true"}
-### 📱 **Pasos Súper Fáciles** {style="font-size: 0.85em"}
-* y contraseña
-2.  **Subir Primera Tarea** → Foto o texto de tu duda
-3.  **Recibir Ayuda** → Explicación personalizada inmediata
-4.  **Seguir Practicando** → MIA recuerda tu progreso
-
-### 💻 **Dispositivos Compatibles** {style="f
--   🖥️ Computadora (Windows/Mac/Linux)
--   📱 Celular (Android/iPhone)
--   📟 Tablet (iPad/Android)
--   🌐 Cualquier navegador web
-:::
-::: {.column width="40%" auto-animate="true"}
-### 🎯 **Para Estudiantes** {style="font-size: 0.85em"}
-
--   ✅ 10 consultas diarias
--   ✅ Análisis de imágenes
--   ✅ Chat persistente
-
-### 👨‍👩‍👧‍👦 **Para Familias** {style="font-size: 0.85em"}
-
--   ✅ Múltiples cuentas
--   ✅ Reportes de progreso
--   ✅ Soporte 24/7
-:::
-:::::
-::: {.fragment auto-animate="true" style="font-size: 0.9em"}
-### 🎁 **¡Prueba GRATIS por 30 días!**
-:::
-
-::: footer
-MIA - Asistente Inteligente Multimodal 🤖✨
-:::
-
-## El Futuro del Aprendizajea
 ::::: columns
-::: {.column width="50%" auto-animate="true"}
-### 🆕 **Próximas Funciones**
+::: {.column width="50%"}
 
--   **🎥 Videos Educativos**: Análisis de contenido audiovisual
--   **🗣️ Tutor por Voz**: Conversaciones habladas
--   **👥 Estudio Grupal**: Sesiones colaborativas
--   **📊 Analítica Avanzada**: Insights de aprendizaje
--   **🎮 Gamificación**: Aprender jugando
--   **🤖 IA Más Inteligente**: Comprensión aún mejor
+### Proteccion de datos
 
-### 🌍 **Impacto Global**
+- **Contrasenas cifradas** con bcrypt (estandar de la industria)
+- **Registro con contrasena segura** (minimo 6 caracteres)
+- **Sin almacenamiento permanente** de conversaciones en servidor
+- **Descarga local**: El usuario controla sus datos
+- **Credenciales en AWS S3** con acceso restringido
 
--   **Acceso Universal**: Educación para todos
--   **Idiomas Múltiples**: Soporte mundial
--   **Costos Reducidos**: Educación accesible
--   **Calidad Consistente**: Estándares altos siempre
+### Privacidad
+
+- Sin venta de datos a terceros
+- Sin rastreo de comportamiento
+- Conversaciones privadas por sesion
+- Declaracion de privacidad visible en login
+
 :::
 
-::: {.column width="50%" auto-animate="true"}
-### 🎯 **Tu Éxito Académico**
+::: {.column width="50%"}
 
--   **Mejor Rendimiento**: Calificaciones más altas
--   **Mayor Confianza**: Menos estrés en exámenes
--   **Aprendizaje Profundo**: Comprensión real
--   **Autonomía**: Menos dependencia de otros
--   **Preparación Universitaria**: Bases sólidas
--   **Habilidades del Futuro**: Pensamiento crítico
+### Accesibilidad
 
-### 🚀 **¡El Cambio Empieza Contigo!** {style="font-size: 0.85em"}
-:::
+- Interfaz 100% en espanol peruano
+- Tamano minimo de botones: 44x44px (tactil)
+- Respeta "prefers-reduced-motion" del sistema
+- Etiquetas visibles en formularios (no solo placeholders)
+- Navegacion por teclado con indicadores de foco
+- Atributos aria-label en todos los botones
 
-::: footer
-MIA - Asistente Inteligente Multimodal 🤖✨
-:::
+### Disenada para Peru
 
-## ¡Tu Éxito Académico Comienza Ahora! 📢 {.center auto-animate="true" style="font-size: 0.8em"}
+- Funciona en conexiones 3G/4G variables
+- Compresion de imagenes reduce uso de datos
+- Optimizada para celulares Android (54%+ de usuarios)
+- Hosting gratuito con buen rendimiento
 
-::: {.r-fit-text auto-animate="true" style="font-size: 0.8em"}
-**¡Únete a Miles de Estudiantes Exitosos!**
-:::
-
-::::: {.columns style="font-size: 0.8em"}
-::: {.column width="50%" auto-animate="true"}
-### 🎓 **Para Estudiantes** {style="font-size: 0.85em"}
-
-🚀 **Comienza Tu Transformación Académica** - **Crear Cuenta Gratis** - **Ver Demo en Vivo** - **Unirse a Comunidad Estudiantil**
-
-### 👨‍👩‍👧‍👦 **Para Padres** {style="font-size: 0.85em"}
-
-📚 **Invierte en el Futuro de tus Hijos** - Prueba gratuita por 30 días - Sin compromiso a largo plazo - Resultados visibles desde la primera semana - Soporte familiar completo
-:::
-
-::: {.column width="50%" auto-animate="true"}
-### 🏫 **Para Instituciones** {style="font-size: 0.85em"}
-
-💻 **Revoluciona tu Educación** - Programa piloto sin costo - Capacitación incluida - Soporte técnico 24/7 - Resultados medibles
-
-### 👨‍🏫 **Para Educadores** {style="font-size: 0.85em"}
-
-🔬 **Potencia tu Enseñanza** - Herramientas de vanguardia - Analíticas de progreso estudiantil - Reducción de carga de trabajo - Mejores resultados académicos
 :::
 :::::
 
-::: footer
-Lucy AI Assistant - Tu Tutor Personal Inteligente 🤖✨
+## Novedades de la version 2.0 {auto-animate="true"}
+
+::::: columns
+::: {.column width="50%"}
+
+### Antes (v1.x)
+
+- Asistentes escondidos en menu lateral
+- Interfaz en ingles mezclado con espanol
+- Botones rojos (senal de peligro)
+- Logo: emoji de robot
+- Contrasenas en texto plano
+- Registro deshabilitado
+- Sin indicador de mensajes
+
 :::
 
-## ¡Comienza Tu Transformación Educativa Hoy! 🌟 {.center auto-animate="true" style="font-size: 0.8em"}
+::: {.column width="50%"}
 
-**Lucy AI - Donde la Educación Se Encuentra con el Futuro**
+### Ahora (v2.0)
+
+- **Pantalla visual de seleccion** con tarjetas
+- **100% en espanol** peruano
+- **Azul educativo** + dorado de acento
+- **Marca "MIA"** profesional
+- **bcrypt** para contrasenas
+- **Registro abierto** para nuevos usuarios
+- **Contador de mensajes** (7/10, 9/10, limite)
+
+:::
+:::::
+
+::: {.fragment}
+### Tipografia profesional
+Space Grotesk (titulos) + Source Sans 3 (cuerpo) + JetBrains Mono (codigo)
 :::
 
-:::::: {.columns style="font-size: 0.8em"}
-::: {.column width="60%" auto-animate="true"}
-### 📞 **Contacto y Soporte** {style="font-size: 0.85em"}
+## Arquitectura tecnica {auto-animate="true"}
 
-📧 **Email:** [alexis.m.roldan.ds\@gmail.com](mailto:alexis.m.roldan.ds@gmail.com) 🌐 **GitHub:** [github.com/roldanalex/Personal-Assistant-AI](https://github.com/roldanalex/Personal-Assistant-AI) 💬 **WhatsApp:** +51 999 xxx xxx (Soporte en Español)
+```{mermaid}
+%%| fig-width: 11
+%%| fig-height: 5
+flowchart TB
+    subgraph Cliente["Navegador del Usuario"]
+        UI["R Shiny + bslib"]
+        Chat["shinychat"]
+        Speech["Web Speech API"]
+        Files["FileInput + magick"]
+    end
 
-### 🎯 **Próximos Pasos** {style="font-size: 0.85em"}
+    subgraph Servidor["Servidor R Shiny"]
+        Auth["Autenticacion bcrypt"]
+        Personas["10 Asistentes / System Prompts"]
+        Stream["ellmer + coro async"]
+        Search["Google Custom Search"]
+    end
 
-1.  **📝 Regístrate** → Cuenta gratuita en minutos
+    subgraph Externo["Servicios Externos"]
+        OpenAI["OpenAI GPT-4/5.1"]
+        S3["AWS S3 Credenciales"]
+        Google["Google Search API"]
+    end
 
-4.  **🏆 Destaca** → Mejora tus notas en 30 días
+    UI --> Auth
+    Chat --> Stream
+    Speech --> Chat
+    Files --> Stream
+    Auth --> S3
+    Stream --> OpenAI
+    Search --> Google
+    Personas --> Stream
+
+    style Cliente fill:#E3F2FD,stroke:#1565C0
+    style Servidor fill:#FFF3E0,stroke:#F9A825
+    style Externo fill:#E8F5E9,stroke:#2E7D32
+```
+
+## Modelo de negocio {auto-animate="true"}
+
+::::: columns
+::: {.column width="50%"}
+
+### Propuesta de valor
+
+**"El unico asistente de IA disenado para estudiantes peruanos"**
+
+Lo que ChatGPT y Gemini **no pueden hacer**:
+
+- Curriculo Nacional integrado en las respuestas
+- Formato real de examenes UNI/San Marcos
+- Conocimiento de tramites SUNAT/RENIEC
+- Interfaz pensada para usuarios no tecnicos
+- Contexto cultural peruano en cada interaccion
+
+### Mercado objetivo
+
+- **6.8M estudiantes** de primaria y secundaria en Peru
+- **200K+ postulantes** universitarios por ano
+- **2.3M MYPEs** que necesitan consultoria accesible
+- **Millones de ciudadanos** lidiando con tramites
+
 :::
 
-:::: {.column width="40%" auto-animate="true"}
-### 🎁 **Oferta de Lanzamiento** {style="font-size: 0.85em"}
+::: {.column width="50%"}
 
-::: {.fragment .highlight-red style="font-size: 0.8em"}
-**¡Primeros 100 Estudiantes!** - ✅ Acceso premium por 3 meses - ✅ Sesiones de tutoría ilimitadas - ✅ Soporte prioritario 24/7 - ✅ Herramientas avanzadas incluidas
+### Costo operativo
+
+| Concepto | Mensual |
+|----------|---------|
+| OpenAI API (uso moderado) | $20-50 |
+| Hosting (Vercel free / shinyapps) | $0-39 |
+| AWS S3 (credenciales) | $0.50 |
+| Google Search API | $0-5 |
+| **Total** | **$20-95** |
+
+### Monetizacion potencial
+
+- **Freemium**: 5 consultas diarias gratis, ilimitado con suscripcion
+- **Institucional**: Licencia para colegios y academias
+- **MYPE**: Plan de consultoria con reportes automaticos
+- **Certificaciones**: Simulacros de examen con evaluacion
+
+:::
+:::::
+
+## Proximos pasos {auto-animate="true"}
+
+::::: columns
+::: {.column width="50%"}
+
+### Corto plazo (1-2 meses)
+
+- Migracion a **Next.js + Vercel** para mejor rendimiento
+- **PWA**: "Agregar a pantalla de inicio" en Android
+- **Persistencia**: Historial de chat guardado por usuario
+- **Landing pages** en espanol para SEO organico
+
+### Mediano plazo (3-6 meses)
+
+- **Autenticacion con email** (NextAuth.js + Supabase)
+- **Analytics** de uso por asistente y usuario
+- **Rate limiting** y suscripciones
+- **Contenido educativo** (blog, tips, ejercicios)
+
 :::
 
-### ⏰ **Solo por Tiempo Limitado** {style="font-size: 0.85em"}
+::: {.column width="50%"}
 
-🗓️ **Hasta: 31 de Diciembre 2024**
-::::
-::::::
+### Diferenciacion continua
 
-::: {.r-fit-text auto-animate="true" style="font-size: 0.8em"}
-**¿Listo para ser el próximo estudiante exitoso?**
+- **Contenido Peru-especifico**: Actualizar prompts con cambios curriculares, tributarios, legales
+- **Comunidad**: Grupos de estudio, recomendaciones de profesores
+- **Seguridad infantil**: Guardrails de contenido para Agente Primaria
+- **Modo offline**: Respuestas cacheadas para conexiones lentas
+
+### Metricas de exito
+
+- Usuarios activos mensuales
+- Tasa de retencion a 30 dias
+- Mensajes por sesion promedio
+- Net Promoter Score por asistente
+- Costo por usuario activo
+
 :::
+:::::
 
-------------------------------------------------------------------------
+## {background-color="#1565C0"}
 
-*Lucy AI Assistant - Educación Personalizada con Inteligencia Artificial 🤖📚✨*
+::: {style="text-align: center; color: white; padding-top: 60px;"}
+
+[**MIA**]{style="font-size: 4em; font-weight: 700; letter-spacing: -0.03em; display: block;"}
+
+[Tu asistente educativo inteligente]{style="font-size: 1.4em; opacity: 0.9; display: block; margin-bottom: 30px;"}
+
+[**Prueba MIA hoy**]{style="font-size: 1.5em; display: block; margin-bottom: 40px;"}
+
+[alexis.m.roldan.ds@gmail.com]{style="font-size: 1.0em; opacity: 0.8; display: block; margin-bottom: 8px;"}
+
+[github.com/roldanalex/Personal-Assistant-AI]{style="font-size: 0.9em; opacity: 0.7; display: block; margin-bottom: 30px;"}
+
+[MIA v2.0 | Created by Alexis Roldan - 2025]{style="font-size: 0.8em; opacity: 0.5;"}
+
+:::

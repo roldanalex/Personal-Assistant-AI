@@ -1,183 +1,174 @@
 /*-- scss:defaults --*/
 
-// Custom color palette for Lucy AI Assistant
-$theme-blue: #2E86AB !default;
-$theme-purple: #A23B72 !default;
-$theme-orange: #F18F01 !default;
-$theme-teal: #4ECDC4 !default;
-$theme-yellow: #FFE66D !default;
+// MIA v2.0 Color Palette
+$mia-blue: #1565C0 !default;
+$mia-blue-light: #1E88E5 !default;
+$mia-gold: #F9A825 !default;
+$mia-text: #1a1a2e !default;
+$mia-text-secondary: #64748B !default;
+$mia-surface: #F8FAFC !default;
 
-// Primary theme colors
-$primary: $theme-blue !default;
-$secondary: $theme-purple !default;
-$success: $theme-teal !default;
-$info: $theme-blue !default;
-$warning: $theme-yellow !default;
-$danger: $theme-purple !default;
+// Theme mapping
+$primary: $mia-blue !default;
+$secondary: $mia-blue-light !default;
+$success: #2E7D32 !default;
+$info: $mia-blue-light !default;
+$warning: $mia-gold !default;
 
-// Background colors
+// Background
 $body-bg: #ffffff !default;
-$body-color: #2C3E50 !default;
+$body-color: $mia-text !default;
 
 // Typography
-$font-family-sans-serif: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
-$headings-font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
-$headings-font-weight: 600 !default;
+$font-family-sans-serif: "Source Sans 3", "Segoe UI", Roboto, sans-serif !default;
+$headings-font-family: "Space Grotesk", "Segoe UI", Roboto, sans-serif !default;
+$headings-font-weight: 700 !default;
 
-// Code styling
-$code-bg: #f8f9fa !default;
-$code-color: $theme-purple !default;
+// Code
+$code-bg: $mia-surface !default;
+$code-color: #673AB7 !default;
 
 /*-- scss:rules --*/
 
-// Custom slide styling with better screen fit and medium-sized fonts
+// Import Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+.reveal {
+  font-size: 1.0em;
+  font-family: $font-family-sans-serif;
+}
+
 .reveal h1, .reveal h2, .reveal h3 {
   color: $primary;
   text-transform: none;
   font-weight: $headings-font-weight;
+  font-family: $headings-font-family;
+  letter-spacing: -0.02em;
 }
 
 .reveal h1 {
-  font-size: 2.0em; // Increased from 1.8em to medium
+  font-size: 2.2em;
   line-height: 1.1;
   margin-bottom: 0.5em;
 }
 
 .reveal h2 {
-  font-size: 1.6em; // Increased from 1.4em to medium
+  font-size: 1.6em;
   line-height: 1.2;
   margin-bottom: 0.8em;
 }
 
 .reveal h3 {
-  font-size: 1.3em; // Increased from 1.1em to medium
+  font-size: 1.2em;
   line-height: 1.3;
   margin-bottom: 0.5em;
 }
 
-// Better text sizing for content - medium size for readability
 .reveal p, .reveal li {
-  font-size: 1.0em; // Increased from 0.8em to medium
-  line-height: 1.4;
-  margin-bottom: 0.5em;
+  font-size: 0.95em;
+  line-height: 1.5;
+  margin-bottom: 0.4em;
 }
 
-.reveal ul, .reveal ol {
-  margin-bottom: 1em;
-}
-
-// Compact list styling
 .reveal ul li, .reveal ol li {
-  margin-bottom: 0.3em;
+  margin-bottom: 0.35em;
 }
 
-// Better fit for columns and panels
-.reveal .columns {
-  margin-top: 0.5em;
+// Gold accent for key highlights
+.reveal .highlight-gold {
+  color: $mia-gold;
+  font-weight: 700;
 }
 
+// Panel tabset
 .reveal .panel-tabset {
-  font-size: 0.9em; // Increased from 0.75em to medium
+  font-size: 0.9em;
 }
 
-// Code block adjustments
+// Code blocks
 .reveal pre {
-  font-size: 0.8em; // Increased from 0.65em to medium
-  line-height: 1.2;
-}
-
-// Mermaid diagram scaling
-.reveal .mermaid {
-  font-size: 0.85em; // Increased from 0.7em to medium
-}
-
-// Enhanced list styling
-.reveal ul li, .reveal ol li {
-  margin-bottom: 0.5em;
-}
-
-// General font size adjustment for better readability
-.reveal {
-  font-size: 1.0em; // Increased from 0.9em to medium
-}
-
-// R-fit-text adjustments
-.reveal .r-fit-text {
-  font-size: 0.95em !important; // Increased from 0.8em to medium
-}
-
-// Fragment text adjustments
-.reveal .fragment {
-  font-size: 1.0em; // Increased from 0.85em to medium
-}
-
-// Code block enhancements
-.reveal pre {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  font-size: 0.8em;
+  line-height: 1.3;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   border-radius: 8px;
+  font-family: "JetBrains Mono", monospace;
 }
 
 .reveal pre code {
   background-color: $code-bg;
   padding: 1em;
+  font-family: "JetBrains Mono", monospace;
 }
 
-// Button enhancements are handled in styles.css
+// Mermaid
+.reveal .mermaid {
+  font-size: 0.85em;
+}
 
-// Table styling
+// Tables
 .reveal table {
   border-collapse: collapse;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 
 .reveal table th {
   background-color: $primary;
   color: white;
-  padding: 0.8em;
+  padding: 0.7em;
+  font-family: $headings-font-family;
+  font-weight: 600;
 }
 
 .reveal table td {
   padding: 0.6em;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid #E2E8F0;
 }
 
 .reveal table tr:hover {
-  background-color: rgba($primary, 0.05);
+  background-color: rgba($primary, 0.04);
 }
 
-// Blockquote styling
+// Blockquote
 .reveal blockquote {
-  border-left: 4px solid $primary;
-  background-color: rgba($primary, 0.05);
-  padding: 1em;
-  margin: 1em 0;
+  border-left: 4px solid $mia-gold;
+  background-color: rgba($mia-gold, 0.06);
+  padding: 0.8em 1em;
+  margin: 0.8em 0;
   font-style: italic;
+  border-radius: 0 8px 8px 0;
 }
 
-// Navigation styling
+// Navigation
 .reveal .controls {
   color: $primary;
 }
 
-.reveal .controls .navigate-left,
-.reveal .controls .navigate-right,
-.reveal .controls .navigate-up,
-.reveal .controls .navigate-down {
-  border-color: $primary transparent transparent transparent;
+// Footer
+.reveal .slide-footer {
+  font-size: 0.7em;
+  color: $mia-text-secondary;
 }
 
-.reveal .controls .navigate-left.enabled:hover {
-  border-left-color: $secondary;
+// Fragment animations
+.reveal .fragment {
+  font-size: 1.0em;
 }
 
-.reveal .controls .navigate-right.enabled:hover {
-  border-right-color: $secondary;
+// Feature cards
+.feature-card {
+  background: $mia-surface;
+  border-radius: 12px;
+  padding: 1em;
+  border-left: 4px solid $primary;
+  margin-bottom: 0.8em;
 }
 
-.reveal .controls .navigate-up.enabled:hover {
-  border-top-color: $secondary;
-}
-
-.reveal .controls .navigate-down.enabled:hover {
-  border-bottom-color: $secondary;
+// Persona badge
+.persona-badge {
+  display: inline-block;
+  padding: 0.2em 0.8em;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 600;
+  margin: 0.2em;
 }

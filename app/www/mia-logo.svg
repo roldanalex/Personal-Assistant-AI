@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" rx="24" fill="#1565C0"/>
+  <text x="60" y="82" font-size="72" font-weight="bold" font-family="system-ui, -apple-system, sans-serif" fill="white" text-anchor="middle">M</text>
+  <rect x="20" y="96" width="80" height="4" rx="2" fill="#F9A825"/>
+</svg>

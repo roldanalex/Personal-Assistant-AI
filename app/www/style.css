@@ -1,34 +1,66 @@
-/* Lucy AI Assistant - Custom Styles */
+/* MIA - Tu Asistente Educativo Inteligente */
+/* Design Tokens: Blue (#1565C0) + Gold (#F9A825) */
 
 /* ========================================
-   UTILITY CLASSES FOR SHOW/HIDE FUNCTIONALITY
+   CSS CUSTOM PROPERTIES
    ======================================== */
 
-.sidebar-hidden {
-  display: none !important;
+:root {
+  --color-primary: #1565C0;
+  --color-primary-light: #1E88E5;
+  --color-accent: #F9A825;
+  --color-surface: #F8FAFC;
+  --color-text: #1a1a2e;
+  --color-text-secondary: #64748B;
+  --color-error: #dc3545;
+  --color-success: #2E7D32;
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Source Sans 3', system-ui, sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
 }
 
-.content-hidden {
-  display: none !important;
+/* ========================================
+   GLOBAL TYPOGRAPHY & BASE
+   ======================================== */
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background-color: var(--color-surface);
 }
 
-/* Fix sidebar position - use correct bslib structure */
+h1, h2, h3, h4, h5, h6,
+.bslib-page-title,
+.navbar-brand,
+header .navbar-brand span {
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+
+code, pre, .code-block {
+  font-family: var(--font-code) !important;
+}
+
+/* ========================================
+   SIDEBAR
+   ======================================== */
+
 .bslib-page-sidebar aside.sidebar,
 .bslib-sidebar-layout aside.sidebar,
 aside[role="complementary"] {
   position: fixed !important;
-  top: 80px !important; /* Add space for header */
+  top: 80px !important;
   left: 0 !important;
   bottom: 0 !important;
-  height: calc(100vh - 80px) !important; /* Adjust height to account for top offset */
+  height: calc(100vh - 80px) !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
   z-index: 999 !important;
   width: 250px !important;
-  padding-top: 15px !important; /* Additional padding for content */
+  padding-top: 15px !important;
 }
 
-/* Main content area adjustments */
 .bslib-page-sidebar > .main,
 .bslib-sidebar-layout > .main,
 main[role="main"] {
@@ -37,42 +69,18 @@ main[role="main"] {
   min-height: 100vh;
 }
 
-/* When sidebar is open (not collapsed) - add margin to main */
 body:not(.sidebar-collapsed) .bslib-page-sidebar > .main,
 body:not(.sidebar-collapsed) main[role="main"] {
   margin-left: 250px !important;
 }
 
-/* Ensure sidebar toggle works */
 .sidebar-toggle {
   z-index: 1001 !important;
 }
 
-/* Ensure sidebar collapses properly on mobile */
-@media (max-width: 768px) {
-  .bslib-page-sidebar aside.sidebar,
-  aside[role="complementary"] {
-    width: 200px !important;
-  }
-  body:not(.sidebar-collapsed) .bslib-page-sidebar > .main,
-  body:not(.sidebar-collapsed) main[role="main"] {
-    margin-left: 200px !important;
-  }
-}
-
 /* ========================================
-   AUTHENTICATION PANEL & OVERLAY
+   AUTHENTICATION PANEL
    ======================================== */
-
-/* Force Inter font on app title */
-.bslib-page-title,
-.navbar-brand,
-header .navbar-brand span,
-[data-bs-theme] .navbar-brand span {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.02em !important;
-}
 
 #auth-panel {
   position: fixed;
@@ -80,10 +88,10 @@ header .navbar-brand span,
   top: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(50, 50, 60, 0.94);
+  background: linear-gradient(135deg, #0D47A1 0%, #1565C0 50%, #1E88E5 100%);
   z-index: 99999;
   color: white;
-  display: flex; /* Visible by default for landing page */
+  display: flex;
   opacity: 0;
   visibility: hidden;
   flex-direction: column;
@@ -104,93 +112,326 @@ header .navbar-brand span,
   text-align: center;
 }
 
-#welcome-panel h2 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 15px;
+.mia-login-wordmark {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: white;
+  margin-bottom: 4px;
 }
 
-#welcome-panel p {
+.mia-login-tagline {
+  font-family: var(--font-body);
   font-size: 1.1rem;
-  margin-bottom: 25px;
-}
-
-.welcome-logo {
-  margin-bottom: 10px;
+  opacity: 0.9;
+  margin-bottom: 30px;
 }
 
 /* Login form styling */
 #auth-panel .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+}
+
+#auth-panel .form-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: left;
 }
 
 #auth-panel .form-control {
-  height: 50px;
-  font-size: 1.1rem;
-  padding: 12px 16px;
+  height: 48px;
+  font-size: 1.05rem;
+  padding: 10px 14px;
   border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
-#auth-panel .btn {
-  height: 50px;
-  font-size: 1.15rem;
+#auth-panel .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#auth-panel .form-control:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(249, 168, 37, 0.3);
+  color: white;
+}
+
+#auth-panel .btn-primary {
+  height: 48px;
+  font-size: 1.1rem;
   font-weight: 600;
   border-radius: 8px;
-  margin-top: 10px;
+  margin-top: 8px;
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text);
 }
 
-/* Authentication links styling */
-#show_signup {
-  color: #666 !important;
-  text-decoration: none !important;
-  cursor: not-allowed !important;
-  pointer-events: none;
-  opacity: 0.4;
-  font-style: italic;
-  position: relative;
+#auth-panel .btn-primary:hover {
+  background-color: #F57F17;
+  border-color: #F57F17;
 }
 
-#show_signup::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: #666;
-  transform: translateY(-50%);
+/* Auth link styling */
+#auth-panel .auth-links {
+  margin-top: 18px;
+  font-size: 0.92em;
+  text-align: center;
 }
 
-#show_signup:hover {
-  color: #666 !important;
-  text-decoration: none !important;
-}
-
-/* Style for the separator between links */
-#auth-panel .form-group a {
-  transition: color 0.2s ease;
-}
-
-#show_reset {
-  color: #e67e22;
+#auth-panel .auth-links a {
+  color: var(--color-accent);
   text-decoration: none;
 }
 
-#show_reset:hover {
-  color: #d35400;
+#auth-panel .auth-links a:hover {
   text-decoration: underline;
 }
 
+.privacy-link {
+  display: block;
+  margin-top: 24px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
 /* ========================================
-   USER INFORMATION DISPLAY
+   PERSONA SELECTION GRID
+   ======================================== */
+
+.persona-selection-container {
+  min-height: 100vh;
+  background: var(--color-surface);
+  padding: 40px 20px 80px;
+}
+
+.persona-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.mia-wordmark {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.03em;
+  margin-bottom: 4px;
+}
+
+.mia-tagline {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 20px;
+}
+
+.persona-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: var(--color-text);
+  margin-bottom: 10px;
+}
+
+.persona-user-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.persona-user-bar .logout-link {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.persona-categories {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.persona-category-section {
+  margin-bottom: 32px;
+}
+
+.category-label {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 14px;
+  padding-left: 4px;
+}
+
+.persona-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.persona-card-item {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.persona-card-item:hover {
+  border-color: var(--color-primary-light);
+  box-shadow: 0 4px 12px rgba(21, 101, 192, 0.15);
+  transform: translateY(-2px);
+}
+
+.persona-card-item:active {
+  transform: translateY(0);
+}
+
+.persona-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+.persona-card-name {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.persona-card-desc {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.persona-examples-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.example-chip {
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border: 1px solid #E2E8F0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.example-chip:hover {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.persona-footer {
+  max-width: 1100px;
+  margin: 30px auto 0;
+  text-align: center;
+}
+
+.persona-model-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.persona-model-selector label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.persona-model-selector select {
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  color: var(--color-text);
+}
+
+.persona-help-links {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.persona-help-link {
+  color: var(--color-primary);
+  font-size: 0.88rem;
+  text-decoration: none;
+  font-weight: 500;
+  min-height: auto;
+  min-width: auto;
+}
+
+.persona-help-link:hover {
+  text-decoration: underline;
+  color: var(--color-primary-light);
+}
+
+.persona-help-separator {
+  color: #CBD5E1;
+  font-size: 0.85rem;
+}
+
+.persona-footer-credit {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  opacity: 0.7;
+}
+
+/* ========================================
+   USER DISPLAY
    ======================================== */
 
 .current-user-display {
   position: absolute;
   top: 12px;
   right: 26px;
-  color: #CCC;
-  font-size: 16px;
+  color: var(--color-text-secondary);
+  font-size: 15px;
   z-index: 20000;
 }
 
@@ -199,35 +440,123 @@ header .navbar-brand span,
 }
 
 .logout-link {
-  color: #e67e22;
+  color: var(--color-primary);
   font-weight: 500;
 }
 
 /* ========================================
-   FOOTER STYLING
+   PERSONA INDICATOR BAR (in chat view)
+   ======================================== */
+
+.persona-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.persona-indicator-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.persona-indicator-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.persona-indicator-name {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+/* ========================================
+   MESSAGE COUNTER
+   ======================================== */
+
+.message-counter {
+  display: none;
+  text-align: center;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  margin: 8px auto;
+  max-width: 400px;
+  background: #E3F2FD;
+  color: var(--color-primary);
+  border: 1px solid #BBDEFB;
+}
+
+.message-counter.visible {
+  display: block;
+}
+
+.message-counter.counter-warning {
+  background: #FFF3E0;
+  color: #E65100;
+  border-color: #FFE0B2;
+}
+
+.message-counter.counter-limit {
+  background: #FFEBEE;
+  color: var(--color-error);
+  border-color: #FFCDD2;
+}
+
+/* ========================================
+   FOOTER
    ======================================== */
 
 .app-footer {
   position: fixed;
-  text-align: center;
   left: 0;
   bottom: 0;
   width: 100%;
   z-index: 1000;
   height: 30px;
   color: white;
-  padding: 3px;
-  font-weight: bold;
-  background-color: #333333;
+  padding: 3px 0;
+  font-weight: 500;
+  font-size: 0.82rem;
+  background-color: var(--color-primary);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  height: 100%;
+}
+
+.footer-left {
+  font-weight: 600;
+}
+
+.footer-right {
+  opacity: 0.85;
 }
 
 .footer-link {
-  color: white;
+  color: var(--color-accent);
   text-decoration: none;
 }
 
 .footer-link:hover {
-  color: #e67e22;
+  color: white;
   text-decoration: none;
 }
 
@@ -240,24 +569,83 @@ header .navbar-brand span,
   bottom: 80px;
   right: 30px;
   z-index: 1100;
+  transition: transform 0.2s ease;
+}
+
+.floating-action-container:hover {
+  transform: translateY(-2px);
 }
 
 .new-chat-button {
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 56px;
+  height: 56px;
+  box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+  transition: all 0.2s ease;
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.new-chat-button:hover {
+  box-shadow: 0 6px 16px rgba(21, 101, 192, 0.4);
+  transform: scale(1.05);
 }
 
 .new-chat-label {
   text-align: center;
-  color: #333;
-  font-size: 14px;
-  margin-top: 5px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 /* ========================================
-   IMAGE PREVIEW STYLES
+   INPUT CONTROLS
+   ======================================== */
+
+.input-controls-container {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  z-index: 1050;
+}
+
+.input-controls-container .btn {
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 22px;
+  font-size: 0.85rem;
+  padding: 8px 16px;
+}
+
+/* ========================================
+   HELP BUTTONS
+   ======================================== */
+
+.help-buttons-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1100;
+  display: flex;
+  gap: 8px;
+}
+
+.help-buttons-container .btn {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========================================
+   IMAGE PREVIEW
    ======================================== */
 
 .image-preview-large {
@@ -265,29 +653,59 @@ header .navbar-brand span,
   height: auto;
   margin: 8px;
   border-radius: 6px;
-  box-shadow: 0 1px 4px #444;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
 .image-preview-small {
   width: 180px;
   height: auto;
-  margin: 5px 0 5px 0;
+  margin: 5px 0;
   border-radius: 4px;
-  box-shadow: 0 1px 4px #444;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
 .image-info-text {
   font-size: 0.90em;
-  margin: 2px 0 10px 0;
-  color: #666;
+  margin: 2px 0 10px;
+  color: var(--color-text-secondary);
 }
 
 /* ========================================
-   CHAT MESSAGE STYLING
+   CHAT STATUS & MESSAGES
    ======================================== */
 
 .user-message-spacing {
   margin-top: 8px;
+}
+
+#chat-status-container {
+  min-height: 24px;
+  margin-top: 5px;
+  margin-left: 10px;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  font-size: 0.9em;
+}
+
+/* ========================================
+   MODALS
+   ======================================== */
+
+.modal-content {
+  border-radius: 12px;
+}
+
+.modal-header {
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.modal-footer {
+  border-top: 1px solid #E2E8F0;
+}
+
+.modal-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
 }
 
 /* ========================================
@@ -299,138 +717,374 @@ header .navbar-brand span,
 }
 
 /* ========================================
-   RESPONSIVE DESIGN
+   RESPONSIVE - TABLET
    ======================================== */
 
 @media (max-width: 768px) {
-  #welcome-panel {
-    width: 95vw;
-    margin-bottom: 12px;
+  /* Sidebar as bottom sheet */
+  .bslib-page-sidebar aside.sidebar,
+  aside[role="complementary"] {
+    position: fixed !important;
+    bottom: 0 !important;
+    top: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 55vh !important;
+    border-radius: 16px 16px 0 0 !important;
+    z-index: 1200 !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15) !important;
+    padding: 20px 16px !important;
   }
-  
+
+  body:not(.sidebar-collapsed) .bslib-page-sidebar > .main,
+  body:not(.sidebar-collapsed) main[role="main"] {
+    margin-left: 0 !important;
+  }
+
+  /* Persona grid: 2 columns on tablet */
+  .persona-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .persona-selection-container {
+    padding: 20px 16px 80px;
+  }
+
+  .persona-header {
+    margin-bottom: 24px;
+  }
+
+  .mia-wordmark {
+    font-size: 2.5rem;
+  }
+
+  .persona-title {
+    font-size: 1.4rem;
+  }
+
   .current-user-display {
     top: 8px;
     right: 16px;
     font-size: 14px;
   }
-  
+
   .floating-action-container {
     bottom: 60px;
-    right: 20px;
+    right: 16px;
   }
-  
+
   .new-chat-button {
     width: 50px;
     height: 50px;
   }
-  
+
+  /* Hide footer on mobile to reclaim space */
+  .app-footer {
+    display: none;
+  }
+
+  .bottom-spacer {
+    height: 60px;
+  }
+
   .image-preview-large {
     width: 180px;
     margin: 6px;
   }
-  
+
   .image-preview-small {
     width: 140px;
   }
+
+  .help-buttons-container {
+    top: 10px;
+    right: 10px;
+  }
+
+  .help-buttons-container .btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .persona-indicator {
+    margin: 0 -8px 8px;
+    border-radius: 8px;
+    padding: 6px 12px;
+  }
 }
 
+/* ========================================
+   RESPONSIVE - PHONE
+   ======================================== */
+
 @media (max-width: 480px) {
-  #welcome-panel {
-    width: 98vw;
-    margin-bottom: 8px;
+  /* Persona grid: single column on small phones */
+  .persona-cards-grid {
+    grid-template-columns: 1fr;
   }
-  
+
+  .persona-card-item {
+    padding: 16px;
+  }
+
+  .mia-wordmark {
+    font-size: 2rem;
+  }
+
+  .persona-title {
+    font-size: 1.2rem;
+  }
+
   .current-user-display {
     top: 6px;
-    right: 12px;
+    right: 10px;
     font-size: 12px;
   }
-  
-  .app-footer {
-    font-size: 12px;
-    height: 25px;
+
+  /* Input controls inline with chat input */
+  .input-controls-container {
+    bottom: 45px;
+    gap: 6px;
   }
-  
+
+  .input-controls-container .btn {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
   .image-preview-large {
     width: 150px;
     margin: 4px;
   }
-  
+
   .image-preview-small {
     width: 120px;
+  }
+
+  .mia-login-wordmark {
+    font-size: 2.5rem;
+  }
+
+  #welcome-panel {
+    width: 95vw;
   }
 }
 
 /* ========================================
-   DARK/LIGHT THEME ADJUSTMENTS
+   ACCESSIBILITY
    ======================================== */
 
-/* These will be automatically handled by bslib themes, 
-   but you can add theme-specific overrides here if needed */
-
-[data-bs-theme="dark"] .new-chat-label {
-  color: #ccc;
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-[data-bs-theme="light"] .new-chat-label {
-  color: #333;
-}
-
-[data-bs-theme="dark"] .image-info-text {
-  color: #999;
-}
-
-[data-bs-theme="light"] .image-info-text {
-  color: #666;
-}
-
-/* ========================================
-   ACCESSIBILITY IMPROVEMENTS
-   ======================================== */
-
+/* Focus indicators */
 .floating-action-container:focus-within {
-  outline: 2px solid #0d6efd;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+  border-radius: 50%;
 }
 
 .logout-link:focus {
-  outline: 2px solid #e67e22;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Minimum touch targets */
+.btn, button, a.action-link, .example-chip {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Ensure good contrast on interactive elements */
+.persona-card-item:focus-visible {
+  outline: 3px solid var(--color-primary);
   outline-offset: 2px;
 }
 
 /* ========================================
-   ANIMATION & TRANSITIONS
+   MIA LOGO
    ======================================== */
 
-.floating-action-container {
-  transition: transform 0.2s ease;
+.mia-navbar-logo {
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  vertical-align: middle;
 }
 
-.floating-action-container:hover {
-  transform: translateY(-2px);
+.navbar-brand-custom {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
 }
 
-.new-chat-button {
-  transition: all 0.2s ease;
+.mia-grid-logo {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 12px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.new-chat-button:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  transform: scale(1.05);
-}
-
-.footer-link {
-  transition: color 0.2s ease;
+.persona-dark-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1100;
 }
 
 /* ========================================
-   LOADING & INTERACTION STATES
+   DARK THEME OVERRIDES
    ======================================== */
 
-.image-preview-large:hover,
-.image-preview-small:hover {
-  transform: scale(1.02);
-  transition: transform 0.2s ease;
+[data-bs-theme="dark"] {
+  --color-surface: #121218;
+  --color-text: #E2E8F0;
+  --color-text-secondary: #94A3B8;
+}
+
+[data-bs-theme="dark"] body,
+[data-bs-theme="dark"] .persona-selection-container {
+  background: #121218;
+}
+
+[data-bs-theme="dark"] .new-chat-label {
+  color: #94A3B8;
+}
+
+[data-bs-theme="dark"] .image-info-text {
+  color: #94A3B8;
+}
+
+[data-bs-theme="dark"] .persona-card-item {
+  background: #1e1e2e;
+  border-color: #2d2d3d;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-bs-theme="dark"] .persona-card-item:hover {
+  border-color: #42A5F5;
+  box-shadow: 0 4px 12px rgba(66, 165, 245, 0.2);
+}
+
+[data-bs-theme="dark"] .persona-card-name {
+  color: #E2E8F0;
+}
+
+[data-bs-theme="dark"] .persona-card-desc {
+  color: #94A3B8;
+}
+
+[data-bs-theme="dark"] .persona-indicator {
+  background: #1e1e2e;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-bs-theme="dark"] .persona-indicator-name {
+  color: #E2E8F0;
+}
+
+[data-bs-theme="dark"] .mia-wordmark {
+  color: #42A5F5;
+}
+
+[data-bs-theme="dark"] .persona-title {
+  color: #E2E8F0;
+}
+
+[data-bs-theme="dark"] .example-chip {
+  background: #2d2d3d;
+  color: #42A5F5;
+  border-color: #3d3d4d;
+}
+
+[data-bs-theme="dark"] .example-chip:hover {
+  background: #42A5F5;
+  color: white;
+  border-color: #42A5F5;
+}
+
+[data-bs-theme="dark"] .persona-model-selector {
+  background: #1e1e2e;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-bs-theme="dark"] .persona-model-selector label {
+  color: #94A3B8;
+}
+
+[data-bs-theme="dark"] .persona-model-selector select {
+  background: #2d2d3d;
+  color: #E2E8F0;
+  border-color: #3d3d4d;
+}
+
+[data-bs-theme="dark"] .message-counter {
+  background: #1a2744;
+  color: #42A5F5;
+  border-color: #2d4a7a;
+}
+
+[data-bs-theme="dark"] .message-counter.counter-warning {
+  background: #3d2800;
+  color: #FFB74D;
+  border-color: #5a3d00;
+}
+
+[data-bs-theme="dark"] .message-counter.counter-limit {
+  background: #3d0000;
+  color: #EF9A9A;
+  border-color: #5a0000;
+}
+
+[data-bs-theme="dark"] .modal-content {
+  background: #1e1e2e;
+  color: #E2E8F0;
+}
+
+[data-bs-theme="dark"] .modal-header {
+  border-color: #3d3d4d;
+}
+
+[data-bs-theme="dark"] .modal-footer {
+  border-color: #3d3d4d;
+}
+
+[data-bs-theme="dark"] .app-footer {
+  background-color: #0D47A1;
+}
+
+[data-bs-theme="dark"] .help-buttons-container .btn-outline-primary {
+  border-color: #42A5F5;
+  color: #42A5F5;
+}
+
+[data-bs-theme="dark"] .persona-footer-credit {
+  color: #64748B;
 }
 
 /* ========================================
@@ -441,10 +1095,13 @@ header .navbar-brand span,
   .floating-action-container,
   .app-footer,
   .current-user-display,
+  .help-buttons-container,
+  .input-controls-container,
+  .persona-indicator,
   #auth-panel {
     display: none !important;
   }
-  
+
   .image-preview-large,
   .image-preview-small {
     max-width: 100%;

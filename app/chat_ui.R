@@ -1,13 +1,208 @@
-chat_ui_view <- function() {
+# ---- Persona Selection Grid ----
+persona_selection_ui <- function() {
   tagList(
-    tags$head(
-      tags$link(rel = "stylesheet", href = "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap")
+    # Load Bootstrap JS so modals work on this page
+    bs_theme_dependencies(my_theme),
+    tags$div(
+      class = "persona-selection-container",
+      # Dark mode toggle (top-right corner)
+      tags$div(
+        class = "persona-dark-toggle",
+        input_dark_mode(id = "dark_mode_grid", mode = "light")
+      ),
+      # Header
+      tags$div(
+        class = "persona-header",
+        tags$img(
+          src = "mia-logo.svg",
+          alt = "MIA",
+          width = "64",
+          height = "64",
+          class = "mia-grid-logo"
+        ),
+        tags$div(class = "mia-wordmark", "MIA"),
+        tags$p(class = "mia-tagline", "Tu asistente educativo inteligente"),
+        tags$h2(class = "persona-title",
+                "\u00bfEn qu\u00e9 te puedo ayudar hoy?"),
+        tags$div(
+          class = "persona-user-bar",
+          uiOutput("persona_user_display")
+        )
+      ),
+
+      # Category sections
+      tags$div(
+        class = "persona-categories",
+        lapply(names(persona_categories), function(cat_id) {
+          cat_info <- persona_categories[[cat_id]]
+          personas_in_cat <- Filter(function(p) p$category == cat_id, persona_metadata)
+
+          if (length(personas_in_cat) == 0) return(NULL)
+
+          tags$div(
+            class = "persona-category-section",
+            tags$h3(
+              class = "category-label",
+              icon(cat_info$icon), " ", cat_info$label
+            ),
+            tags$div(
+              class = "persona-cards-grid",
+              lapply(personas_in_cat, function(p) {
+                tags$div(
+                  class = "persona-card-item",
+                  `data-persona` = p$id,
+                  tabindex = "0",
+                  role = "button",
+                  `aria-label` = paste("Seleccionar", p$name),
+                  tags$div(
+                    class = "persona-card-icon",
+                    style = paste0("background-color: ", p$color, ";"),
+                    icon(p$icon)
+                  ),
+                  tags$h4(class = "persona-card-name", p$name),
+                  tags$p(class = "persona-card-desc", p$desc),
+                  tags$div(
+                    class = "persona-examples-container",
+                    lapply(p$examples, function(ex) {
+                      tags$span(
+                        class = "example-chip",
+                        `data-prompt` = ex,
+                        title = ex,
+                        ex
+                      )
+                    })
+                  )
+                )
+              })
+            )
+          )
+        }),
+
+        # Model selector + help links at bottom
+        tags$div(
+          class = "persona-footer",
+          tags$div(
+            class = "persona-model-selector",
+            tags$label(`for` = "model", "Modelo:"),
+            selectInput(
+              "model",
+              label = NULL,
+              choices = list(
+                "GPT-4 (Mejor calidad)" = "gpt-4.1",
+                "GPT-5.1 (Mejor razonamiento)" = "gpt-5.1"
+              ),
+              selected = "gpt-4.1",
+              width = "220px"
+            )
+          ),
+          tags$div(
+            class = "persona-help-links",
+            tags$a(
+              href = "#", class = "persona-help-link",
+              `data-bs-toggle` = "modal", `data-bs-target` = "#personaGuideModal",
+              icon("book"), " Gu\u00eda de uso"
+            ),
+            tags$span(class = "persona-help-separator", "|"),
+            tags$a(
+              href = "#", class = "persona-help-link",
+              `data-bs-toggle` = "modal", `data-bs-target` = "#personaNotesModal",
+              icon("clipboard-list"), " Novedades v2.0"
+            )
+          ),
+          tags$div(
+            class = "persona-footer-credit",
+            "MIA v2.0 | Created by Alexis Roldan - 2025"
+          )
+        )
+      )
     ),
+
+    # Modals for persona grid (User Guide + Release Notes)
+    tags$div(
+      class = "modal fade", id = "personaGuideModal", tabindex = "-1",
+      `aria-labelledby` = "personaGuideLabel", `aria-hidden` = "true",
+      tags$div(class = "modal-dialog modal-lg modal-dialog-scrollable",
+        tags$div(class = "modal-content",
+          tags$div(class = "modal-header",
+            tags$h5(class = "modal-title", id = "personaGuideLabel",
+                    "Gu\u00eda de Usuario"),
+            tags$button(type = "button", class = "btn-close",
+              `data-bs-dismiss` = "modal", `aria-label` = "Cerrar")
+          ),
+          tags$div(class = "modal-body",
+                   includeMarkdown("markdown/user_guide.md")),
+          tags$div(class = "modal-footer",
+            tags$button(type = "button", class = "btn btn-primary",
+              `data-bs-dismiss` = "modal", "Cerrar"))
+        )
+      )
+    ),
+    tags$div(
+      class = "modal fade", id = "personaNotesModal", tabindex = "-1",
+      `aria-labelledby` = "personaNotesLabel", `aria-hidden` = "true",
+      tags$div(class = "modal-dialog modal-lg modal-dialog-scrollable",
+        tags$div(class = "modal-content",
+          tags$div(class = "modal-header",
+            tags$h5(class = "modal-title", id = "personaNotesLabel",
+                    "Novedades"),
+            tags$button(type = "button", class = "btn-close",
+              `data-bs-dismiss` = "modal", `aria-label` = "Cerrar")
+          ),
+          tags$div(class = "modal-body",
+                   includeMarkdown("markdown/release_notes.md")),
+          tags$div(class = "modal-footer",
+            tags$button(type = "button", class = "btn btn-primary",
+              `data-bs-dismiss` = "modal", "Cerrar"))
+        )
+      )
+    ),
+
+    # JavaScript for persona clicks
+    tags$script(HTML("
+      $(document).on('click', '.persona-card-item', function(e) {
+        if ($(e.target).hasClass('example-chip')) return;
+        var persona = $(this).data('persona');
+        Shiny.setInputValue('select_persona', persona, {priority: 'event'});
+      });
+
+      $(document).on('keydown', '.persona-card-item', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          var persona = $(this).data('persona');
+          Shiny.setInputValue('select_persona', persona, {priority: 'event'});
+        }
+      });
+
+      $(document).on('click', '.example-chip', function(e) {
+        e.stopPropagation();
+        var persona = $(this).closest('.persona-card-item').data('persona');
+        var prompt = $(this).data('prompt');
+        Shiny.setInputValue('select_persona_with_prompt', {
+          persona: persona, prompt: prompt, nonce: Math.random()
+        }, {priority: 'event'});
+      });
+    "))
+  )
+}
+
+# ---- Chat View ----
+chat_ui_view <- function(persona_id = "general") {
+  p <- get_persona(persona_id)
+
+  tagList(
     page_sidebar(
       title = tags$span(
-        style = "font-family: 'Inter', sans-serif; font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em;",
-        " 'MIA' - Multimodal Intelligent Assistant ",
-        tags$span(style = "font-weight: 400; font-size: 0.85em; opacity: 0.8;", "(Powered by OpenAI)")
+        class = "navbar-brand-custom",
+        tags$img(
+          src = "mia-logo.svg",
+          alt = "MIA",
+          width = "32",
+          height = "32",
+          class = "mia-navbar-logo"
+        ),
+        "MIA ",
+        tags$span(style = "font-weight: 400; font-size: 0.8em; opacity: 0.7;",
+                  "- Tu asistente educativo")
       ),
       fillable = TRUE,
       theme = my_theme,
@@ -17,214 +212,167 @@ chat_ui_view <- function() {
       sidebar = sidebar(
         id = "main-sidebar",
         open = "closed",
-      selectInput(
-        "model",
-        "Intelligence Level:",
-        choices = list(
-          "Best Quality (GPT-4)" = "gpt-4.1",
-          "Best Reasoning & Coding (GPT-5.1)" = "gpt-5.1"
+        selectInput(
+          "model",
+          "Modelo de IA:",
+          choices = list(
+            "GPT-4 (Mejor calidad)" = "gpt-4.1",
+            "GPT-5.1 (Mejor razonamiento)" = "gpt-5.1"
+          ),
+          selected = "gpt-4.1"
         ),
-        selected = "gpt-4.1"
-      ),
-      tags$div(
-        style = "display: flex; align-items: center; gap: 8px;",
         tags$div(
-          style = "flex: 1;",
-          selectInput(
-            "task",
-            "I need help with:",
-            choices = list(
-              "General" = "general",
-              "Mother Assistant (English)" = "mother_assistant",
-              "Agente Primaria (Español)" = "agente_primaria",
-              "Pre-Universitario (UNI/San Marcos)" = "pre_universitario",
-              "Asistente MYPE (Negocios)" = "asistente_mype",
-              "Trámites Perú (SUNAT/RENIEC)" = "tramites_peru",
-              "Inglés para Titulación" = "ingles_titulacion",
-              "R Programmer" = "r_code",
-              "Python Programmer" = "python_code",
-              "SQL Programmer" = "sql_code"
-            ),
-            selected = "general"
+          style = "display: none;",
+          fileInput(
+            "uploaded_image",
+            label = NULL,
+            multiple = TRUE,
+            accept = c("image/*", ".pdf", ".docx", ".xlsx", ".csv")
           )
         ),
-        actionButton(
-          "btn_persona_help",
-          label = NULL,
-          icon = icon("question-circle"),
-          class = "btn-danger btn-sm",
-          title = "Learn about different assistants",
-          style = "margin-top: 25px; border-radius: 50%; width: 32px; height: 32px; padding: 0; display: flex; align-items: center; justify-content: center;",
-          `data-bs-toggle` = "modal",
-          `data-bs-target` = "#personaHelpModal",
-          `data-toggle` = "modal",
-          `data-target` = "#personaHelpModal"
-        )
+        uiOutput("show_uploaded_images"),
+        tags$hr(),
+        downloadButton("download_chat", "Descargar historial",
+                       class = "btn-primary", style = "width: 100%;")
       ),
-      tags$div(
-        style = "display: none;",
-        fileInput(
-          "uploaded_image",
-          label = NULL,
-          multiple = TRUE,
-          accept = c("image/*", ".pdf", ".docx", ".xlsx", ".csv")
-        )
-      ),
-      uiOutput("show_uploaded_images"),
-      tags$hr(),
-      downloadButton("download_chat", "Download History", class = "btn-danger", style = "width: 100%;")
-    ),
 
-    # ---- Main Content ----
-    card(
-      id = "main-content-panel",
-      class = "border-0 bg-transparent",
-      # Help buttons in top-right corner
-      tags$div(
-        class = "help-buttons-container",
-        style = "position: fixed; top: 20px; right: 20px; z-index: 1100; display: flex; gap: 8px;",
-        actionButton(
-          "btn_user_guide", label = NULL, icon = icon("book"), class = "btn-danger btn-sm", title = "User Guide",
-          style = "border-radius: 50%; width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center;",
-          `data-bs-toggle` = "modal", `data-bs-target` = "#userGuideModal", `data-toggle` = "modal", `data-target` = "#userGuideModal"
+      # ---- Main Content ----
+      card(
+        id = "main-content-panel",
+        class = "border-0 bg-transparent",
+
+        # Help buttons + dark mode toggle top-right
+        tags$div(
+          class = "help-buttons-container",
+          actionButton(
+            "btn_user_guide", label = NULL, icon = icon("book"),
+            class = "btn-outline-primary btn-sm",
+            title = "Gu\u00eda de usuario",
+            `data-bs-toggle` = "modal", `data-bs-target` = "#userGuideModal"
+          ),
+          actionButton(
+            "btn_release_notes", label = NULL, icon = icon("clipboard-list"),
+            class = "btn-outline-primary btn-sm",
+            title = "Novedades",
+            `data-bs-toggle` = "modal", `data-bs-target` = "#releaseNotesModal"
+          ),
+          input_dark_mode(id = "dark_mode", mode = "light")
         ),
-        actionButton(
-          "btn_release_notes", label = NULL, icon = icon("clipboard-list"), class = "btn-danger btn-sm", title = "Release Notes",
-          style = "border-radius: 50%; width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center;",
-          `data-bs-toggle` = "modal", `data-bs-target` = "#releaseNotesModal", `data-toggle` = "modal", `data-target` = "#releaseNotesModal"
+
+        # Persona indicator bar
+        tags$div(
+          class = "persona-indicator",
+          tags$div(
+            class = "persona-indicator-info",
+            tags$span(
+              class = "persona-indicator-icon",
+              style = paste0("background-color: ", p$color, ";"),
+              icon(p$icon)
+            ),
+            tags$span(class = "persona-indicator-name", p$name)
+          ),
+          actionButton("change_persona", "Cambiar",
+                       class = "btn-sm btn-outline-primary",
+                       icon = icon("exchange-alt"))
+        ),
+
+        # Message counter
+        tags$div(
+          id = "message-counter",
+          class = "message-counter"
+        ),
+
+        # Chat UI
+        card_body(chat_ui("chat")),
+
+        # Status
+        tags$div(
+          id = "chat-status-container",
+          tags$div(id = "chat_status")
+        ),
+
+        # Input controls (Speak + Attach)
+        tags$div(
+          class = "input-controls-container",
+          actionButton("btn_speech", "Hablar",
+                       icon = icon("microphone"),
+                       class = "btn-primary btn-sm",
+                       title = "Dictar mensaje",
+                       `aria-label` = "Dictar mensaje por voz"),
+          actionButton("btn_camera", "Adjuntar",
+                       icon = icon("paperclip"),
+                       class = "btn-primary btn-sm",
+                       title = "Subir archivo o foto",
+                       `aria-label` = "Adjuntar archivo")
+        ),
+
+        div(class = "bottom-spacer", style = "height: 80px;"),
+
+        # Footer
+        tags$footer(
+          tags$div(
+            class = "footer-content",
+            tags$span(class = "footer-left", "MIA v2.0"),
+            tags$span(class = "footer-right", "Created by Alexis Roldan - 2025")
+          ),
+          class = "app-footer"
+        ),
+
+        # FAB: New chat
+        tags$div(
+          class = "floating-action-container",
+          actionButton(
+            inputId = "new_chat", label = NULL,
+            icon = icon("comments"),
+            class = "btn-primary btn-lg new-chat-button",
+            `aria-label` = "Nuevo chat"
+          ),
+          tags$div("Nuevo chat", class = "new-chat-label")
         )
       ),
-      card_body(chat_ui("chat")),
+
+      # ---- Modals ----
       tags$div(
-        id = "chat-status-container",
-        style = "min-height: 24px; margin-top: 5px; margin-left: 10px; font-style: italic; color: #6c757d; font-size: 0.9em;",
-        tags$div(id = "chat_status")
+        class = "modal fade", id = "userGuideModal", tabindex = "-1",
+        `aria-labelledby` = "userGuideLabel", `aria-hidden` = "true",
+        tags$div(class = "modal-dialog modal-lg modal-dialog-scrollable",
+          tags$div(class = "modal-content",
+            tags$div(class = "modal-header",
+              tags$h5(class = "modal-title", id = "userGuideLabel",
+                      "Gu\u00eda de Usuario"),
+              tags$button(type = "button", class = "btn-close",
+                `data-bs-dismiss` = "modal", `aria-label` = "Cerrar")
+            ),
+            tags$div(class = "modal-body",
+                     includeMarkdown("markdown/user_guide.md")),
+            tags$div(class = "modal-footer",
+              tags$button(type = "button", class = "btn btn-primary",
+                `data-bs-dismiss` = "modal", "Cerrar"))
+          )
+        )
       ),
       tags$div(
-        class = "input-controls-container",
-        style = "position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; justify-content: center; gap: 10px; z-index: 1050; background-color: transparent;",
-        actionButton("btn_speech", "Speak", icon = icon("microphone"), class = "btn-danger btn-sm", title = "Dictate your message"),
-        actionButton("btn_camera", "Attach", icon = icon("paperclip"), class = "btn-danger btn-sm", title = "Upload a file or photo")
-      ),
-      div(class = "bottom-spacer", style = "height: 80px;"),
-      tags$footer(
-        fluidRow(
-          column(4, "© Alexis Roldan - 2024"),
-          column(4, "Personal Chatbot v1.3.2"),
-          column(4, tags$a(href = "mailto:alexis.m.roldan.ds@gmail.com", tags$b("Email me"), class = "externallink footer-link"))
-        ),
-        class = "app-footer"
-      ),
-      tags$div(
-        class = "floating-action-container",
-        actionButton(inputId = "new_chat", label = NULL, icon = icon("comments"), class = "btn-danger btn-lg new-chat-button"),
-        tags$div("New chat", class = "new-chat-label")
+        class = "modal fade", id = "releaseNotesModal", tabindex = "-1",
+        `aria-labelledby` = "releaseNotesLabel", `aria-hidden` = "true",
+        tags$div(class = "modal-dialog modal-lg modal-dialog-scrollable",
+          tags$div(class = "modal-content",
+            tags$div(class = "modal-header",
+              tags$h5(class = "modal-title", id = "releaseNotesLabel",
+                      "Novedades"),
+              tags$button(type = "button", class = "btn-close",
+                `data-bs-dismiss` = "modal", `aria-label` = "Cerrar")
+            ),
+            tags$div(class = "modal-body",
+                     includeMarkdown("markdown/release_notes.md")),
+            tags$div(class = "modal-footer",
+              tags$button(type = "button", class = "btn btn-primary",
+                `data-bs-dismiss` = "modal", "Cerrar"))
+          )
+        )
       )
     ),
-    
-    # ---- Modals ----
-    tags$div(
-      class = "modal fade", id = "userGuideModal", tabindex = "-1", role = "dialog",
-      tags$div(class = "modal-dialog modal-lg", role = "document", tags$div(class = "modal-content",
-        tags$div(class = "modal-header", tags$h5(class = "modal-title", "User Guide"), tags$button(type = "button", class = "close", `data-bs-dismiss`="modal", `data-dismiss`="modal", aria_label = "Close", tags$span(aria_hidden = "true", "×"))),
-        tags$div(class = "modal-body", includeMarkdown("markdown/user_guide.md")),
-        tags$div(class = "modal-footer", tags$button(type = "button", class = "btn btn-danger", `data-bs-dismiss`="modal", `data-dismiss`="modal", "Close"))
-      ))
-    ),
-    tags$div(
-      class = "modal fade", id = "releaseNotesModal", tabindex = "-1", role = "dialog",
-      tags$div(class = "modal-dialog modal-lg", role = "document", tags$div(class = "modal-content",
-        tags$div(class = "modal-header", tags$h5(class = "modal-title", "🎉 Release Notes"), tags$button(type = "button", class = "close", `data-bs-dismiss`="modal", `data-dismiss`="modal", aria_label = "Close", tags$span(aria_hidden = "true", "×"))),
-        tags$div(class = "modal-body", includeMarkdown("markdown/release_notes.md")),
-        tags$div(class = "modal-footer", tags$button(type = "button", class = "btn btn-danger", `data-bs-dismiss`="modal", `data-dismiss`="modal", "Close"))
-      ))
-    ),
-    
-    # ---- Persona Help Modal ----
-    tags$div(
-      class = "modal fade", id = "personaHelpModal", tabindex = "-1", role = "dialog",
-      tags$div(class = "modal-dialog modal-xl", role = "document", tags$div(class = "modal-content",
-        tags$div(class = "modal-header", 
-          tags$h5(class = "modal-title", "🤖 Meet Your AI Assistants"),
-          tags$button(type = "button", class = "close", `data-bs-dismiss`="modal", `data-dismiss`="modal", aria_label = "Close", tags$span(aria_hidden = "true", "×"))
-        ),
-        tags$div(class = "modal-body", style = "max-height: 70vh; overflow-y: auto;",
-          tags$p(class = "lead", "MIA offers specialized assistants tailored to different needs. Choose the one that best fits your question!"),
-          tags$hr(),
-          
-          # General Assistant
-          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #dc3545; background: #f8f9fa;",
-            tags$h5(tags$b("General Assistant"), style = "color: #dc3545;"),
-            tags$p("Your all-purpose AI learning companion for any subject or question. Perfect for homework help, concept explanations, research support, and everyday learning across all disciplines. Uses a pedagogy-first approach with clear explanations, step-by-step guidance, and encouragement.")
-          ),
-          
-          # Mother Assistant
-          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #e91e63; background: #f8f9fa;",
-            tags$h5(tags$b("Mother Assistant"), tags$span(class = "badge badge-info", "English")),
-            tags$p("Warm, evidence-based parenting support for mothers and grandmothers raising children ages 0-5. Get practical advice on child development, health, nutrition, sleep, behavior, activities, and daily parenting challenges. Non-judgmental, empowering guidance with current research and pediatric recommendations.")
-          ),
-          
-          # Agente Primaria
-          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #ff9800; background: #f8f9fa;",
-            tags$h5(tags$b("Agente Primaria"), tags$span(class = "badge badge-warning", "Español")),
-            tags$p("Asistente educativo especializado en educación primaria peruana (6-12 años). Alineado con el Currículo Nacional del Perú, brinda apoyo en Comunicación, Matemática, Ciencias, Personal Social, Arte, Educación Física e Inglés. Enfoque por competencias con perspectiva intercultural y evaluación formativa.")
-          ),
-          
-          # Pre-Universitario
-          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #9c27b0; background: #f8f9fa;",
-            tags$h5(tags$b("Pre-Universitario (UNI/San Marcos)"), tags$span(class = "badge badge-warning", "Español")),
-            tags$p("Tutor experto en preparación para exámenes de admisión universitaria en Perú (UNI, San Marcos, PUCP). Desarrolla razonamiento lógico, resolución de problemas paso a paso, y estrategias de examen. Tono exigente y motivador con práctica deliberada en matemáticas, ciencias, y razonamiento verbal.")
-          ),
-          
-          # Asistente MYPE
-          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #4caf50; background: #f8f9fa;",
-            tags$h5(tags$b("Asistente MYPE (Negocios)"), tags$span(class = "badge badge-warning", "Español")),
-            tags$p("Consultor práctico para Micro y Pequeñas Empresas en Perú. Consejos accionables de bajo costo en ventas, marketing, finanzas básicas, atención al cliente, y análisis de datos comerciales. Incluye plantillas de comunicación, estrategias locales, y KPIs simples para MYPEs.")
-          ),
-          
-          # Trámites Perú
-          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #2196f3; background: #f8f9fa;",
-            tags$h5(tags$b("Trámites Perú (SUNAT/RENIEC)"), tags$span(class = "badge badge-warning", "Español")),
-            tags$p("Experto en gestión administrativa y burocracia peruana. Guía paso a paso para trámites con SUNAT, RENIEC, SUNARP, municipalidades y otras entidades públicas. Requisitos, documentos, plazos, costos y enlaces oficiales. Información sobre regímenes tributarios, RUC, DNI, licencias y más.")
-          ),
-          
-          # Inglés para Titulación
-          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #00bcd4; background: #f8f9fa;",
-            tags$h5(tags$b("Inglés para Titulación"), tags$span(class = "badge badge-warning", "Español"), " ", tags$span(class = "badge badge-info", "English")),
-            tags$p("English certification tutor for Peruvian university students preparing for B1/B2 graduation exams. Exam-focused strategies for reading, writing, listening, and speaking. Grammar corrections, vocabulary enhancement, writing assistance, and time management techniques. Professional, encouraging guidance in both English and Spanish.")
-          ),
-          
-          # R Programmer
-          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #673ab7; background: #f8f9fa;",
-            tags$h5(tags$b("R Programmer"), style = "color: #673ab7;"),
-            tags$p("Expert R programming mentor specializing in statistical analysis, data science, and visualization. Comprehensive knowledge of tidyverse, ggplot2, Shiny apps, statistical modeling, and R packages. Best practices for clean code, reproducible research, debugging, and performance optimization.")
-          ),
-          
-          # Python Programmer
-          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #ffc107; background: #f8f9fa;",
-            tags$h5(tags$b("Python Programmer"), style = "color: #f57c00;"),
-            tags$p("Expert Python programming consultant covering data science (NumPy, Pandas, Scikit-learn), web development (Flask, Django, FastAPI), automation, and software engineering. Clean code principles, debugging techniques, testing, async programming, and best practices for production-ready Python applications.")
-          ),
-          
-          # SQL Programmer
-          tags$div(class = "persona-card", style = "margin-bottom: 20px; padding: 15px; border-left: 4px solid #607d8b; background: #f8f9fa;",
-            tags$h5(tags$b("SQL Programmer"), style = "color: #607d8b;"),
-            tags$p("Expert SQL database consultant specializing in query optimization, database design, and data analysis. Coverage of PostgreSQL, MySQL, SQL Server, and SQLite. Advanced techniques including window functions, CTEs, stored procedures, indexing strategies, and performance tuning for complex queries.")
-          ),
-          
-          tags$hr(),
-          tags$p(class = "text-muted", style = "font-size: 0.9em;",
-            tags$i(class = "fas fa-info-circle"), " ",
-            "Tip: You can switch between assistants anytime using the dropdown menu. Each assistant maintains its own specialized knowledge and communication style to best serve your needs."
-          )
-        ),
-        tags$div(class = "modal-footer", 
-          tags$button(type = "button", class = "btn btn-danger", `data-bs-dismiss`="modal", `data-dismiss`="modal", "Close")
-        )
-      ))
-    ),
 
-    # ---- Chat JS (Custom Message Handlers) ----
+    # ---- Chat JS ----
     tags$script("
       Shiny.addCustomMessageHandler('resetFileInput', function(id) {
         setTimeout(function() {
@@ -236,7 +384,7 @@ chat_ui_view <- function() {
             $el.trigger('change');
             $el.siblings('.progress').remove(); $el.siblings('.file-input-name').remove();
             var $parent = $el.closest('.form-group');
-            $parent.find('.custom-file-label').text('Choose file');
+            $parent.find('.custom-file-label').text('Elegir archivo');
             $parent.find('.form-control-file').val('');
             $parent.find('.shiny-input-container .help-block').remove();
             $parent.find('.progress').remove();
@@ -246,7 +394,7 @@ chat_ui_view <- function() {
           }
         }, 100);
       });
-      
+
       Shiny.addCustomMessageHandler('clearFileInputStatus', function(id) {
         setTimeout(function() {
           var $el = $('#' + id);
@@ -257,30 +405,40 @@ chat_ui_view <- function() {
             $container.find('.shiny-file-input-progress').hide();
             $container.find('.shiny-file-input-active').removeClass('shiny-file-input-active');
             var $parent = $el.closest('.form-group');
-            $parent.find('.custom-file-label').text('Choose file');
+            $parent.find('.custom-file-label').text('Elegir archivo');
           }
         }, 50);
       });
-      
+
       Shiny.addCustomMessageHandler('clearChatStatus', function(message) {
         $('#chat_status').html('');
       });
-      
+
       Shiny.addCustomMessageHandler('enableDownloadButton', function(message) {
         $('#download_chat').prop('disabled', false).removeClass('disabled');
-        console.log('Download button enabled');
       });
-    "),
-    tags$script(HTML("
-      // Force Inter font on title after UI renders
-      setTimeout(function() {
-        $('header .navbar-brand, .bslib-page-title, [class*=\"title\"]').css({
-          'font-family': '\'Inter\', sans-serif',
-          'font-weight': '700',
-          'letter-spacing': '-0.02em'
-        });
-      }, 100);
-    "))
-    )
+
+      Shiny.addCustomMessageHandler('updateMessageCounter', function(data) {
+        var $counter = $('#message-counter');
+        if (!$counter.length) return;
+
+        if (data.count >= 7) {
+          $counter.addClass('visible').removeClass('counter-warning counter-limit');
+          var text = data.count + '/' + data.max + ' mensajes en esta conversaci\\u00f3n';
+
+          if (data.count >= data.max) {
+            $counter.addClass('counter-limit');
+            text += ' \\u2014 L\\u00edmite alcanzado. Inicia un nuevo chat.';
+          } else if (data.count >= 9) {
+            $counter.addClass('counter-warning');
+            text += ' \\u2014 Cerca del l\\u00edmite';
+          }
+
+          $counter.text(text);
+        } else {
+          $counter.removeClass('visible counter-warning counter-limit');
+        }
+      });
+    ")
   )
 }

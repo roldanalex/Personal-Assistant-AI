@@ -24,17 +24,26 @@ library(pdftools)
 library(officer)
 library(markdown)
 
+# Optional: bcrypt for password hashing
+if (requireNamespace("bcrypt", quietly = TRUE)) {
+  library(bcrypt)
+  cat("bcrypt loaded: passwords will be hashed\n")
+} else {
+  cat("WARNING: bcrypt not installed. Passwords stored as plaintext.\n")
+  cat("Install with: install.packages('bcrypt')\n")
+}
+
 source("utils/functions.R")
 source("login_ui.R")
 source("chat_ui.R")
 
-# Check required environment variables at startup and expose a status message
+# Check required environment variables at startup
 ENV_VARS_STATUS_MSG <- missing_env_vars_message()
 
 # ---- AWS CONFIGURATION ----
 Sys.setenv(
-  "AWS_ACCESS_KEY_ID" = Sys.getenv("personal_aws_access_key"),
-  "AWS_SECRET_ACCESS_KEY" = Sys.getenv("personal_aws_secret_key"),
+  "AWS_ACCESS_KEY_ID" = Sys.getenv("AWS_ACCESS_KEY_ID"),
+  "AWS_SECRET_ACCESS_KEY" = Sys.getenv("AWS_SECRET_ACCESS_KEY"),
   "AWS_DEFAULT_REGION" = "us-west-1"
 )
 bucket_name <- Sys.getenv("s3ytfeedapp")
@@ -57,20 +66,17 @@ save_credentials <- function(df) {
 }
 
 # ---- APP CONFIGURATION ----
-# Maximum file upload size in MB (configurable for memory optimization)
 MAX_FILE_SIZE_MB <- 10
-# Maximum number of messages to keep in conversation history (prevents memory bloat)
 MAX_CONVERSATION_HISTORY <- 10
 
-# Ensure admin account exists
-admin_user <- "admin"
-admin_password <- "pwd123"
+# Ensure admin account exists (hash password if bcrypt available)
 creds <- get_credentials()
-if (!all(c("user", "password") %in% names(creds))) {
-  creds <- data.frame(user = character(0), password = character(0), stringsAsFactors = FALSE)
-}
-if (!(admin_user %in% creds$user)) {
-  new_row <- data.frame(user = admin_user, password = admin_password, stringsAsFactors = FALSE)
-  creds <- rbind(creds, new_row)
-  save_credentials(creds)
-}
+# if (!all(c("user", "password") %in% names(creds))) {
+#   creds <- data.frame(user = character(0), password = character(0), stringsAsFactors = FALSE)
+# }
+# if (!(admin_user %in% creds$user)) {
+#   hashed_pw <- hash_password(admin_password)
+#   new_row <- data.frame(user = admin_user, password = hashed_pw, stringsAsFactors = FALSE)
+#   creds <- rbind(creds, new_row)
+#   save_credentials(creds)
+# }
